@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beauty & Wellness — студия косметологии, ухода за кожей и SPA-ритуалов.">
+  <title>Beauty & Wellness — косметология и уход за кожей</title>
+  <style>
+    :root {
+      --cream: #fdfbf7;
+      --paper: #fffefa;
+      --ink: #222222;
+      --muted: #746d68;
+      --peach: #f4c5b5;
+      --peach-deep: #e8a598;
+      --peach-soft: #fae5dd;
+      --line: rgba(34, 34, 34, .11);
+      --shadow: 0 24px 70px rgba(76, 52, 43, .10);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--cream); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    img { display: block; max-width: 100%; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow { margin: 0 0 14px; color: #9e5f54; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .display { margin: 0; font-family: var(--serif); font-weight: 400; letter-spacing: -.055em; line-height: .94; }
+    .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 14px; padding: 0 24px; border: 1px solid var(--peach-deep); border-radius: 16px; background: var(--peach-deep); color: #251d1a; font-size: 13px; font-weight: 800; cursor: pointer; transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+    .button::after { content: "↗"; font-size: 16px; transition: transform .3s ease; }
+    .button:hover { transform: translateY(-3px); background: var(--peach); box-shadow: 0 14px 30px rgba(232, 165, 152, .35); }
+    .button:hover::after { transform: translate(3px, -3px); }
+
+    .header { position: sticky; z-index: 20; top: 0; background: rgba(253, 251, 247, .86); border-bottom: 1px solid rgba(34,34,34,.06); backdrop-filter: blur(18px); }
+    .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -.04em; }
+    .brand-mark { width: 13px; height: 13px; border-radius: 50% 50% 50% 2px; background: var(--peach-deep); transform: rotate(-25deg); box-shadow: 8px -5px 0 var(--peach); }
+    .nav-links { display: flex; align-items: center; gap: 29px; font-size: 13px; }
+    .nav-links a { position: relative; }
+    .nav-links a:not(.button)::after { position: absolute; right: 0; bottom: -6px; left: 0; height: 1px; content: ""; background: var(--peach-deep); transform: scaleX(0); transform-origin: right; transition: transform .3s ease; }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+    .nav .button { min-height: 44px; padding-inline: 19px; }
+    .language-switch { display: inline-flex; align-items: center; padding: 4px; border: 1px solid rgba(34,34,34,.10); border-radius: 999px; background: rgba(255,254,250,.72); box-shadow: 0 7px 18px rgba(76,52,43,.06); }
+    .language-switch button { min-width: 34px; height: 30px; padding: 0 8px; border: 0; border-radius: 999px; color: var(--muted); background: transparent; font-size: 10px; font-weight: 800; letter-spacing: .08em; cursor: pointer; transition: color .25s ease, background .25s ease, box-shadow .25s ease; }
+    .language-switch button:hover { color: var(--ink); }
+    .language-switch button[aria-pressed="true"] { color: #35241f; background: var(--peach); box-shadow: 0 4px 12px rgba(232,165,152,.25); }
+    main, footer { transition: opacity .18s ease, transform .18s ease; }
+    body.language-changing main, body.language-changing footer { opacity: .64; transform: translateY(2px); }
+
+    .hero { padding: 34px 0 22px; }
+    .hero-frame { position: relative; isolation: isolate; min-height: 670px; overflow: hidden; display: grid; grid-template-columns: 1.06fr .94fr; align-items: stretch; border: 1px solid rgba(34,34,34,.075); border-radius: 32px; background: radial-gradient(circle at 9% 10%, rgba(244,197,181,.35), transparent 24%), linear-gradient(135deg, #faf6f0 0%, #f4ede5 62%, #f7efe9 100%); box-shadow: 0 30px 90px rgba(76,52,43,.11); }
+    .hero-frame::before { position: absolute; z-index: -1; left: 46%; top: 54%; width: 340px; height: 340px; border: 1px solid rgba(232,165,152,.24); border-radius: 50%; content: ""; transform: translate(-50%,-50%); box-shadow: 0 0 0 52px rgba(244,197,181,.045), 0 0 0 104px rgba(244,197,181,.025); }
+    .hero-copy { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: 86px 30px 78px 70px; }
+    .hero-kicker { display: flex; align-items: center; gap: 13px; margin-bottom: 30px; color: #8e5a50; font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+    .hero-kicker::before { width: 35px; height: 1px; content: ""; background: var(--peach-deep); }
+    .hero h1 { max-width: 650px; font-size: clamp(70px, 7.25vw, 106px); }
+    .hero h1 span { display: block; }
+    .hero h1 em { display: block; margin-left: .72em; color: #8e4f45; font-weight: 400; }
+    .hero-description { max-width: 480px; margin: 30px 0 32px; color: var(--muted); font-size: 15px; line-height: 1.82; }
+    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .text-link { display: inline-flex; align-items: center; gap: 9px; padding: 12px 3px; border-bottom: 1px solid rgba(34,34,34,.32); font-size: 13px; font-weight: 750; transition: border-color .3s ease, color .3s ease; }
+    .text-link:hover { color: #9e5f54; border-color: var(--peach-deep); }
+    .hero-proof { display: flex; gap: 25px; margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(34,34,34,.10); }
+    .proof-item { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .proof-item b { font-family: var(--serif); color: var(--ink); font-size: 22px; font-weight: 500; }
+    .hero-visual { position: relative; z-index: 2; display: flex; align-items: stretch; padding: 28px 28px 28px 0; }
+    .portrait-frame { position: relative; width: 100%; min-height: 614px; overflow: hidden; border: 1px solid rgba(255,255,255,.58); border-radius: 128px 24px 24px 24px; background: #edc7b1; box-shadow: 0 24px 52px rgba(92,55,44,.16); }
+    .portrait-frame::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 58%, rgba(55,31,24,.18) 100%); pointer-events: none; }
+    .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 54% center; transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s ease; }
+    .hero-frame:hover .portrait-frame img { transform: scale(1.025); filter: saturate(.96); }
+    .portrait-index { position: absolute; z-index: 3; top: 26px; right: 25px; display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid rgba(255,255,255,.68); border-radius: 50%; color: white; background: rgba(34,34,34,.13); font-size: 11px; backdrop-filter: blur(12px); }
+    .portrait-caption { position: absolute; z-index: 3; right: 24px; bottom: 23px; left: 24px; display: flex; align-items: end; justify-content: space-between; gap: 18px; color: white; }
+    .portrait-caption span { max-width: 190px; font-family: var(--serif); font-size: 17px; line-height: 1.2; }
+    .portrait-caption small { font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .hero-stamp { position: absolute; z-index: 4; left: -42px; bottom: 74px; width: 94px; height: 94px; display: grid; place-items: center; border: 1px solid rgba(126,67,56,.14); border-radius: 50%; color: #825449; background: rgba(253,251,247,.92); box-shadow: 0 15px 38px rgba(76,52,43,.12); font-family: var(--serif); font-size: 12px; line-height: 1.15; text-align: center; transform: rotate(-7deg); backdrop-filter: blur(10px); transition: transform .45s ease; }
+    .hero-frame:hover .hero-stamp { transform: rotate(0deg) scale(1.04); }
+    .quick-links { position: relative; z-index: 5; margin-top: -36px; padding: 0 28px; }
+    .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+    .quick-card { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 19px 20px; border: 1px solid rgba(126,67,56,.10); border-radius: 19px; background: rgba(255,254,250,.94); box-shadow: 0 15px 38px rgba(109,66,54,.09); backdrop-filter: blur(14px); transition: transform .35s ease, background .35s ease, box-shadow .35s ease; }
+    .quick-card:nth-child(2) { background: rgba(244,197,181,.96); }
+    .quick-card:hover { z-index: 2; transform: translateY(-7px); background: #f9d8cd; box-shadow: 0 22px 42px rgba(109,66,54,.14); }
+    .quick-card strong { font-family: var(--serif); font-size: 17px; font-weight: 600; }
+    .quick-icon { width: 39px; height: 39px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid rgba(34,34,34,.13); border-radius: 50%; font-size: 16px; transition: transform .35s ease; }
+    .quick-card:hover .quick-icon { transform: rotate(18deg); }
+
+    .intro { padding: 125px 0 88px; }
+    .intro-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
+    .intro-number { font-family: var(--serif); font-size: 120px; line-height: .8; color: var(--peach); }
+    .intro h2, .section-head h2, .booking-copy h2 { font-size: clamp(45px, 5vw, 72px); }
+    .intro-text { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; color: var(--muted); line-height: 1.75; }
+
+    .services { padding: 88px 0 110px; border-radius: 40px 40px 0 0; background: #f6eee8; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 50px; margin-bottom: 44px; }
+    .section-head p:last-child { max-width: 430px; margin: 0; color: var(--muted); line-height: 1.7; }
+    .service-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .service-card { position: relative; min-height: 330px; overflow: hidden; display: flex; flex-direction: column; grid-column: span 6; padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); transition: transform .38s cubic-bezier(.2,.8,.2,1), box-shadow .38s ease, border-color .38s ease; }
+    .service-card:nth-child(2), .service-card:nth-child(3) { background: #f9ded4; }
+    .service-card::before { position: absolute; right: -45px; bottom: -55px; width: 170px; height: 170px; border: 1px solid rgba(232,165,152,.45); border-radius: 50%; content: ""; transition: transform .55s ease; }
+    .service-card:hover { z-index: 2; transform: translateY(-9px); border-color: var(--peach-deep); box-shadow: 0 25px 55px rgba(91,58,48,.13); }
+    .service-card:hover::before { transform: translate(-15px,-10px) scale(1.12); }
+    .service-index { color: #a36459; font-size: 11px; font-weight: 800; letter-spacing: .18em; }
+    .service-card h3 { max-width: 440px; margin: 44px 0 13px; font-family: var(--serif); font-size: clamp(28px, 3vw, 39px); font-weight: 400; line-height: 1.05; letter-spacing: -.035em; }
+    .service-card p { max-width: 440px; margin: 0; color: var(--muted); line-height: 1.65; }
+    .service-meta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: auto; padding-top: 26px; border-top: 1px solid var(--line); }
+    .price { font-weight: 800; }
+    .mini-link { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--ink); border-radius: 50%; transition: background .3s, color .3s, transform .3s; }
+    .service-card:hover .mini-link { color: white; background: var(--ink); transform: rotate(45deg); }
+
+    .booking { padding: 110px 0; }
+    .booking-panel { position: relative; overflow: hidden; display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; padding: 60px; border-radius: 30px; background: var(--ink); color: white; }
+    .booking-panel::after { position: absolute; top: -180px; left: -140px; width: 460px; height: 460px; border: 1px solid rgba(244,197,181,.18); border-radius: 50%; content: ""; box-shadow: 0 0 0 60px rgba(244,197,181,.025), 0 0 0 120px rgba(244,197,181,.018); }
+    .booking-copy { position: relative; z-index: 1; }
+    .booking-copy .eyebrow { color: var(--peach); }
+    .booking-copy p:last-child { max-width: 450px; color: #c8c1bd; line-height: 1.75; }
+    .form { position: relative; z-index: 1; display: grid; gap: 16px; padding: 28px; border: 1px solid rgba(255,255,255,.1); border-radius: 22px; background: rgba(255,255,255,.055); backdrop-filter: blur(10px); }
+    .field span { display: block; margin: 0 0 8px; color: #ddd6d2; font-size: 12px; }
+    .field input, .field select { width: 100%; height: 52px; padding: 0 15px; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; outline: none; color: white; background: #2b2b2b; transition: border .3s, box-shadow .3s; }
+    .field select option { color: var(--ink); background: white; }
+    .field input:focus, .field select:focus { border-color: var(--peach); box-shadow: 0 0 0 4px rgba(244,197,181,.11); }
+    .form .button { width: 100%; margin-top: 5px; }
+
+    .footer { padding: 64px 0 30px; background: #f2e9e2; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 35px; padding-bottom: 52px; }
+    .footer h3 { margin: 0 0 16px; font-family: var(--serif); font-size: 19px; }
+    .footer p { margin: 0; color: var(--muted); line-height: 1.8; }
+    .footer .brand { margin-bottom: 20px; }
+    .demo-note { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .demo-note a { padding-bottom: 3px; border-bottom: 1px solid var(--peach-deep); color: var(--ink); font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero-frame { min-height: auto; grid-template-columns: 1fr; }
+      .hero-copy { padding: 65px 42px 48px; }
+      .hero h1 { font-size: clamp(66px, 12vw, 94px); }
+      .hero-visual { min-height: 620px; padding: 0 34px 34px; }
+      .portrait-frame { min-height: 590px; border-radius: 100px 24px 24px 24px; }
+      .hero-stamp { left: 10px; bottom: 78px; }
+      .quick-links { margin-top: 16px; padding: 0; }
+      .quick-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .quick-card { min-height: 130px; flex-direction: column-reverse; align-items: flex-start; }
+      .intro-grid, .booking-panel { grid-template-columns: 1fr; }
+      .intro-number { font-size: 80px; }
+      .intro-text { grid-template-columns: 1fr; }
+      .booking-panel { padding: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .nav { min-height: 68px; }
+      .brand { font-size: 18px; }
+      .nav .button { min-height: 40px; padding: 0 14px; }
+      .nav-links { gap: 8px; }
+      .nav-links > .button { display: none; }
+      .language-switch button { min-width: 31px; padding-inline: 6px; }
+      .hero { padding-top: 12px; }
+      .hero-frame { border-radius: 24px; }
+      .hero-copy { padding: 48px 22px 38px; }
+      .hero-kicker { margin-bottom: 23px; }
+      .hero h1 { font-size: clamp(52px, 17vw, 76px); }
+      .hero h1 em { margin-left: 0; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+      .text-link { align-self: flex-start; }
+      .hero-proof { justify-content: space-between; gap: 12px; margin-top: 35px; }
+      .hero-visual { min-height: 470px; padding: 0 12px 12px; }
+      .portrait-frame { min-height: 458px; border-radius: 70px 18px 18px 18px; }
+      .portrait-frame img { object-position: 51% center; }
+      .hero-stamp { left: -3px; bottom: 64px; width: 78px; height: 78px; font-size: 10px; }
+      .portrait-caption { right: 17px; bottom: 17px; left: 17px; }
+      .quick-grid { grid-template-columns: 1fr; }
+      .quick-card { min-height: 84px; flex-direction: row; align-items: center; }
+      .intro { padding: 90px 0 65px; }
+      .intro-grid { gap: 30px; }
+      .section-head { align-items: start; flex-direction: column; gap: 20px; }
+      .services { padding: 65px 0 75px; border-radius: 28px 28px 0 0; }
+      .service-card { min-height: 320px; grid-column: span 12; padding: 24px; }
+      .booking { padding: 75px 0; }
+      .booking-panel { gap: 35px; padding: 30px 18px; border-radius: 24px; }
+      .form { padding: 18px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .demo-note { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="shell nav">
+      <a class="brand" href="#top" data-i18n-aria="brandAria" aria-label="Beauty & Wellness — на главную"><span class="brand-mark" aria-hidden="true"></span>Beauty &amp; Wellness</a>
+      <nav class="nav-links" data-i18n-aria="navAria" aria-label="Основная навигация">
+        <a href="#about" data-i18n="navAbout">О нас</a><a href="#services" data-i18n="navServices">Услуги</a><a href="#services" data-i18n="navPrices">Цены</a><a href="#booking" data-i18n="navReviews">Отзывы</a><a href="#contacts" data-i18n="navContacts">Контакты</a>
+        <div class="language-switch" role="group" aria-label="Language / Язык / Keel"><button type="button" data-lang="ru" aria-pressed="true">RU</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="et" aria-pressed="false">ET</button></div>
+        <a class="button" href="#booking" data-i18n="navBook">Записаться</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-frame">
+        <div class="hero-copy">
+          <div class="hero-kicker" data-i18n="heroKicker">Студия осознанной красоты · Tallinn</div>
+          <h1 id="hero-title" class="display" data-i18n-html="heroTitle"><span>Красота &amp;</span><em>уход за кожей</em></h1>
+          <p class="hero-description" data-i18n="heroDescription">Тихое пространство осознанной косметологии, где естественную красоту не меняют — её бережно раскрывают. Персональные протоколы, честный подход и кожа, к которой хочется прикасаться.</p>
+          <div class="hero-actions"><a class="button" href="#booking" data-i18n="heroBook">Записаться на приём</a><a class="text-link" href="#services"><span data-i18n="viewTreatments">Смотреть процедуры</span> <span aria-hidden="true">↓</span></a></div>
+          <div class="hero-proof" data-i18n-aria="proofAria" aria-label="Преимущества студии">
+            <div class="proof-item"><b>40+</b><span data-i18n-html="proofProtocols">бережных<br>протоколов</span></div>
+            <div class="proof-item"><b>4.9</b><span data-i18n-html="proofRating">средняя оценка<br>гостей</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="portrait-frame">
+            <img src="assets/beauty-hero-v2.png" data-i18n-alt="portraitAlt" alt="Современная девушка с естественной ухоженной кожей" width="1024" height="1536" fetchpriority="high">
+            <span class="portrait-index">01</span>
+            <div class="portrait-caption"><span data-i18n-html="portraitCaption">Естественная кожа.<br>Продуманный уход.</span><small>Beauty &amp; Wellness</small></div>
+          </div>
+          <div class="hero-stamp" aria-hidden="true" data-i18n-html="heroStamp">создано<br>для вашей<br>кожи</div>
+        </div>
+      </div>
+      <div class="quick-links" data-i18n-aria="quickAria" aria-label="Быстрый выбор услуг">
+        <div class="quick-grid">
+          <a class="quick-card" href="#services"><strong data-i18n="quickFace">Уход за лицом</strong><span class="quick-icon" aria-hidden="true">✦</span></a>
+          <a class="quick-card" href="#services"><strong data-i18n="quickMassage">Массаж</strong><span class="quick-icon" aria-hidden="true">≈</span></a>
+          <a class="quick-card" href="#services"><strong data-i18n="quickDevice">Аппаратная косметология</strong><span class="quick-icon" aria-hidden="true">○</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro shell" id="about" aria-labelledby="about-title">
+      <div class="intro-grid">
+        <div><p class="eyebrow" data-i18n="approachEyebrow">Наш подход</p><div class="intro-number">01</div></div>
+        <div><h2 id="about-title" class="display" data-i18n-html="approachTitle">Красота без масок.<br>Уход без спешки.</h2><div class="intro-text"><p data-i18n="approachTextOne">Мы начинаем не с процедуры, а с разговора. Изучаем состояние кожи, привычки и ожидания, чтобы создать программу, которая подходит именно вам.</p><p data-i18n="approachTextTwo">Работаем бережно, объясняем каждый шаг и выбираем только обоснованные методы. Результат — свежая, спокойная кожа и ощущение заботы о себе.</p></div></div>
+      </div>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow" data-i18n="servicesEyebrow">Меню процедур</p><h2 id="services-title" class="display" data-i18n="servicesTitle">Услуги и цены</h2></div><p data-i18n="servicesIntro">Четыре направления, которые можно сочетать в персональной программе. Точную процедуру косметолог подберёт после консультации.</p></div>
+        <div class="service-grid">
+          <article class="service-card"><span class="service-index" data-i18n="serviceOneIndex">01 / КОЖА</span><h3 data-i18n="serviceOneTitle">Эстетическая косметология</h3><p data-i18n="serviceOneDescription">Диагностика, очищение, мягкие пилинги и восстановительные протоколы для ровного тона и здорового сияния.</p><div class="service-meta"><span class="price"><span data-i18n="from">от</span> €60</span><a class="mini-link" href="#booking" data-i18n-aria="serviceOneAria" aria-label="Записаться на эстетическую косметологию">↗</a></div></article>
+          <article class="service-card"><span class="service-index" data-i18n="serviceTwoIndex">02 / ЛИФТИНГ</span><h3 data-i18n="serviceTwoTitle">Аппаратный лифтинг и омоложение</h3><p data-i18n="serviceTwoDescription">Технологичные неинвазивные методики для тонуса, плотности кожи и более чёткого овала лица.</p><div class="service-meta"><span class="price"><span data-i18n="from">от</span> €90</span><a class="mini-link" href="#booking" data-i18n-aria="serviceTwoAria" aria-label="Записаться на аппаратный лифтинг">↗</a></div></article>
+          <article class="service-card"><span class="service-index" data-i18n="serviceThreeIndex">03 / ПРИКОСНОВЕНИЕ</span><h3 data-i18n="serviceThreeTitle">Авторский массаж и SPA-уход</h3><p data-i18n="serviceThreeDescription">Ручные техники, лимфодренаж и расслабляющие ритуалы, возвращающие лицу свежесть, а телу — лёгкость.</p><div class="service-meta"><span class="price"><span data-i18n="from">от</span> €50</span><a class="mini-link" href="#booking" data-i18n-aria="serviceThreeAria" aria-label="Записаться на массаж">↗</a></div></article>
+          <article class="service-card"><span class="service-index" data-i18n="serviceFourIndex">04 / СИЯНИЕ</span><h3 data-i18n="serviceFourTitle">Инъекционная эстетика</h3><p data-i18n="serviceFourDescription">Деликатная коррекция и биоревитализация с сохранением индивидуальности и естественной мимики.</p><div class="service-meta"><span class="price"><span data-i18n="from">от</span> €120</span><a class="mini-link" href="#booking" data-i18n-aria="serviceFourAria" aria-label="Записаться на инъекционную эстетику">↗</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking shell" id="booking" aria-labelledby="booking-title">
+      <div class="booking-panel">
+        <div class="booking-copy"><p class="eyebrow" data-i18n="bookingEyebrow">Персональная консультация</p><h2 id="booking-title" class="display" data-i18n-html="bookingTitle">Время для<br>себя — сейчас.</h2><p data-i18n="bookingDescription">Оставьте контакты: администратор уточнит пожелания, предложит подходящее время и ответит на вопросы перед первым визитом.</p></div>
+        <form class="form" action="#" method="post">
+          <label class="field"><span data-i18n="nameLabel">Ваше имя</span><input type="text" name="name" autocomplete="name" data-i18n-placeholder="namePlaceholder" placeholder="Как к вам обращаться?" required></label>
+          <label class="field"><span data-i18n="phoneLabel">Телефон</span><input type="tel" name="phone" autocomplete="tel" placeholder="+372 ..." required></label>
+          <label class="field"><span data-i18n="procedureLabel">Выбор процедуры</span><select name="procedure" required><option value="" data-i18n="selectPrompt">Выберите направление</option><option data-i18n="serviceOneTitle">Эстетическая косметология</option><option data-i18n="serviceTwoTitle">Аппаратный лифтинг и омоложение</option><option data-i18n="serviceThreeTitle">Авторский массаж и SPA-уход</option><option data-i18n="serviceFourTitle">Инъекционная эстетика</option></select></label>
+          <button class="button" type="submit" data-i18n="formSubmit">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contacts">
+    <div class="shell">
+      <div class="footer-grid">
+        <div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Beauty &amp; Wellness</a><p data-i18n-html="footerTagline">Современная косметология<br>с человеческим отношением.</p></div>
+        <div><h3 data-i18n="addressTitle">Адрес</h3><p><span data-i18n="location">Таллинн, Эстония</span><br><span data-i18n="appointmentOnly">по предварительной записи</span></p></div>
+        <div><h3 data-i18n="phoneTitle">Телефон</h3><p>+372 555 00 000<br>hello@beauty-wellness.ee</p></div>
+        <div><h3 data-i18n="hoursTitle">Время работы</h3><p data-i18n-html="hoursText">Пн–Сб: 10:00–20:00<br>Вс: выходной</p></div>
+      </div>
+      <div class="demo-note"><span data-i18n="copyright">© 2026 Beauty & Wellness. Демо-концепт.</span><span><span data-i18n="demoCreated">Демо-проект создан на</span> <a href="index.html">QuickSite Est</a></span></div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const translations = {
+        ru: {
+          pageTitle: "Beauty & Wellness — косметология и уход за кожей", pageDescription: "Beauty & Wellness — студия косметологии, ухода за кожей и SPA-ритуалов.", brandAria: "Beauty & Wellness — на главную", navAria: "Основная навигация", navAbout: "О нас", navServices: "Услуги", navPrices: "Цены", navReviews: "Отзывы", navContacts: "Контакты", navBook: "Записаться",
+          heroKicker: "Студия осознанной красоты · Tallinn", heroTitle: "<span>Красота &amp;</span><em>уход за кожей</em>", heroDescription: "Тихое пространство осознанной косметологии, где естественную красоту не меняют — её бережно раскрывают. Персональные протоколы, честный подход и кожа, к которой хочется прикасаться.", heroBook: "Записаться на приём", viewTreatments: "Смотреть процедуры", proofAria: "Преимущества студии", proofProtocols: "бережных<br>протоколов", proofRating: "средняя оценка<br>гостей", portraitAlt: "Современная девушка с естественной ухоженной кожей", portraitCaption: "Естественная кожа.<br>Продуманный уход.", heroStamp: "создано<br>для вашей<br>кожи", quickAria: "Быстрый выбор услуг", quickFace: "Уход за лицом", quickMassage: "Массаж", quickDevice: "Аппаратная косметология",
+          approachEyebrow: "Наш подход", approachTitle: "Красота без масок.<br>Уход без спешки.", approachTextOne: "Мы начинаем не с процедуры, а с разговора. Изучаем состояние кожи, привычки и ожидания, чтобы создать программу, которая подходит именно вам.", approachTextTwo: "Работаем бережно, объясняем каждый шаг и выбираем только обоснованные методы. Результат — свежая, спокойная кожа и ощущение заботы о себе.",
+          servicesEyebrow: "Меню процедур", servicesTitle: "Услуги и цены", servicesIntro: "Четыре направления, которые можно сочетать в персональной программе. Точную процедуру косметолог подберёт после консультации.", from: "от", serviceOneIndex: "01 / КОЖА", serviceOneTitle: "Эстетическая косметология", serviceOneDescription: "Диагностика, очищение, мягкие пилинги и восстановительные протоколы для ровного тона и здорового сияния.", serviceOneAria: "Записаться на эстетическую косметологию", serviceTwoIndex: "02 / ЛИФТИНГ", serviceTwoTitle: "Аппаратный лифтинг и омоложение", serviceTwoDescription: "Технологичные неинвазивные методики для тонуса, плотности кожи и более чёткого овала лица.", serviceTwoAria: "Записаться на аппаратный лифтинг", serviceThreeIndex: "03 / ПРИКОСНОВЕНИЕ", serviceThreeTitle: "Авторский массаж и SPA-уход", serviceThreeDescription: "Ручные техники, лимфодренаж и расслабляющие ритуалы, возвращающие лицу свежесть, а телу — лёгкость.", serviceThreeAria: "Записаться на массаж", serviceFourIndex: "04 / СИЯНИЕ", serviceFourTitle: "Инъекционная эстетика", serviceFourDescription: "Деликатная коррекция и биоревитализация с сохранением индивидуальности и естественной мимики.", serviceFourAria: "Записаться на инъекционную эстетику",
+          bookingEyebrow: "Персональная консультация", bookingTitle: "Время для<br>себя — сейчас.", bookingDescription: "Оставьте контакты: администратор уточнит пожелания, предложит подходящее время и ответит на вопросы перед первым визитом.", nameLabel: "Ваше имя", namePlaceholder: "Как к вам обращаться?", phoneLabel: "Телефон", procedureLabel: "Выбор процедуры", selectPrompt: "Выберите направление", formSubmit: "Отправить заявку",
+          footerTagline: "Современная косметология<br>с человеческим отношением.", addressTitle: "Адрес", location: "Таллинн, Эстония", appointmentOnly: "по предварительной записи", phoneTitle: "Телефон", hoursTitle: "Время работы", hoursText: "Пн–Сб: 10:00–20:00<br>Вс: выходной", copyright: "© 2026 Beauty & Wellness. Демо-концепт.", demoCreated: "Демо-проект создан на"
+        },
+        en: {
+          pageTitle: "Beauty & Wellness — skincare and aesthetic treatments", pageDescription: "Beauty & Wellness is a Tallinn studio for thoughtful skincare, aesthetic treatments and restorative SPA rituals.", brandAria: "Beauty & Wellness — home", navAria: "Main navigation", navAbout: "About", navServices: "Treatments", navPrices: "Pricing", navReviews: "Reviews", navContacts: "Contact", navBook: "Book now",
+          heroKicker: "Conscious beauty studio · Tallinn", heroTitle: "<span>Beauty &amp;</span><em>Skin Care</em>", heroDescription: "A quiet space for thoughtful aesthetics, where natural beauty is never changed — only gently revealed. Personalised protocols, honest guidance and skin that feels beautifully your own.", heroBook: "Book an appointment", viewTreatments: "Explore treatments", proofAria: "Studio highlights", proofProtocols: "gentle care<br>protocols", proofRating: "average guest<br>rating", portraitAlt: "A contemporary woman with naturally healthy, cared-for skin", portraitCaption: "Natural skin.<br>Thoughtful care.", heroStamp: "made<br>for your<br>skin", quickAria: "Quick treatment selection", quickFace: "Facial care", quickMassage: "Massage", quickDevice: "Advanced facials",
+          approachEyebrow: "Our approach", approachTitle: "Beauty without masks.<br>Care without hurry.", approachTextOne: "We begin with a conversation, not a procedure. We look closely at your skin, habits and expectations to create a programme that genuinely suits you.", approachTextTwo: "Every step is gentle, clearly explained and grounded in proven practice. The result is fresh, calm skin — and the feeling of having been truly cared for.",
+          servicesEyebrow: "Treatment menu", servicesTitle: "Treatments & pricing", servicesIntro: "Four areas of expertise that can be combined into a personalised programme. Your aesthetician will recommend the right treatment after a consultation.", from: "from", serviceOneIndex: "01 / SKIN", serviceOneTitle: "Aesthetic skincare", serviceOneDescription: "Skin analysis, deep cleansing, gentle peels and restorative protocols for an even tone and healthy luminosity.", serviceOneAria: "Book an aesthetic skincare treatment", serviceTwoIndex: "02 / LIFT", serviceTwoTitle: "Device-assisted lifting & rejuvenation", serviceTwoDescription: "Advanced non-invasive treatments designed to improve tone, firmness and the definition of facial contours.", serviceTwoAria: "Book a lifting and rejuvenation treatment", serviceThreeIndex: "03 / TOUCH", serviceThreeTitle: "Signature massage & SPA care", serviceThreeDescription: "Hands-on techniques, lymphatic drainage and restorative rituals that refresh the face and leave the body feeling lighter.", serviceThreeAria: "Book a signature massage", serviceFourIndex: "04 / GLOW", serviceFourTitle: "Injectable aesthetics", serviceFourDescription: "Subtle correction and biorevitalisation that preserve your individuality and natural facial expression.", serviceFourAria: "Book an injectable aesthetics consultation",
+          bookingEyebrow: "Personal consultation", bookingTitle: "Your time,<br>right now.", bookingDescription: "Leave your details and our coordinator will learn about your wishes, suggest a convenient time and answer any questions before your first visit.", nameLabel: "Your name", namePlaceholder: "What should we call you?", phoneLabel: "Phone", procedureLabel: "Preferred treatment", selectPrompt: "Choose a treatment", formSubmit: "Send enquiry",
+          footerTagline: "Modern aesthetics,<br>genuinely human care.", addressTitle: "Address", location: "Tallinn, Estonia", appointmentOnly: "by appointment", phoneTitle: "Phone", hoursTitle: "Opening hours", hoursText: "Mon–Sat: 10:00–20:00<br>Sun: closed", copyright: "© 2026 Beauty & Wellness. Demo concept.", demoCreated: "Demo project created by"
+        },
+        et: {
+          pageTitle: "Beauty & Wellness — nahahooldus ja iluprotseduurid", pageDescription: "Beauty & Wellness on Tallinna ilustuudio, kus kohtuvad personaalne nahahooldus, esteetilised protseduurid ja lõõgastavad SPA-rituaalid.", brandAria: "Beauty & Wellness — avalehele", navAria: "Põhinavigatsioon", navAbout: "Meist", navServices: "Hoolitsused", navPrices: "Hinnad", navReviews: "Tagasiside", navContacts: "Kontakt", navBook: "Broneeri",
+          heroKicker: "Teadliku ilu stuudio · Tallinn", heroTitle: "<span>Ilu &amp;</span><em>nahahooldus</em>", heroDescription: "Vaikne ja hooliv ilustuudio, kus loomulikku ilu ei muudeta — see tuuakse õrnalt esile. Personaalsed hooldusplaanid, aus lähenemine ja nahk, mida on hea puudutada.", heroBook: "Broneeri aeg", viewTreatments: "Vaata hoolitsusi", proofAria: "Stuudio eelised", proofProtocols: "õrna<br>hooldusprotokolli", proofRating: "külaliste<br>keskmine hinne", portraitAlt: "Kaasaegne naine loomulikult terve ja hoolitsetud nahaga", portraitCaption: "Loomulik nahk.<br>Läbimõeldud hool.", heroStamp: "loodud<br>sinu<br>nahale", quickAria: "Hoolitsuste kiirvalik", quickFace: "Näohooldus", quickMassage: "Massaaž", quickDevice: "Aparaatkosmeetika",
+          approachEyebrow: "Meie lähenemine", approachTitle: "Ilu ilma maskita.<br>Hoolitsus ilma kiirustamata.", approachTextOne: "Alustame vestlusest, mitte protseduurist. Vaatame üle naha seisundi, harjumused ja ootused, et luua just teile sobiv hooldusplaan.", approachTextTwo: "Tegutseme õrnalt, selgitame iga sammu ja valime ainult põhjendatud meetodid. Tulemuseks on värske ja rahulik nahk ning tunne, et teie eest on päriselt hoolitsetud.",
+          servicesEyebrow: "Hoolitsuste menüü", servicesTitle: "Hoolitsused ja hinnad", servicesIntro: "Neli suunda, mida saab ühendada personaalseks hooldusprogrammiks. Sobiva protseduuri soovitab kosmeetik pärast konsultatsiooni.", from: "alates", serviceOneIndex: "01 / NAHK", serviceOneTitle: "Esteetiline näohooldus", serviceOneDescription: "Nahadiagnostika, sügavpuhastus, õrnad koorimised ja taastavad hooldused ühtlase jume ning terve sära heaks.", serviceOneAria: "Broneeri esteetiline näohooldus", serviceTwoIndex: "02 / LIFTING", serviceTwoTitle: "Aparaatne lifting ja noorendamine", serviceTwoDescription: "Kaasaegsed mitteinvasiivsed hooldused naha toonuse ja elastsuse parandamiseks ning näokontuuri rõhutamiseks.", serviceTwoAria: "Broneeri aparaatne lifting", serviceThreeIndex: "03 / PUUDUTUS", serviceThreeTitle: "Autorimassaaž ja SPA-hoolitsus", serviceThreeDescription: "Manuaalsed tehnikad, lümfidrenaaž ja lõõgastavad rituaalid, mis annavad näole värskuse ning kehale kerguse.", serviceThreeAria: "Broneeri autorimassaaž", serviceFourIndex: "04 / SÄRA", serviceFourTitle: "Süsteesteetika", serviceFourDescription: "Delikaatne korrigeerimine ja biorevitalisatsioon, mis säilitavad teie isikupära ning loomuliku miimika.", serviceFourAria: "Broneeri süsteesteetika konsultatsioon",
+          bookingEyebrow: "Personaalne konsultatsioon", bookingTitle: "Aeg iseendale<br>on just nüüd.", bookingDescription: "Jätke oma kontaktandmed. Administraator täpsustab teie soove, pakub sobiva aja ja vastab küsimustele enne esimest külastust.", nameLabel: "Teie nimi", namePlaceholder: "Kuidas võime teie poole pöörduda?", phoneLabel: "Telefon", procedureLabel: "Soovitud hoolitsus", selectPrompt: "Valige hoolitsus", formSubmit: "Saada päring",
+          footerTagline: "Kaasaegne kosmetoloogia<br>ja siiras hoolivus.", addressTitle: "Aadress", location: "Tallinn, Eesti", appointmentOnly: "eelneval kokkuleppel", phoneTitle: "Telefon", hoursTitle: "Lahtiolekuajad", hoursText: "E–L: 10:00–20:00<br>P: suletud", copyright: "© 2026 Beauty & Wellness. Demokontseptsioon.", demoCreated: "Demoprojekti lõi"
+        }
+      };
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const languageButtons = document.querySelectorAll('[data-lang]');
+
+      function applyLanguage(language, animate = true) {
+        const dictionary = translations[language] || translations.ru;
+        if (animate) document.body.classList.add('language-changing');
+        window.setTimeout(() => {
+          document.documentElement.lang = language;
+          document.title = dictionary.pageTitle;
+          metaDescription.content = dictionary.pageDescription;
+          document.querySelectorAll('[data-i18n]').forEach(element => { element.textContent = dictionary[element.dataset.i18n]; });
+          document.querySelectorAll('[data-i18n-html]').forEach(element => { element.innerHTML = dictionary[element.dataset.i18nHtml]; });
+          document.querySelectorAll('[data-i18n-placeholder]').forEach(element => { element.placeholder = dictionary[element.dataset.i18nPlaceholder]; });
+          document.querySelectorAll('[data-i18n-aria]').forEach(element => { element.setAttribute('aria-label', dictionary[element.dataset.i18nAria]); });
+          document.querySelectorAll('[data-i18n-alt]').forEach(element => { element.alt = dictionary[element.dataset.i18nAlt]; });
+          languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === language)));
+          try { localStorage.setItem('beauty-language', language); } catch (_) {}
+          requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.remove('language-changing')));
+        }, animate ? 100 : 0);
+      }
+
+      languageButtons.forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.lang)));
+      let savedLanguage = null;
+      try { savedLanguage = localStorage.getItem('beauty-language'); } catch (_) {}
+      const browserLanguage = navigator.language.slice(0, 2).toLowerCase();
+      applyLanguage(savedLanguage || (translations[browserLanguage] ? browserLanguage : 'ru'), false);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта.">
+  <title>QUICKSITE EST — сайты с человеческим смыслом</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    body.modal-open { overflow: hidden; }
+    .language-switcher { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.045); backdrop-filter: blur(12px); }
+    .language-switcher button { min-width: 34px; min-height: 34px; padding: 0 8px; border: 0; border-radius: 9px; color: #94a3b8; background: transparent; font-size: 11px; font-weight: 800; letter-spacing: .08em; cursor: pointer; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
+    .language-switcher button:hover { color: #f8fafc; }
+    .language-switcher button[aria-pressed="true"] { color: #020617; background: #fef3c7; box-shadow: 0 0 20px rgba(254,243,199,.22); }
+    .language-switcher button:focus-visible { outline: 2px solid #a5f3fc; outline-offset: 2px; }
+    .beauty-serif { font-family: Georgia, "Times New Roman", serif; }
+    .beauty-card-trigger { width: 100%; padding: 0; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; }
+    .beauty-project-card { position: relative; height: 100%; overflow: hidden; padding: 12px; border: 1px solid rgba(244,197,181,.48); border-radius: 24px; background: linear-gradient(145deg, #fdfbf7 0%, #f8ece5 100%); box-shadow: 0 18px 54px rgba(76,52,43,.10); transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .42s ease, border-color .42s ease; }
+    .beauty-card-trigger:hover .beauty-project-card { transform: translateY(-7px); border-color: #e8a598; box-shadow: 0 28px 65px rgba(232,165,152,.18); }
+    .beauty-card-trigger:focus-visible { border-radius: 24px; outline: 2px solid #f4c5b5; outline-offset: 5px; }
+    .beauty-card-visual { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 1rem; background: #f4c5b5; }
+    .beauty-card-visual::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 45%, rgba(43,28,23,.22)); pointer-events: none; }
+    .beauty-card-visual img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
+    .beauty-card-trigger:hover .beauty-card-visual img { transform: scale(1.045); }
+    .beauty-card-signature { position: absolute; z-index: 2; left: 17px; top: 16px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.56); border-radius: 999px; color: white; background: rgba(34,34,34,.13); font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; backdrop-filter: blur(10px); }
+    .beauty-card-arrow { position: absolute; z-index: 2; top: 14px; right: 14px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; color: #33241f; background: rgba(253,251,247,.86); font-size: 16px; backdrop-filter: blur(10px); transition: transform .35s ease, background .35s ease; }
+    .beauty-card-trigger:hover .beauty-card-arrow { background: #f4c5b5; transform: rotate(45deg); }
+    .beauty-card-copy { padding: 25px 15px 17px; }
+    .beauty-card-kicker { margin: 0 0 9px; color: #9e5f54; font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .beauty-card-copy h3 { margin: 0; color: #222; font-size: 25px; font-weight: 400; letter-spacing: -.035em; line-height: 1; }
+    .beauty-card-copy > p:last-child { margin: 12px 0 0; color: #746d68; font-size: 14px; line-height: 1.65; }
+
+    .beauty-case-dialog { width: min(1080px, calc(100% - 32px)); max-width: none; max-height: min(820px, calc(100vh - 32px)); overflow: auto; padding: 0; border: 1px solid rgba(244,197,181,.48); border-radius: 30px; color: #222; background: #fdfbf7; box-shadow: 0 40px 120px rgba(0,0,0,.42); }
+    .beauty-case-dialog[open] { animation: beauty-modal-in .34s cubic-bezier(.2,.8,.2,1); }
+    .beauty-case-dialog::backdrop { background: rgba(2,6,23,.82); backdrop-filter: blur(13px); animation: beauty-backdrop-in .28s ease; }
+    .beauty-modal-grid { min-height: 650px; display: grid; grid-template-columns: .9fr 1.1fr; }
+    .beauty-modal-image { position: relative; min-height: 650px; overflow: hidden; background: #f4c5b5; }
+    .beauty-modal-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 55%, rgba(55,31,24,.3)); pointer-events: none; }
+    .beauty-modal-image img { width: 100%; height: 100%; object-fit: cover; object-position: 52% center; }
+    .beauty-modal-image-note { position: absolute; z-index: 2; right: 24px; bottom: 22px; left: 24px; display: flex; align-items: end; justify-content: space-between; gap: 16px; color: white; }
+    .beauty-modal-image-note strong { max-width: 220px; font-family: Georgia, "Times New Roman", serif; font-size: 21px; font-weight: 400; line-height: 1.08; }
+    .beauty-modal-image-note span { font-size: 9px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .beauty-modal-content { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 64px; background: radial-gradient(circle at 100% 0%, rgba(244,197,181,.34), transparent 30%), #fdfbf7; }
+    .beauty-modal-close { position: absolute; top: 20px; right: 20px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(34,34,34,.12); border-radius: 50%; color: #222; background: rgba(255,255,255,.62); font-size: 20px; cursor: pointer; transition: transform .3s ease, background .3s ease; }
+    .beauty-modal-close:hover { background: #f4c5b5; transform: rotate(90deg); }
+    .beauty-modal-eyebrow { margin: 0 0 18px; color: #9e5f54; font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .beauty-modal-content h3 { max-width: 520px; margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(44px, 5vw, 68px); font-weight: 400; letter-spacing: -.055em; line-height: .94; }
+    .beauty-modal-lead { max-width: 540px; margin: 26px 0 0; color: #746d68; font-size: 15px; line-height: 1.78; }
+    .beauty-modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .beauty-modal-tags span { padding: 8px 11px; border: 1px solid rgba(158,95,84,.18); border-radius: 999px; color: #815148; background: #fae5dd; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .beauty-modal-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 32px; padding: 22px 0; border-block: 1px solid rgba(34,34,34,.10); }
+    .beauty-modal-facts span { color: #8b817a; font-size: 10px; line-height: 1.4; }
+    .beauty-modal-facts strong { display: block; margin-top: 5px; color: #222; font-family: Georgia, "Times New Roman", serif; font-size: 17px; font-weight: 500; }
+    .beauty-modal-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 31px; }
+    .beauty-modal-primary { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid #e8a598; border-radius: 16px; color: #251d1a; background: #e8a598; font-size: 13px; font-weight: 800; transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+    .beauty-modal-primary:hover { transform: translateY(-3px); background: #f4c5b5; box-shadow: 0 14px 30px rgba(232,165,152,.35); }
+    .beauty-modal-secondary { padding: 13px 3px; border-bottom: 1px solid rgba(34,34,34,.3); color: #554a45; font-size: 12px; font-weight: 700; }
+    .consultant-case-dialog { width: min(1080px, calc(100% - 32px)); max-width: none; max-height: min(820px, calc(100vh - 32px)); overflow: auto; padding: 0; border: 1px solid rgba(251,191,36,.38); border-radius: 30px; color: #f5f5f4; background: #0c0a09; box-shadow: 0 40px 130px rgba(0,0,0,.72), 0 0 70px rgba(245,158,11,.08); }
+    .consultant-case-dialog[open] { animation: beauty-modal-in .34s cubic-bezier(.2,.8,.2,1); }
+    .consultant-case-dialog::backdrop { background: rgba(2,6,23,.88); backdrop-filter: blur(13px); animation: beauty-backdrop-in .28s ease; }
+    .consultant-modal-grid { min-height: 650px; display: grid; grid-template-columns: .9fr 1.1fr; }
+    .consultant-modal-image { position: relative; min-height: 650px; overflow: hidden; background: #1c1917; }
+    .consultant-modal-image::before { position: absolute; z-index: 2; right: 20px; top: 20px; width: 112px; height: 112px; content: ""; opacity: .6; background-image: radial-gradient(circle, rgba(251,191,36,.9) 1.25px, transparent 1.4px); background-size: 12px 12px; pointer-events: none; }
+    .consultant-modal-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgba(12,10,9,.02) 35%, rgba(12,10,9,.94)); pointer-events: none; }
+    .consultant-modal-image img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 18%; filter: saturate(.86) contrast(1.04); }
+    .consultant-modal-image-note { position: absolute; z-index: 3; right: 28px; bottom: 26px; left: 28px; display: flex; align-items: end; justify-content: space-between; gap: 16px; color: white; }
+    .consultant-modal-image-note strong { max-width: 230px; font-size: 23px; font-weight: 900; letter-spacing: -.035em; line-height: .98; text-transform: uppercase; }
+    .consultant-modal-image-note span { color: #fbbf24; font-size: 9px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+    .consultant-modal-content { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 64px; background: radial-gradient(circle at 100% 0%, rgba(245,158,11,.15), transparent 32%), linear-gradient(145deg, #0c0a09, #15120f); }
+    .consultant-modal-content::before { position: absolute; top: 0; right: 0; width: 34%; height: 4px; content: ""; background: #fbbf24; }
+    .consultant-modal-close { position: absolute; z-index: 4; top: 20px; right: 20px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(251,191,36,.35); border-radius: 50%; color: #fbbf24; background: rgba(12,10,9,.72); font-size: 20px; cursor: pointer; transition: transform .3s ease, color .3s ease, background .3s ease; }
+    .consultant-modal-close:hover { color: #0c0a09; background: #fbbf24; transform: rotate(90deg); }
+    .consultant-modal-eyebrow { margin: 0 0 18px; color: #fbbf24; font-size: 10px; font-weight: 900; letter-spacing: .21em; text-transform: uppercase; }
+    .consultant-modal-content h3 { max-width: 520px; margin: 0; color: #fff; font-size: clamp(44px, 5vw, 68px); font-weight: 800; letter-spacing: -.06em; line-height: .94; }
+    .consultant-modal-lead { max-width: 540px; margin: 26px 0 0; color: #a8a29e; font-size: 15px; line-height: 1.78; }
+    .consultant-modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .consultant-modal-tags span { padding: 8px 11px; border: 1px solid rgba(251,191,36,.28); border-radius: 999px; color: #fcd34d; background: rgba(245,158,11,.07); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .consultant-modal-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 32px; padding: 22px 0; border-block: 1px solid rgba(255,255,255,.10); }
+    .consultant-modal-facts span { color: #78716c; font-size: 10px; line-height: 1.4; }
+    .consultant-modal-facts strong { display: block; margin-top: 5px; color: #f5f5f4; font-size: 16px; font-weight: 700; }
+    .consultant-modal-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 31px; }
+    .consultant-modal-primary { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid #fbbf24; border-radius: 14px; color: #0c0a09; background: #fbbf24; font-size: 13px; font-weight: 900; transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+    .consultant-modal-primary:hover { transform: translateY(-3px); background: #fcd34d; box-shadow: 0 14px 34px rgba(251,191,36,.22); }
+    .consultant-modal-secondary { padding: 13px 3px; border-bottom: 1px solid rgba(251,191,36,.35); color: #d6d3d1; font-size: 12px; font-weight: 700; transition: color .25s ease, border-color .25s ease; }
+    .consultant-modal-secondary:hover { border-color: #fbbf24; color: #fbbf24; }
+    .clinic-case-dialog { width: min(1080px, calc(100% - 32px)); max-width: none; max-height: min(820px, calc(100vh - 32px)); overflow: auto; padding: 0; border: 1px solid rgba(125,211,252,.65); border-radius: 30px; color: #0f172a; background: #f8fafc; box-shadow: 0 40px 120px rgba(2,6,23,.5), 0 0 70px rgba(14,165,233,.1); }
+    .clinic-case-dialog[open] { animation: beauty-modal-in .34s cubic-bezier(.2,.8,.2,1); }
+    .clinic-case-dialog::backdrop { background: rgba(2,6,23,.84); backdrop-filter: blur(13px); animation: beauty-backdrop-in .28s ease; }
+    .clinic-modal-grid { min-height: 650px; display: grid; grid-template-columns: .95fr 1.05fr; }
+    .clinic-modal-image { position: relative; min-height: 650px; overflow: hidden; background: #e0f2fe; }
+    .clinic-modal-image::before { position: absolute; z-index: 2; top: 22px; left: 22px; width: 90px; height: 90px; content: ""; border-top: 3px solid #38bdf8; border-left: 3px solid #38bdf8; pointer-events: none; }
+    .clinic-modal-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, rgba(2,132,199,.02) 42%, rgba(3,105,161,.74)); pointer-events: none; }
+    .clinic-modal-image img { width: 100%; height: 100%; object-fit: cover; object-position: 68% center; }
+    .clinic-modal-image-note { position: absolute; z-index: 3; right: 28px; bottom: 26px; left: 28px; display: flex; align-items: end; justify-content: space-between; gap: 16px; color: white; }
+    .clinic-modal-image-note strong { max-width: 260px; font-size: 24px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .clinic-modal-image-note span { font-size: 9px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+    .clinic-modal-content { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 64px; background: radial-gradient(circle at 100% 0%, rgba(125,211,252,.35), transparent 32%), #f8fafc; }
+    .clinic-modal-content::before { position: absolute; top: 0; right: 0; width: 34%; height: 4px; content: ""; background: #0ea5e9; }
+    .clinic-modal-close { position: absolute; z-index: 4; top: 20px; right: 20px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(14,165,233,.25); border-radius: 50%; color: #0369a1; background: rgba(255,255,255,.76); font-size: 20px; cursor: pointer; transition: transform .3s ease, color .3s ease, background .3s ease; }
+    .clinic-modal-close:hover { color: white; background: #0284c7; transform: rotate(90deg); }
+    .clinic-modal-eyebrow { margin: 0 0 18px; color: #0369a1; font-size: 10px; font-weight: 900; letter-spacing: .21em; text-transform: uppercase; }
+    .clinic-modal-content h3 { max-width: 520px; margin: 0; color: #0f172a; font-size: clamp(44px, 5vw, 68px); font-weight: 800; letter-spacing: -.06em; line-height: .94; }
+    .clinic-modal-lead { max-width: 540px; margin: 26px 0 0; color: #64748b; font-size: 15px; line-height: 1.78; }
+    .clinic-modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .clinic-modal-tags span { padding: 8px 11px; border: 1px solid rgba(14,165,233,.22); border-radius: 999px; color: #0369a1; background: #e0f2fe; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .clinic-modal-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 32px; padding: 22px 0; border-block: 1px solid rgba(15,23,42,.1); }
+    .clinic-modal-facts span { color: #94a3b8; font-size: 10px; line-height: 1.4; }
+    .clinic-modal-facts strong { display: block; margin-top: 5px; color: #0f172a; font-size: 16px; font-weight: 700; }
+    .clinic-modal-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 31px; }
+    .clinic-modal-primary { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid #0284c7; border-radius: 14px; color: white; background: #0284c7; font-size: 13px; font-weight: 900; transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+    .clinic-modal-primary:hover { transform: translateY(-3px); background: #0369a1; box-shadow: 0 14px 34px rgba(2,132,199,.25); }
+    .clinic-modal-secondary { padding: 13px 3px; border-bottom: 1px solid rgba(2,132,199,.3); color: #475569; font-size: 12px; font-weight: 700; transition: color .25s ease, border-color .25s ease; }
+    .clinic-modal-secondary:hover { border-color: #0284c7; color: #0369a1; }
+    .ai-audit-dialog { width: min(1240px, calc(100% - 32px)); max-width: none; height: min(880px, calc(100vh - 32px)); height: min(880px, calc(100dvh - 32px)); max-height: none; overflow: hidden; padding: 0; border: 1px solid rgba(45,212,191,.5); border-radius: 28px; color: #f8fafc; background: #020617; box-shadow: 0 42px 140px rgba(0,0,0,.78), 0 0 72px rgba(20,184,166,.13); }
+    .ai-audit-dialog[open] { animation: beauty-modal-in .34s cubic-bezier(.2,.8,.2,1); }
+    .ai-audit-dialog::backdrop { background: rgba(2,6,23,.9); backdrop-filter: blur(13px); animation: beauty-backdrop-in .28s ease; }
+    .ai-audit-shell { height: 100%; min-height: 0; display: flex; flex-direction: column; }
+    .ai-audit-header { min-height: 72px; display: flex; align-items: center; gap: 18px; padding: 13px 16px 13px 22px; border-bottom: 1px solid rgba(45,212,191,.18); background: radial-gradient(circle at 22% 0%, rgba(20,184,166,.13), transparent 36%), #06101d; }
+    .ai-audit-heading { min-width: 0; }
+    .ai-audit-kicker { display: block; margin-bottom: 3px; color: #5eead4; font-size: 9px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+    .ai-audit-heading h3 { margin: 0; overflow: hidden; color: white; font-size: 16px; font-weight: 750; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+    .ai-audit-meta { margin-left: auto; color: #94a3b8; font-size: 11px; font-weight: 700; letter-spacing: .05em; }
+    .ai-audit-close { width: 44px; height: 44px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid rgba(94,234,212,.32); border-radius: 50%; color: #5eead4; background: rgba(15,23,42,.74); font-size: 21px; cursor: pointer; transition: transform .3s ease, color .3s ease, background .3s ease, border-color .3s ease; }
+    .ai-audit-close:hover { border-color: #5eead4; color: #020617; background: #5eead4; transform: rotate(90deg); }
+    .ai-audit-close:focus-visible { outline: 2px solid #5eead4; outline-offset: 3px; }
+    .ai-audit-frame { width: 100%; min-height: 0; flex: 1 1 auto; display: block; border: 0; background: #f8fafc; }
+    @keyframes beauty-modal-in { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: none; } }
+    @keyframes beauty-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width: 760px) {
+      .beauty-case-dialog, .consultant-case-dialog, .clinic-case-dialog { border-radius: 24px; }
+      .beauty-modal-grid, .consultant-modal-grid, .clinic-modal-grid { min-height: auto; grid-template-columns: 1fr; }
+      .beauty-modal-image, .consultant-modal-image, .clinic-modal-image { min-height: 330px; }
+      .beauty-modal-content, .consultant-modal-content, .clinic-modal-content { padding: 48px 24px 32px; }
+      .beauty-modal-content h3, .consultant-modal-content h3, .clinic-modal-content h3 { font-size: clamp(42px, 13vw, 58px); }
+      .beauty-modal-facts, .consultant-modal-facts, .clinic-modal-facts { grid-template-columns: 1fr; gap: 15px; }
+      .ai-audit-dialog { width: calc(100% - 10px); height: calc(100vh - 10px); height: calc(100dvh - 10px); border-radius: 18px; }
+      .ai-audit-header { min-height: 64px; padding: 10px 10px 10px 15px; }
+      .ai-audit-meta { display: none; }
+      .ai-audit-heading h3 { font-size: 14px; }
+      .ai-audit-close { width: 42px; height: 42px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .beauty-case-dialog[open], .beauty-case-dialog::backdrop, .consultant-case-dialog[open], .consultant-case-dialog::backdrop, .clinic-case-dialog[open], .clinic-case-dialog::backdrop, .ai-audit-dialog[open], .ai-audit-dialog::backdrop { animation: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 font-sans text-white antialiased selection:bg-fuchsia-400 selection:text-slate-950">
+  <div class="relative isolate min-h-screen overflow-hidden bg-slate-950">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_72%_22%,rgba(79,70,229,0.20),transparent_27%),radial-gradient(circle_at_38%_78%,rgba(217,70,239,0.12),transparent_25%),linear-gradient(to_bottom,#020617_0%,#070b1a_55%,#020617_100%)]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-20 bg-[linear-gradient(rgba(148,163,184,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.09)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_75%)]"></div>
+
+    <header class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-6 sm:px-8 lg:px-12">
+      <a href="#top" aria-label="QUICKSITE EST — на главную" class="inline-flex items-center gap-3 rounded-xl text-sm font-semibold tracking-[0.16em] text-stone-200 transition-all duration-200 hover:text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-200/70 focus:ring-offset-4 focus:ring-offset-slate-950 sm:text-base">
+        <span aria-hidden="true" class="size-2.5 rounded-full bg-amber-100 shadow-[0_0_18px_rgba(254,243,199,0.95)]"></span>
+        QUICKSITE EST
+      </a>
+
+      <div class="ml-auto flex items-center gap-2 sm:gap-3">
+        <div class="language-switcher" role="group" aria-label="Выбор языка">
+          <button type="button" data-language="ru" aria-pressed="true">RU</button>
+          <button type="button" data-language="et" aria-pressed="false">ET</button>
+          <button type="button" data-language="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-sm font-medium text-stone-100 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-amber-100/40 hover:bg-amber-100 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-amber-200/70 focus:ring-offset-4 focus:ring-offset-slate-950 sm:px-5">
+          Связаться
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="mx-auto grid min-h-[calc(100vh-92px)] w-full max-w-7xl items-center gap-12 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:px-12 lg:pb-24 lg:pt-14">
+        <div class="relative z-10 max-w-3xl">
+          <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-300/5 px-3 py-1.5 text-xs font-medium tracking-[0.14em] text-violet-200 uppercase backdrop-blur-sm">
+            <span aria-hidden="true" class="size-1.5 rounded-full bg-fuchsia-300 shadow-[0_0_12px_rgba(240,171,252,0.95)]"></span>
+            Digital с человеческим характером
+          </p>
+
+          <h1 class="max-w-4xl text-4xl font-semibold leading-[1.04] tracking-[-0.045em] text-balance sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+            Сайты, за которыми стоят <span class="bg-gradient-to-r from-amber-100 via-stone-100 to-violet-300 bg-clip-text text-transparent">живые люди</span>
+          </h1>
+
+          <p class="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:mt-8 sm:text-lg sm:leading-8">
+            Искусственный интеллект помогает нам работать быстрее, но душу, тепло и продающие смыслы в проект вкладываем мы сами — живые люди для живых людей.
+          </p>
+
+          <div class="mt-8 flex flex-col items-start gap-4 sm:mt-10 sm:flex-row sm:items-center">
+            <a href="#contact" class="group inline-flex w-full items-center justify-center gap-3 rounded-xl bg-amber-100 px-6 py-3.5 text-sm font-semibold text-slate-950 shadow-[0_0_28px_rgba(254,243,199,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_0_38px_rgba(254,243,199,0.30)] focus:outline-none focus:ring-2 focus:ring-amber-200 focus:ring-offset-4 focus:ring-offset-slate-950 sm:w-auto">
+              Оставить заявку
+              <span aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+            </a>
+            <span class="text-sm text-slate-500">Ответим лично, без ботов</span>
+          </div>
+        </div>
+
+        <div aria-hidden="true" class="relative mx-auto flex h-[300px] w-full max-w-[520px] items-center justify-center sm:h-[420px] lg:h-[520px]">
+          <div class="absolute size-56 rounded-full bg-fuchsia-500/20 blur-3xl sm:size-72"></div>
+          <div class="absolute size-44 rounded-full bg-cyan-400/15 blur-3xl sm:size-60"></div>
+
+          <div class="absolute size-64 rounded-full border border-violet-300/15 shadow-[0_0_80px_rgba(168,85,247,0.16),inset_0_0_50px_rgba(59,130,246,0.08)] sm:size-80 lg:size-96"></div>
+          <div class="absolute size-52 rotate-12 rounded-full border border-dashed border-cyan-200/20 sm:size-68 lg:size-80"></div>
+          <div class="absolute size-36 -rotate-12 rounded-full border border-fuchsia-300/30 shadow-[0_0_35px_rgba(217,70,239,0.24)] sm:size-48 lg:size-56"></div>
+
+          <div class="relative flex size-36 items-center justify-center rounded-full border border-white/15 bg-slate-950/45 shadow-[0_0_55px_rgba(168,85,247,0.45),inset_0_0_32px_rgba(34,211,238,0.12)] backdrop-blur-md sm:size-48 lg:size-56">
+            <div class="absolute inset-2 rounded-full border border-fuchsia-300/15 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-cyan-300/10"></div>
+            <img src="assets/q-mark.svg" width="320" height="320" alt="Q — логотип QUICKSITE EST" class="relative z-10 size-24 object-contain drop-shadow-[0_0_12px_rgba(245,235,224,0.55)] sm:size-32 lg:size-36">
+          </div>
+
+          <span class="absolute left-[8%] top-[34%] size-3 rounded-full bg-cyan-200 shadow-[0_0_18px_rgba(165,243,252,1)]"></span>
+          <span class="absolute right-[10%] top-[27%] size-2 rounded-full bg-fuchsia-200 shadow-[0_0_16px_rgba(245,208,254,1)]"></span>
+          <span class="absolute bottom-[20%] right-[19%] size-3 rounded-full bg-amber-100 shadow-[0_0_18px_rgba(254,243,199,1)]"></span>
+        </div>
+      </section>
+
+      <section id="services" aria-labelledby="services-title" class="relative border-y border-white/5 bg-slate-950/45 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+          <div class="absolute -left-24 top-20 size-72 rounded-full bg-cyan-400/5 blur-3xl"></div>
+          <div class="absolute -right-24 bottom-10 size-80 rounded-full bg-fuchsia-500/10 blur-3xl"></div>
+        </div>
+
+        <div class="relative mx-auto w-full max-w-7xl">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Выберите свой формат</p>
+            <h2 id="services-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Наши услуги и тарифы</h2>
+            <p class="mt-5 text-base leading-7 text-slate-400 sm:text-lg">Три понятных пути к цифровому решению для вашего бизнеса.</p>
+          </div>
+
+          <div class="mt-12 grid items-stretch gap-7 lg:mt-16 lg:grid-cols-2 lg:gap-8">
+            <article class="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.24)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/25 hover:shadow-[0_24px_80px_rgba(34,211,238,0.08)] sm:p-8">
+              <div class="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent"></div>
+              <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">Базовый</p>
+                  <h3 class="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Стильный Старт</h3>
+                </div>
+                <p class="shrink-0 text-3xl font-semibold tracking-tight text-stone-100">€350</p>
+              </div>
+
+              <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-300">Быстрое решение для бизнеса с готовыми материалами и понятной задачей.</p>
+
+              <ul class="mt-7 flex-1 space-y-4 text-sm leading-6 text-slate-300 sm:text-base">
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Дизайн на выбор (13 ифреймов или 5–7 блоков)</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Базовая адаптивность (ПК, планшет, смартфон)</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Настройка форм (заявка на e-mail / Telegram)</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>2 круга правок / гарантия 14 дней на регулировку</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Срок: 3–5 рабочих дней</span></li>
+              </ul>
+
+              <a href="#contact" class="mt-9 inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950">Выбрать Базовый</a>
+            </article>
+
+            <article class="group relative flex flex-col overflow-hidden rounded-3xl border border-fuchsia-300/35 bg-gradient-to-b from-violet-950/55 to-slate-900/75 p-6 shadow-[0_0_60px_rgba(217,70,239,0.13),0_24px_80px_rgba(0,0,0,0.30)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-fuchsia-200/60 hover:shadow-[0_0_75px_rgba(217,70,239,0.20),0_28px_90px_rgba(0,0,0,0.34)] sm:p-8">
+              <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fuchsia-200 to-transparent"></div>
+              <div class="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-fuchsia-200/30 bg-fuchsia-300/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-fuchsia-100 shadow-[0_0_20px_rgba(217,70,239,0.14)]">
+                <span aria-hidden="true" class="size-1.5 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,1)]"></span>
+                Рекомендуем
+              </div>
+
+              <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-200">Премиум</p>
+                  <h3 class="mt-2 max-w-md text-2xl font-semibold tracking-tight text-white sm:text-3xl">Сайт + Психология Продаж</h3>
+                </div>
+                <p class="shrink-0 text-3xl font-semibold tracking-tight text-amber-100"><span class="text-base font-medium text-stone-400">от</span> €500</p>
+              </div>
+
+              <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-200">Главный инструмент: маркетинг + психология + продающий структурированный код.</p>
+
+              <ul class="mt-7 flex-1 space-y-4 text-sm leading-6 text-slate-200 sm:text-base">
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,0.9)]"></span><span>Исследование ЦА, разбор болей и возражений клиентуры</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,0.9)]"></span><span>Разработка смысловой структуры и прототипа</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,0.9)]"></span><span>Уникальный дизайн с лёгкими анимациями</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,0.9)]"></span><span>Полная адаптивность, SEO-база, настройка форм</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-200 shadow-[0_0_10px_rgba(245,208,254,0.9)]"></span><span>Все заботы по переносу и запуску сайта берём на себя</span></li>
+              </ul>
+
+              <a href="#contact" class="mt-9 inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 hover:shadow-[0_0_32px_rgba(34,211,238,0.18)] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950">Выбрать Премиум</a>
+            </article>
+
+            <article class="group relative flex flex-col overflow-hidden rounded-3xl border border-cyan-200/70 bg-gradient-to-b from-cyan-950/35 to-slate-900/75 p-6 shadow-[0_0_20px_rgba(165,243,252,0.25),0_24px_80px_rgba(0,0,0,0.30)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-[0_0_38px_rgba(165,243,252,0.32),0_28px_90px_rgba(0,0,0,0.34)] sm:p-8 lg:col-span-2 lg:mx-auto lg:w-[calc(50%-1rem)]">
+              <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200 to-transparent"></div>
+
+              <div class="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-cyan-200/50 bg-cyan-200/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-200 shadow-[0_0_20px_rgba(165,243,252,0.18)]">
+                <span aria-hidden="true" class="size-1.5 rounded-full bg-cyan-200 shadow-[0_0_12px_rgba(165,243,252,1)]"></span>
+                AI Solutions
+              </div>
+
+              <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">Инновации</p>
+                  <h3 class="mt-2 max-w-md text-2xl font-semibold tracking-tight text-white sm:text-3xl">AI Инструменты &amp; Автоматизация</h3>
+                </div>
+                <p class="shrink-0 text-3xl font-semibold tracking-tight text-cyan-200"><span class="text-base font-medium text-slate-400">от</span> €250</p>
+              </div>
+
+              <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-200">Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.</p>
+
+              <ul class="mt-7 flex-1 space-y-4 text-sm leading-6 text-slate-200 sm:text-base">
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>AI-чатботы и умные ассистенты (поддержка и продажи 24/7)</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Автоматические воронки продаж и генерация лидов</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Интеграция нейросетей для генерации контента</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Аналитика и прогнозирование поведения клиентов</span></li>
+                <li class="flex gap-3"><span aria-hidden="true" class="mt-2 size-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_10px_rgba(165,243,252,0.9)]"></span><span>Полная настройка и подключение «под ключ»</span></li>
+              </ul>
+
+              <a href="#contact" class="mt-9 inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 hover:shadow-[0_0_32px_rgba(34,211,238,0.18)] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950">Выбрать AI Решения</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="benefits" aria-labelledby="benefits-title" class="relative px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+        <div class="mx-auto w-full max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">Почему мы</p>
+            <h2 id="benefits-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Сильный сайт без лишней сложности</h2>
+          </div>
+          <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-2xl border border-white/10 bg-slate-900/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/30 hover:shadow-[0_0_35px_rgba(34,211,238,0.08)]">
+              <span class="text-sm font-semibold text-cyan-200">01</span><h3 class="mt-5 text-xl font-semibold text-white">Скорость запуска</h3><p class="mt-3 leading-7 text-slate-400">От 3 до 5 дней без потери качества.</p>
+            </article>
+            <article class="rounded-2xl border border-white/10 bg-slate-900/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-fuchsia-200/30 hover:shadow-[0_0_35px_rgba(217,70,239,0.08)]">
+              <span class="text-sm font-semibold text-fuchsia-200">02</span><h3 class="mt-5 text-xl font-semibold text-white">Психология продаж</h3><p class="mt-3 leading-7 text-slate-400">Проработка структуры под боли вашей ЦА.</p>
+            </article>
+            <article class="rounded-2xl border border-white/10 bg-slate-900/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/30 hover:shadow-[0_0_35px_rgba(34,211,238,0.08)]">
+              <span class="text-sm font-semibold text-cyan-200">03</span><h3 class="mt-5 text-xl font-semibold text-white">Чистый код</h3><p class="mt-3 leading-7 text-slate-400">Быстрый Tailwind CSS, никаких тяжёлых конструкторов.</p>
+            </article>
+            <article class="rounded-2xl border border-white/10 bg-slate-900/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-fuchsia-200/30 hover:shadow-[0_0_35px_rgba(217,70,239,0.08)]">
+              <span class="text-sm font-semibold text-fuchsia-200">04</span><h3 class="mt-5 text-xl font-semibold text-white">Под ключ</h3><p class="mt-3 leading-7 text-slate-400">Перенос на ваш домен, настройка SEO-базы и форм.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" aria-labelledby="portfolio-title" class="relative border-y border-white/5 bg-slate-900/20 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+        <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 size-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/10 blur-3xl"></div>
+        <div class="relative mx-auto w-full max-w-7xl">
+          <div class="mx-auto max-w-3xl text-center"><p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Портфолио</p><h2 id="portfolio-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Примеры работ</h2></div>
+          <div class="mt-12 grid gap-6 lg:grid-cols-3">
+            <a href="#beauty-case-modal" class="beauty-card-trigger" data-case-open aria-haspopup="dialog" aria-controls="beauty-case-modal" aria-label="Открыть презентацию проекта Beauty &amp; Wellness">
+              <article class="beauty-project-card">
+                <div class="beauty-card-visual">
+                  <img src="assets/beauty-hero-v2.png" alt="Beauty & Wellness — премиальный лендинг студии косметологии" width="1024" height="1536" loading="lazy">
+                  <span class="beauty-card-signature">Skincare · Tallinn</span>
+                  <span class="beauty-card-arrow" aria-hidden="true">↗</span>
+                </div>
+                <div class="beauty-card-copy">
+                  <p class="beauty-card-kicker">Editorial web experience</p>
+                  <h3 class="beauty-serif">Beauty &amp; Wellness</h3>
+                  <p>Элегантный мультиязычный лендинг для студии косметологии и осознанного ухода.</p>
+                </div>
+              </article>
+            </a>
+            <a href="#consultant-case-modal" class="group block h-full overflow-hidden rounded-3xl border border-amber-300/20 bg-stone-950/80 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/60 hover:shadow-[0_20px_70px_rgba(245,158,11,0.14)]" data-case-open aria-haspopup="dialog" aria-controls="consultant-case-modal" aria-label="Открыть презентацию проекта Максим Орлов — бизнес-консультант">
+              <article class="h-full">
+                <div class="relative aspect-[16/10] overflow-hidden rounded-2xl bg-stone-950">
+                  <img src="assets/consultant-max-orlov.jpg" alt="Максим Орлов — премиальный сайт бизнес-консультанта" width="1024" height="1536" loading="lazy" class="h-full w-full object-cover object-[50%_20%] grayscale-[12%] transition duration-700 group-hover:scale-[1.035] group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-gradient-to-r from-stone-950/80 via-stone-950/15 to-transparent"></div>
+                  <div class="absolute left-5 top-5 h-20 w-20 border-l-2 border-t-2 border-amber-400/80"></div>
+                  <span class="absolute bottom-5 left-5 border border-amber-300/35 bg-stone-950/75 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-200 backdrop-blur">Business strategy</span>
+                  <span class="absolute right-5 top-5 grid size-10 place-items-center border border-white/20 bg-stone-950/70 text-lg text-white backdrop-blur transition-colors group-hover:border-amber-300 group-hover:bg-amber-400 group-hover:text-stone-950" aria-hidden="true">↗</span>
+                </div>
+                <div class="p-4 pb-5 pt-6"><h3 class="text-xl font-semibold text-white">Максим Орлов</h3><p class="mt-2 leading-7 text-slate-400">Премиальный лендинг бизнес-консультанта по стратегии и росту.</p></div>
+              </article>
+            </a>
+            <a href="#clinic-case-modal" class="group block h-full overflow-hidden rounded-3xl border border-sky-200/35 bg-slate-50 p-3 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_20px_70px_rgba(14,165,233,0.16)]" data-case-open aria-haspopup="dialog" aria-controls="clinic-case-modal" aria-label="Открыть презентацию проекта AERIS Clinic">
+              <article class="h-full">
+                <div class="relative aspect-[16/10] overflow-hidden rounded-2xl bg-sky-100">
+                  <img src="assets/clinic-hero.jpg" alt="AERIS Clinic — сайт современной стоматологической клиники" width="1774" height="887" loading="lazy" class="h-full w-full object-cover object-[66%_center] transition duration-700 group-hover:scale-[1.035]">
+                  <div class="absolute inset-0 bg-gradient-to-r from-white/35 via-transparent to-sky-900/5"></div>
+                  <div class="absolute left-5 top-5 h-20 w-20 rounded-tl-xl border-l-2 border-t-2 border-sky-500/80"></div>
+                  <span class="absolute bottom-5 left-5 rounded-full border border-white/70 bg-white/80 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-sky-800 backdrop-blur">Dental · Wellbeing</span>
+                  <span class="absolute right-5 top-5 grid size-10 place-items-center rounded-full border border-sky-200 bg-white/80 text-lg text-sky-800 backdrop-blur transition-colors group-hover:border-sky-600 group-hover:bg-sky-600 group-hover:text-white" aria-hidden="true">↗</span>
+                </div>
+                <div class="p-4 pb-5 pt-6"><h3 class="text-xl font-semibold text-slate-950">AERIS Clinic</h3><p class="mt-2 leading-7 text-slate-600">Трёхъязычный лендинг современной клиники с онлайн-записью.</p></div>
+              </article>
+            </a>
+            <a href="#ai-audit-modal" class="group relative block w-full overflow-hidden rounded-3xl border border-teal-300/25 bg-[#031018] p-3 text-left shadow-[0_22px_80px_rgba(13,148,136,0.09)] transition-all duration-300 hover:-translate-y-1 hover:border-teal-300/65 hover:shadow-[0_28px_100px_rgba(20,184,166,0.16)] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-200 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950 sm:p-4 lg:col-span-3" data-case-open aria-haspopup="dialog" aria-controls="ai-audit-modal" aria-label="Открыть интерактивный квиз ИИ-аудит бизнеса">
+              <article class="relative grid overflow-hidden rounded-[1.25rem] border border-white/[0.06] bg-[radial-gradient(circle_at_82%_18%,rgba(45,212,191,0.13),transparent_34%),linear-gradient(135deg,#07141d_0%,#020617_70%)] lg:grid-cols-[0.86fr_1.14fr] lg:items-stretch">
+                <div class="relative z-10 flex flex-col justify-center p-7 sm:p-9 lg:p-12">
+                  <div class="flex flex-wrap items-center gap-3"><span class="rounded-full border border-teal-300/40 bg-teal-300/10 px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-teal-200">AI Solutions</span><span class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Интерактивный продукт</span></div>
+                  <h3 class="mt-7 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">ИИ-аудит бизнеса</h3>
+                  <p class="mt-5 max-w-xl text-sm leading-7 text-slate-400 sm:text-base">Интерактивный квиз для оценки готовности бизнеса к внедрению ИИ. Поддерживает русский, эстонский и английский языки, выдаёт персональные рекомендации и собирает заявки.</p>
+                  <span class="mt-8 inline-flex w-fit items-center gap-4 rounded-xl border border-teal-300/40 bg-teal-300/10 px-5 py-3.5 text-sm font-semibold text-teal-100 transition-all duration-300 group-hover:border-teal-200 group-hover:bg-teal-200 group-hover:text-slate-950">Пройти ИИ-аудит <span aria-hidden="true">↗</span></span>
+                </div>
+                <div class="relative min-h-[330px] overflow-hidden border-t border-teal-200/10 p-5 sm:min-h-[390px] sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+                  <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(3,16,24,0.5),transparent_18%,transparent_82%,rgba(3,16,24,0.62))]"></div>
+                  <div class="relative mx-auto flex h-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 text-slate-950 shadow-[0_26px_70px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-[1.015]">
+                    <div class="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:px-7">
+                      <div class="flex items-center gap-3"><span class="grid size-8 place-items-center rounded-lg bg-teal-500 text-xs font-black text-white">AI</span><span class="text-xs font-black uppercase tracking-[0.13em] text-slate-700">Бизнес-аудит</span></div>
+                      <div class="flex items-center gap-1 rounded-full bg-slate-100 p-1 text-[9px] font-black text-slate-500"><span class="rounded-full bg-slate-900 px-2 py-1 text-white">RU</span><span class="px-2 py-1">ET</span><span class="px-2 py-1">EN</span></div>
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center p-5 sm:p-8">
+                      <div class="flex items-center justify-between gap-4 text-[9px] font-black uppercase tracking-[0.14em] text-teal-700"><span>Шаг 1 из 7</span><span>Оценка потенциала</span></div>
+                      <div class="mt-3 h-1 overflow-hidden rounded-full bg-slate-200"><span class="block h-full w-[14%] rounded-full bg-teal-500"></span></div>
+                      <h4 class="mt-6 max-w-lg text-xl font-semibold leading-tight tracking-[-0.035em] text-slate-950 sm:text-2xl">Где ваш бизнес теряет больше всего времени?</h4>
+                      <div class="mt-6 grid gap-2.5 text-xs font-semibold text-slate-700 sm:grid-cols-3">
+                        <span class="rounded-xl border border-teal-500 bg-teal-50 p-3 text-teal-800">Продажи и лиды</span>
+                        <span class="rounded-xl border border-slate-200 bg-white p-3">Обработка заявок</span>
+                        <span class="rounded-xl border border-slate-200 bg-white p-3">Внутренние процессы</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <dialog id="beauty-case-modal" class="beauty-case-dialog" aria-labelledby="beauty-modal-title">
+        <div class="beauty-modal-grid">
+          <div class="beauty-modal-image">
+            <img src="assets/beauty-hero-v2.png" alt="Портрет из визуальной концепции Beauty & Wellness" width="1024" height="1536">
+            <div class="beauty-modal-image-note"><strong>Natural skin.<br>Thoughtful care.</strong><span>Beauty &amp; Wellness</span></div>
+          </div>
+          <div class="beauty-modal-content">
+            <form method="dialog"><button class="beauty-modal-close" type="submit" aria-label="Закрыть презентацию">×</button></form>
+            <p class="beauty-modal-eyebrow">Case study · Beauty studio</p>
+            <h3 id="beauty-modal-title">Beauty &amp;<br>Wellness</h3>
+            <p class="beauty-modal-lead">Плотный, но воздушный лендинг для премиальной студии косметологии. Editorial-композиция, натуральная фотография и мягкая tone-on-tone палитра создают доверие, а ясный маршрут ведёт посетителя от знакомства с подходом к записи.</p>
+            <div class="beauty-modal-tags" aria-label="Особенности проекта"><span>Human-centric design</span><span>Multilingual</span><span>Responsive</span><span>Custom UI</span></div>
+            <div class="beauty-modal-facts">
+              <span>Формат<strong>Landing page</strong></span>
+              <span>Языки<strong>RU · EN · ET</strong></span>
+              <span>Стиль<strong>Editorial beauty</strong></span>
+            </div>
+            <div class="beauty-modal-actions"><a class="beauty-modal-primary" href="beauty.html">Открыть демо <span aria-hidden="true">↗</span></a><button class="beauty-modal-secondary" type="button" data-case-close>Вернуться к портфолио</button></div>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="consultant-case-modal" class="consultant-case-dialog" aria-labelledby="consultant-modal-title">
+        <div class="consultant-modal-grid">
+          <div class="consultant-modal-image">
+            <img src="assets/consultant-max-orlov.jpg" alt="Максим Орлов — визуальная концепция сайта бизнес-консультанта" width="1024" height="1536">
+            <div class="consultant-modal-image-note"><strong>Clarity.<br>Strategy. Growth.</strong><span>Maxim Orlov · Tallinn</span></div>
+          </div>
+          <div class="consultant-modal-content">
+            <form method="dialog"><button class="consultant-modal-close" type="submit" aria-label="Закрыть презентацию">×</button></form>
+            <p class="consultant-modal-eyebrow">Case study · Business consulting</p>
+            <h3 id="consultant-modal-title">Максим<br>Орлов</h3>
+            <p class="consultant-modal-lead">Строгий мультиязычный лендинг для бизнес-консультанта и стратега. Угольная палитра, точная типографика и янтарная навигация формируют образ уверенного эксперта, а последовательный сценарий ведёт собственника от деловой задачи к диагностической встрече.</p>
+            <div class="consultant-modal-tags" aria-label="Особенности проекта"><span>Custom UI</span><span>Multilingual</span><span>Responsive</span><span>Business Strategy</span></div>
+            <div class="consultant-modal-facts">
+              <span>Формат<strong>Expert landing</strong></span>
+              <span>Языки<strong>RU · EN</strong></span>
+              <span>Стиль<strong>Charcoal editorial</strong></span>
+            </div>
+            <div class="consultant-modal-actions"><a class="consultant-modal-primary" href="consultant-demo.html">Открыть демо <span aria-hidden="true">↗</span></a><button class="consultant-modal-secondary" type="button" data-case-close>Вернуться к портфолио</button></div>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="clinic-case-modal" class="clinic-case-dialog" aria-labelledby="clinic-modal-title">
+        <div class="clinic-modal-grid">
+          <div class="clinic-modal-image">
+            <img src="assets/clinic-hero.jpg" alt="Консультация пациента в визуальной концепции AERIS Clinic" width="1774" height="887">
+            <div class="clinic-modal-image-note"><strong>Precision care.<br>Human comfort.</strong><span>AERIS Clinic · Tallinn</span></div>
+          </div>
+          <div class="clinic-modal-content">
+            <form method="dialog"><button class="clinic-modal-close" type="submit" aria-label="Закрыть презентацию">×</button></form>
+            <p class="clinic-modal-eyebrow">Case study · Healthcare</p>
+            <h3 id="clinic-modal-title">AERIS<br>Clinic</h3>
+            <p class="clinic-modal-lead">Светлый конверсионный лендинг современной стоматологии. Строгая медицинская типографика, спокойная лазурная палитра и прозрачная сетка услуг помогают быстро оценить подход и стоимость, а трёхъязычная запись снижает барьер перед первым визитом.</p>
+            <div class="clinic-modal-tags" aria-label="Особенности проекта"><span>Custom UI</span><span>Trilingual</span><span>Responsive</span><span>Healthcare UX</span></div>
+            <div class="clinic-modal-facts">
+              <span>Формат<strong>Clinic landing</strong></span>
+              <span>Языки<strong>RU · ET · EN</strong></span>
+              <span>Фокус<strong>Online booking</strong></span>
+            </div>
+            <div class="clinic-modal-actions"><a class="clinic-modal-primary" href="clinic-demo.html">Открыть демо <span aria-hidden="true">↗</span></a><button class="clinic-modal-secondary" type="button" data-case-close>Вернуться к портфолио</button></div>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="ai-audit-modal" class="ai-audit-dialog" aria-labelledby="ai-audit-modal-title">
+        <div class="ai-audit-shell">
+          <header class="ai-audit-header">
+            <div class="ai-audit-heading"><span class="ai-audit-kicker">AI Solutions · Live demo</span><h3 id="ai-audit-modal-title">ИИ-аудит бизнеса</h3></div>
+            <span class="ai-audit-meta">Интерактивный квиз · RU · ET · EN</span>
+            <button class="ai-audit-close" type="button" data-case-close aria-label="Закрыть ИИ-аудит">×</button>
+          </header>
+          <iframe class="ai-audit-frame" src="https://subtle-pothos-f050bf.netlify.app/?lang=ru" data-base-src="https://subtle-pothos-f050bf.netlify.app/" data-language="ru" title="Интерактивный квиз ИИ-аудит бизнеса" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+        </div>
+      </dialog>
+
+      <section id="faq" aria-labelledby="faq-title" class="px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+        <div class="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+          <div><p class="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">FAQ</p><h2 id="faq-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Частые вопросы</h2><p class="mt-5 leading-7 text-slate-400">Коротко о процессе, оплате и начале работы.</p></div>
+          <div class="space-y-4">
+            <details class="group rounded-2xl border border-white/10 bg-slate-900/55 p-6 open:border-cyan-200/25"><summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-white">Сколько времени занимает разработка?<span class="text-cyan-200 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 pr-8 leading-7 text-slate-400">3–5 дней для Базового тарифа, 7–10 дней для Премиум.</p></details>
+            <details class="group rounded-2xl border border-white/10 bg-slate-900/55 p-6 open:border-fuchsia-200/25"><summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-white">Нужна ли предоплата?<span class="text-fuchsia-200 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 pr-8 leading-7 text-slate-400">50% перед началом работы, оставшиеся 50% — после принятия проекта.</p></details>
+            <details class="group rounded-2xl border border-white/10 bg-slate-900/55 p-6 open:border-cyan-200/25"><summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-white">Что нужно от меня для старта?<span class="text-cyan-200 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 pr-8 leading-7 text-slate-400">Заполнить короткий бриф и предоставить тексты, если они уже есть.</p></details>
+            <details class="group rounded-2xl border border-white/10 bg-slate-900/55 p-6 open:border-fuchsia-200/25"><summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-white">Входят ли правки в стоимость?<span class="text-fuchsia-200 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 pr-8 leading-7 text-slate-400">Да, в каждый тариф включены круги правок и гарантия 14 дней.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title" class="relative border-t border-white/5 bg-slate-900/25 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+        <div aria-hidden="true" class="pointer-events-none absolute bottom-0 left-0 size-80 rounded-full bg-emerald-400/5 blur-3xl"></div>
+        <div class="relative mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div><p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Начнём знакомство</p><h2 id="contact-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Обсудить проект</h2><p class="mt-5 max-w-lg text-base leading-7 text-slate-400 sm:text-lg">Заполните форму, и мы свяжемся с вами для расчёта стоимости и консультации.</p></div>
+          <form action="#" method="post" class="rounded-3xl border border-white/10 bg-slate-950/65 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.30)] backdrop-blur-md sm:p-8">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <label class="sm:col-span-2"><span class="mb-2 block text-sm font-medium text-slate-300">Ваше имя</span><input type="text" name="name" autocomplete="name" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60 focus:ring-4 focus:ring-cyan-300/10" placeholder="Как к вам обращаться?"></label>
+              <label><span class="mb-2 block text-sm font-medium text-slate-300">Email</span><input type="email" name="email" autocomplete="email" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-300/60 focus:ring-4 focus:ring-violet-300/10" placeholder="name@example.com"></label>
+              <label><span class="mb-2 block text-sm font-medium text-slate-300">Телефон</span><input type="tel" name="phone" autocomplete="tel" class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60 focus:ring-4 focus:ring-cyan-300/10" placeholder="+372 ..."></label>
+              <label><span class="mb-2 block text-sm font-medium text-slate-300">Тип проекта</span><select name="project_type" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition focus:border-violet-300/60 focus:ring-4 focus:ring-violet-300/10"><option value="">Выберите вариант</option><option value="landing">Лендинг</option><option value="personal-site">Сайт-визитка / Личный сайт</option><option value="catalog">Мини-каталог товаров</option><option value="other">Другое</option></select></label>
+              <label><span class="mb-2 block text-sm font-medium text-slate-300">Бюджет</span><select name="budget" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition focus:border-cyan-300/60 focus:ring-4 focus:ring-cyan-300/10"><option value="">Выберите бюджет</option><option value="under-350">до €350</option><option value="350-500">€350 - €500</option><option value="500-plus">€500+</option></select></label>
+              <label class="sm:col-span-2"><span class="mb-2 block text-sm font-medium text-slate-300">Сообщение</span><textarea name="message" rows="5" class="w-full resize-y rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-300/60 focus:ring-4 focus:ring-violet-300/10" placeholder="Расскажите пару слов о задаче"></textarea></label>
+            </div>
+            <button type="submit" class="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 hover:shadow-[0_0_32px_rgba(34,211,238,0.18)] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950 sm:w-auto">Получить консультацию</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 sm:px-8 lg:px-12">
+      <div class="mx-auto flex w-full max-w-7xl flex-col gap-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 QUICKSITE EST. Все права защищены.</p>
+        <nav aria-label="Быстрые контакты" class="flex items-center gap-6"><a href="#contact" class="transition hover:text-cyan-200">Telegram</a><a href="#contact" class="transition hover:text-violet-200">Email</a></nav>
+      </div>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const translations = {
+        languages: ["ru", "et", "en"],
+        languageNames: { ru: "Русский", et: "Eesti", en: "English" },
+        storageKey: "quicksite-language",
+        pages: {
+          ru: { title: "QUICKSITE EST — сайты с человеческим смыслом", description: "QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта." },
+          et: { title: "QUICKSITE EST — inimliku tähendusega veebilehed", description: "QUICKSITE EST — veebilehed, mille loovad päris inimesed ja mida täiustab tehisintellekt." },
+          en: { title: "QUICKSITE EST — websites with a human touch", description: "QUICKSITE EST — websites created by real people and enhanced by artificial intelligence." }
+        },
+        strings: {
+          "Связаться": { ru: "Связаться", et: "Võta ühendust", en: "Contact us" },
+          "Digital с человеческим характером": { ru: "Digital с человеческим характером", et: "Digilahendused inimliku puudutusega", en: "Digital with a human touch" },
+          "Сайты, за которыми стоят": { ru: "Сайты, за которыми стоят", et: "Veebilehed, mille taga on", en: "Websites created by" },
+          "живые люди": { ru: "живые люди", et: "päris inimesed", en: "real people" },
+          "Искусственный интеллект помогает нам работать быстрее, но душу, тепло и продающие смыслы в проект вкладываем мы сами — живые люди для живых людей.": { ru: "Искусственный интеллект помогает нам работать быстрее, но душу, тепло и продающие смыслы в проект вкладываем мы сами — живые люди для живых людей.", et: "Tehisintellekt aitab meil töötada kiiremini, kuid projekti hinge, soojuse ja müügisõnumid loome ise — inimesed inimestele.", en: "AI helps us work faster, but the soul, warmth and persuasive message come from us — real people creating for real people." },
+          "Оставить заявку": { ru: "Оставить заявку", et: "Saada päring", en: "Start a project" },
+          "Ответим лично, без ботов": { ru: "Ответим лично, без ботов", et: "Vastame isiklikult, mitte robotiga", en: "A personal reply, never a bot" },
+          "Выберите свой формат": { ru: "Выберите свой формат", et: "Valige sobiv lahendus", en: "Choose your format" },
+          "Наши услуги и тарифы": { ru: "Наши услуги и тарифы", et: "Teenused ja hinnad", en: "Services and pricing" },
+          "Три понятных пути к цифровому решению для вашего бизнеса.": { ru: "Три понятных пути к цифровому решению для вашего бизнеса.", et: "Kolm selget teed teie ettevõtte digilahenduseni.", en: "Three clear paths to the right digital solution for your business." },
+          "Базовый": { ru: "Базовый", et: "Põhipakett", en: "Essential" },
+          "Стильный Старт": { ru: "Стильный Старт", et: "Stiilne start", en: "Stylish Start" },
+          "Быстрое решение для бизнеса с готовыми материалами и понятной задачей.": { ru: "Быстрое решение для бизнеса с готовыми материалами и понятной задачей.", et: "Kiire lahendus ettevõttele, kellel on materjalid ja selge ülesanne juba olemas.", en: "A fast solution for a business with ready-made content and a clearly defined brief." },
+          "Дизайн на выбор (13 ифреймов или 5–7 блоков)": { ru: "Дизайн на выбор (13 ифреймов или 5–7 блоков)", et: "Disain valikust (13 iframe’i või 5–7 sisuplokki)", en: "Choice of design (13 iframes or 5–7 content blocks)" },
+          "Базовая адаптивность (ПК, планшет, смартфон)": { ru: "Базовая адаптивность (ПК, планшет, смартфон)", et: "Põhiline responsiivsus (arvuti, tahvel ja telefon)", en: "Core responsive layout (desktop, tablet and mobile)" },
+          "Настройка форм (заявка на e-mail / Telegram)": { ru: "Настройка форм (заявка на e-mail / Telegram)", et: "Vormide seadistamine (päring e-posti või Telegrami)", en: "Form setup (enquiries by email or Telegram)" },
+          "2 круга правок / гарантия 14 дней на регулировку": { ru: "2 круга правок / гарантия 14 дней на регулировку", et: "2 parandusringi / 14-päevane seadistusgarantii", en: "2 revision rounds / 14-day adjustment guarantee" },
+          "Срок: 3–5 рабочих дней": { ru: "Срок: 3–5 рабочих дней", et: "Valmimisaeg: 3–5 tööpäeva", en: "Timeline: 3–5 working days" },
+          "Выбрать Базовый": { ru: "Выбрать Базовый", et: "Vali põhipakett", en: "Choose Essential" },
+          "Рекомендуем": { ru: "Рекомендуем", et: "Soovitame", en: "Recommended" },
+          "Премиум": { ru: "Премиум", et: "Premium", en: "Premium" },
+          "Сайт + Психология Продаж": { ru: "Сайт + Психология Продаж", et: "Veebileht + müügipsühholoogia", en: "Website + Sales Psychology" },
+          "от": { ru: "от", et: "alates", en: "from" },
+          "Главный инструмент: маркетинг + психология + продающий структурированный код.": { ru: "Главный инструмент: маркетинг + психология + продающий структурированный код.", et: "Terviklik müügitööriist: turundus + psühholoogia + läbimõeldud kood.", en: "A complete sales tool: marketing + psychology + conversion-focused structured code." },
+          "Исследование ЦА, разбор болей и возражений клиентуры": { ru: "Исследование ЦА, разбор болей и возражений клиентуры", et: "Sihtrühma analüüs ning klientide valupunktide ja vastuväidete kaardistamine", en: "Audience research, pain-point analysis and customer objection mapping" },
+          "Разработка смысловой структуры и прототипа": { ru: "Разработка смысловой структуры и прототипа", et: "Sisulise struktuuri ja prototüübi loomine", en: "Strategic content structure and prototype development" },
+          "Уникальный дизайн с лёгкими анимациями": { ru: "Уникальный дизайн с лёгкими анимациями", et: "Unikaalne disain kergete animatsioonidega", en: "Unique design with subtle animation" },
+          "Полная адаптивность, SEO-база, настройка форм": { ru: "Полная адаптивность, SEO-база, настройка форм", et: "Täielik responsiivsus, SEO-alus ja vormide seadistamine", en: "Full responsive design, SEO foundations and form setup" },
+          "Все заботы по переносу и запуску сайта берём на себя": { ru: "Все заботы по переносу и запуску сайта берём на себя", et: "Võtame veebilehe üleviimise ja käivitamise täielikult enda peale", en: "We handle the complete website transfer and launch" },
+          "Выбрать Премиум": { ru: "Выбрать Премиум", et: "Vali Premium", en: "Choose Premium" },
+          "AI Solutions": { ru: "AI Solutions", et: "AI-lahendused", en: "AI Solutions" },
+          "Инновации": { ru: "Инновации", et: "Uuendused", en: "Innovation" },
+          "AI Инструменты & Автоматизация": { ru: "AI Инструменты & Автоматизация", et: "AI-tööriistad ja automatiseerimine", en: "AI Tools & Automation" },
+          "Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.": { ru: "Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.", et: "Tehisintellektil põhinevad lahendused müügi kiirendamiseks ja protsesside automatiseerimiseks.", en: "Advanced AI solutions that accelerate sales and automate business processes." },
+          "AI-чатботы и умные ассистенты (поддержка и продажи 24/7)": { ru: "AI-чатботы и умные ассистенты (поддержка и продажи 24/7)", et: "AI-vestlusrobotid ja nutikad assistendid (tugi ja müük 24/7)", en: "AI chatbots and intelligent assistants (support and sales 24/7)" },
+          "Автоматические воронки продаж и генерация лидов": { ru: "Автоматические воронки продаж и генерация лидов", et: "Automaatsed müügilehtrid ja müügivihjete genereerimine", en: "Automated sales funnels and lead generation" },
+          "Интеграция нейросетей для генерации контента": { ru: "Интеграция нейросетей для генерации контента", et: "AI integreerimine sisu loomiseks", en: "AI integration for content generation" },
+          "Аналитика и прогнозирование поведения клиентов": { ru: "Аналитика и прогнозирование поведения клиентов", et: "Analüütika ja kliendikäitumise prognoosimine", en: "Analytics and customer behaviour forecasting" },
+          "Полная настройка и подключение «под ключ»": { ru: "Полная настройка и подключение «под ключ»", et: "Täielik seadistus ja ühendamine võtmed-kätte põhimõttel", en: "Complete turnkey setup and integration" },
+          "Выбрать AI Решения": { ru: "Выбрать AI Решения", et: "Vali AI-lahendused", en: "Choose AI Solutions" },
+          "Почему мы": { ru: "Почему мы", et: "Miks meie", en: "Why us" },
+          "Сильный сайт без лишней сложности": { ru: "Сильный сайт без лишней сложности", et: "Tugev veebileht ilma tarbetu keerukuseta", en: "A powerful website without needless complexity" },
+          "Скорость запуска": { ru: "Скорость запуска", et: "Kiire käivitus", en: "Fast launch" },
+          "От 3 до 5 дней без потери качества.": { ru: "От 3 до 5 дней без потери качества.", et: "3–5 päevaga, kvaliteedis järeleandmisi tegemata.", en: "From 3 to 5 days without compromising quality." },
+          "Психология продаж": { ru: "Психология продаж", et: "Müügipsühholoogia", en: "Sales psychology" },
+          "Проработка структуры под боли вашей ЦА.": { ru: "Проработка структуры под боли вашей ЦА.", et: "Struktuur lähtub teie sihtrühma tegelikest valupunktidest.", en: "A structure shaped around your audience’s real pain points." },
+          "Чистый код": { ru: "Чистый код", et: "Puhas kood", en: "Clean code" },
+          "Быстрый Tailwind CSS, никаких тяжёлых конструкторов.": { ru: "Быстрый Tailwind CSS, никаких тяжёлых конструкторов.", et: "Kiire Tailwind CSS, ilma raskepäraste veebiehitajateta.", en: "Fast Tailwind CSS with no heavy page builders." },
+          "Под ключ": { ru: "Под ключ", et: "Võtmed kätte", en: "Turnkey delivery" },
+          "Перенос на ваш домен, настройка SEO-базы и форм.": { ru: "Перенос на ваш домен, настройка SEO-базы и форм.", et: "Üleviimine teie domeenile ning SEO-aluse ja vormide seadistamine.", en: "Domain transfer, SEO foundations and form setup included." },
+          "Портфолио": { ru: "Портфолио", et: "Portfoolio", en: "Portfolio" },
+          "Примеры работ": { ru: "Примеры работ", et: "Valitud tööd", en: "Selected work" },
+          "Skincare · Tallinn": { ru: "Уход за кожей · Таллинн", et: "Nahahooldus · Tallinn", en: "Skincare · Tallinn" },
+          "Editorial web experience": { ru: "Редакционный веб-дизайн", et: "Toimetuslik veebikogemus", en: "Editorial web experience" },
+          "Элегантный мультиязычный лендинг для студии косметологии и осознанного ухода.": { ru: "Элегантный мультиязычный лендинг для студии косметологии и осознанного ухода.", et: "Elegantne mitmekeelne maandumisleht kosmeetikastuudiole ja teadlikule nahahooldusele.", en: "An elegant multilingual landing page for a beauty studio focused on mindful skincare." },
+          "Business strategy": { ru: "Бизнес-стратегия", et: "Äristrateegia", en: "Business strategy" },
+          "Максим Орлов": { ru: "Максим Орлов", et: "Maksim Orlov", en: "Maxim Orlov" },
+          "Премиальный лендинг бизнес-консультанта по стратегии и росту.": { ru: "Премиальный лендинг бизнес-консультанта по стратегии и росту.", et: "Premium-klassi maandumisleht strateegia- ja kasvukonsultandile.", en: "A premium landing page for a business consultant specialising in strategy and growth." },
+          "Dental · Wellbeing": { ru: "Стоматология · Забота", et: "Hambaravi · Heaolu", en: "Dental · Wellbeing" },
+          "Трёхъязычный лендинг современной клиники с онлайн-записью.": { ru: "Трёхъязычный лендинг современной клиники с онлайн-записью.", et: "Kolmekeelne maandumisleht kaasaegsele kliinikule koos veebipõhise vastuvõtule registreerimisega.", en: "A trilingual landing page for a modern clinic with online appointment booking." },
+          "Интерактивный продукт": { ru: "Интерактивный продукт", et: "Interaktiivne toode", en: "Interactive product" },
+          "ИИ-аудит бизнеса": { ru: "ИИ-аудит бизнеса", et: "Tehisintellekti audit ettevõttele", en: "AI Business Audit" },
+          "Интерактивный квиз для оценки готовности бизнеса к внедрению ИИ. Поддерживает русский, эстонский и английский языки, выдаёт персональные рекомендации и собирает заявки.": { ru: "Интерактивный квиз для оценки готовности бизнеса к внедрению ИИ. Поддерживает русский, эстонский и английский языки, выдаёт персональные рекомендации и собирает заявки.", et: "Interaktiivne küsimustik hindab ettevõtte valmisolekut tehisintellekti kasutuselevõtuks, toetab vene, eesti ja inglise keelt, annab personaalsed soovitused ning kogub päringuid.", en: "An interactive quiz that assesses a business’s readiness for AI, supports Russian, Estonian and English, provides personalised recommendations and captures enquiries." },
+          "Пройти ИИ-аудит": { ru: "Пройти ИИ-аудит", et: "Tee AI-audit", en: "Take the AI audit" },
+          "Бизнес-аудит": { ru: "Бизнес-аудит", et: "Äriaudit", en: "Business audit" },
+          "Шаг 1 из 7": { ru: "Шаг 1 из 7", et: "Samm 1 / 7", en: "Step 1 of 7" },
+          "Оценка потенциала": { ru: "Оценка потенциала", et: "Potentsiaali hindamine", en: "Potential assessment" },
+          "Где ваш бизнес теряет больше всего времени?": { ru: "Где ваш бизнес теряет больше всего времени?", et: "Kus kaotab teie ettevõte kõige rohkem aega?", en: "Where does your business lose the most time?" },
+          "Продажи и лиды": { ru: "Продажи и лиды", et: "Müük ja müügivihjed", en: "Sales and leads" },
+          "Обработка заявок": { ru: "Обработка заявок", et: "Päringute töötlemine", en: "Enquiry handling" },
+          "Внутренние процессы": { ru: "Внутренние процессы", et: "Sisemised protsessid", en: "Internal processes" },
+          "Natural skin.": { ru: "Естественная кожа.", et: "Loomulik nahk.", en: "Natural skin." },
+          "Thoughtful care.": { ru: "Осознанный уход.", et: "Teadlik hoolitsus.", en: "Thoughtful care." },
+          "Case study · Beauty studio": { ru: "Кейс · Студия красоты", et: "Projekt · Ilustuudio", en: "Case study · Beauty studio" },
+          "Плотный, но воздушный лендинг для премиальной студии косметологии. Editorial-композиция, натуральная фотография и мягкая tone-on-tone палитра создают доверие, а ясный маршрут ведёт посетителя от знакомства с подходом к записи.": { ru: "Плотный, но воздушный лендинг для премиальной студии косметологии. Editorial-композиция, натуральная фотография и мягкая tone-on-tone палитра создают доверие, а ясный маршрут ведёт посетителя от знакомства с подходом к записи.", et: "Sisukas, kuid õhuline maandumisleht premium-klassi kosmeetikastuudiole. Toimetuslik kompositsioon, loomulik foto ja pehme toon-toonis palett loovad usalduse ning selge teekond viib külastaja stuudio lähenemisest broneeringuni.", en: "A content-rich yet airy landing page for a premium beauty studio. Editorial composition, natural photography and a soft tone-on-tone palette build trust, while a clear journey leads visitors from the studio’s approach to booking." },
+          "Human-centric design": { ru: "Человекоцентричный дизайн", et: "Inimkeskne disain", en: "Human-centred design" },
+          "Multilingual": { ru: "Мультиязычность", et: "Mitmekeelne", en: "Multilingual" },
+          "Responsive": { ru: "Адаптивность", et: "Responsiivne", en: "Responsive" },
+          "Custom UI": { ru: "Авторский интерфейс", et: "Eritellimusel UI", en: "Custom UI" },
+          "Формат": { ru: "Формат", et: "Vorming", en: "Format" },
+          "Landing page": { ru: "Лендинг", et: "Maandumisleht", en: "Landing page" },
+          "Языки": { ru: "Языки", et: "Keeled", en: "Languages" },
+          "Стиль": { ru: "Стиль", et: "Stiil", en: "Style" },
+          "Editorial beauty": { ru: "Beauty editorial", et: "Ilutoimetus", en: "Editorial beauty" },
+          "Открыть демо": { ru: "Открыть демо", et: "Ava demo", en: "Open demo" },
+          "Вернуться к портфолио": { ru: "Вернуться к портфолио", et: "Tagasi portfooliosse", en: "Back to portfolio" },
+          "Clarity.": { ru: "Ясность.", et: "Selgus.", en: "Clarity." },
+          "Strategy. Growth.": { ru: "Стратегия. Рост.", et: "Strateegia. Kasv.", en: "Strategy. Growth." },
+          "Case study · Business consulting": { ru: "Кейс · Бизнес-консалтинг", et: "Projekt · Ärikonsultatsioon", en: "Case study · Business consulting" },
+          "Максим": { ru: "Максим", et: "Maksim", en: "Maxim" },
+          "Орлов": { ru: "Орлов", et: "Orlov", en: "Orlov" },
+          "Строгий мультиязычный лендинг для бизнес-консультанта и стратега. Угольная палитра, точная типографика и янтарная навигация формируют образ уверенного эксперта, а последовательный сценарий ведёт собственника от деловой задачи к диагностической встрече.": { ru: "Строгий мультиязычный лендинг для бизнес-консультанта и стратега. Угольная палитра, точная типографика и янтарная навигация формируют образ уверенного эксперта, а последовательный сценарий ведёт собственника от деловой задачи к диагностической встрече.", et: "Selge ja mitmekeelne maandumisleht ärikonsultandile ning strateegile. Söehall palett, täpne tüpograafia ja merevaigukollane navigatsioon loovad enesekindla eksperdi kuvandi ning läbimõeldud teekond viib ettevõtja äriküsimusest diagnostilise kohtumiseni.", en: "A precise multilingual landing page for a business consultant and strategist. A charcoal palette, disciplined typography and amber navigation establish a confident expert presence, while a structured journey leads business owners from their challenge to a diagnostic session." },
+          "Business Strategy": { ru: "Бизнес-стратегия", et: "Äristrateegia", en: "Business Strategy" },
+          "Expert landing": { ru: "Лендинг эксперта", et: "Eksperdi maandumisleht", en: "Expert landing page" },
+          "Charcoal editorial": { ru: "Угольный editorial", et: "Söehall editorial", en: "Charcoal editorial" },
+          "Precision care.": { ru: "Точная забота.", et: "Täpne hool.", en: "Precision care." },
+          "Human comfort.": { ru: "Человеческий комфорт.", et: "Inimlik mugavus.", en: "Human comfort." },
+          "Case study · Healthcare": { ru: "Кейс · Медицина", et: "Projekt · Tervishoid", en: "Case study · Healthcare" },
+          "Светлый конверсионный лендинг современной стоматологии. Строгая медицинская типографика, спокойная лазурная палитра и прозрачная сетка услуг помогают быстро оценить подход и стоимость, а трёхъязычная запись снижает барьер перед первым визитом.": { ru: "Светлый конверсионный лендинг современной стоматологии. Строгая медицинская типографика, спокойная лазурная палитра и прозрачная сетка услуг помогают быстро оценить подход и стоимость, а трёхъязычная запись снижает барьер перед первым визитом.", et: "Hele ja tulemustele suunatud maandumisleht kaasaegsele hambakliinikule. Selge meditsiiniline tüpograafia, rahulik taevasinine palett ja läbipaistev teenuste ruudustik aitavad kiiresti hinnata lähenemist ning hindu, samal ajal kui kolmekeelne broneerimine vähendab esimese visiidi künnist.", en: "A bright, conversion-focused landing page for a modern dental clinic. Precise medical typography, a calm azure palette and a transparent service grid make the approach and pricing easy to understand, while trilingual booking lowers the barrier to a first visit." },
+          "Trilingual": { ru: "Три языка", et: "Kolmekeelne", en: "Trilingual" },
+          "Healthcare UX": { ru: "Медицинский UX", et: "Tervishoiu UX", en: "Healthcare UX" },
+          "Clinic landing": { ru: "Лендинг клиники", et: "Kliiniku maandumisleht", en: "Clinic landing page" },
+          "Фокус": { ru: "Фокус", et: "Fookus", en: "Focus" },
+          "Online booking": { ru: "Онлайн-запись", et: "Veebibroneering", en: "Online booking" },
+          "AI Solutions · Live demo": { ru: "AI Solutions · Демо", et: "AI-lahendused · Demo", en: "AI Solutions · Live demo" },
+          "Интерактивный квиз · RU · ET · EN": { ru: "Интерактивный квиз · RU · ET · EN", et: "Interaktiivne küsimustik · RU · ET · EN", en: "Interactive quiz · RU · ET · EN" },
+          "Частые вопросы": { ru: "Частые вопросы", et: "Korduma kippuvad küsimused", en: "Frequently asked questions" },
+          "Коротко о процессе, оплате и начале работы.": { ru: "Коротко о процессе, оплате и начале работы.", et: "Lühidalt protsessist, maksmisest ja koostöö alustamisest.", en: "A quick guide to our process, payment and getting started." },
+          "Сколько времени занимает разработка?": { ru: "Сколько времени занимает разработка?", et: "Kui kaua arendus aega võtab?", en: "How long does development take?" },
+          "3–5 дней для Базового тарифа, 7–10 дней для Премиум.": { ru: "3–5 дней для Базового тарифа, 7–10 дней для Премиум.", et: "Põhipakett valmib 3–5 päevaga, Premium 7–10 päevaga.", en: "3–5 days for Essential and 7–10 days for Premium." },
+          "Нужна ли предоплата?": { ru: "Нужна ли предоплата?", et: "Kas ettemakse on vajalik?", en: "Is an advance payment required?" },
+          "50% перед началом работы, оставшиеся 50% — после принятия проекта.": { ru: "50% перед началом работы, оставшиеся 50% — после принятия проекта.", et: "50% enne töö algust ja ülejäänud 50% pärast projekti kinnitamist.", en: "50% before work begins and the remaining 50% after project approval." },
+          "Что нужно от меня для старта?": { ru: "Что нужно от меня для старта?", et: "Mida on alustamiseks vaja?", en: "What do you need from me to begin?" },
+          "Заполнить короткий бриф и предоставить тексты, если они уже есть.": { ru: "Заполнить короткий бриф и предоставить тексты, если они уже есть.", et: "Täitke lühike lähteülesanne ja saatke olemasolevad tekstid, kui need on juba valmis.", en: "Complete a short brief and share any copy you already have." },
+          "Входят ли правки в стоимость?": { ru: "Входят ли правки в стоимость?", et: "Kas parandused kuuluvad hinna sisse?", en: "Are revisions included in the price?" },
+          "Да, в каждый тариф включены круги правок и гарантия 14 дней.": { ru: "Да, в каждый тариф включены круги правок и гарантия 14 дней.", et: "Jah. Iga pakett sisaldab parandusringe ja 14-päevast garantiid.", en: "Yes. Every package includes revision rounds and a 14-day guarantee." },
+          "Начнём знакомство": { ru: "Начнём знакомство", et: "Alustame tutvumist", en: "Let’s connect" },
+          "Обсудить проект": { ru: "Обсудить проект", et: "Arutame teie projekti", en: "Let’s discuss your project" },
+          "Заполните форму, и мы свяжемся с вами для расчёта стоимости и консультации.": { ru: "Заполните форму, и мы свяжемся с вами для расчёта стоимости и консультации.", et: "Täitke vorm ning võtame teiega ühendust, et arutada projekti ja koostada hinnapakkumine.", en: "Complete the form and we’ll contact you to discuss your project and prepare an estimate." },
+          "Ваше имя": { ru: "Ваше имя", et: "Teie nimi", en: "Your name" },
+          "Email": { ru: "Email", et: "E-post", en: "Email" },
+          "Телефон": { ru: "Телефон", et: "Telefon", en: "Phone" },
+          "Тип проекта": { ru: "Тип проекта", et: "Projekti tüüp", en: "Project type" },
+          "Выберите вариант": { ru: "Выберите вариант", et: "Valige sobiv variant", en: "Choose an option" },
+          "Лендинг": { ru: "Лендинг", et: "Maandumisleht", en: "Landing page" },
+          "Сайт-визитка / Личный сайт": { ru: "Сайт-визитка / Личный сайт", et: "Visiitkaart-veeb / isiklik veebileht", en: "Business card / personal website" },
+          "Мини-каталог товаров": { ru: "Мини-каталог товаров", et: "Väike tootekataloog", en: "Mini product catalogue" },
+          "Другое": { ru: "Другое", et: "Muu", en: "Other" },
+          "Бюджет": { ru: "Бюджет", et: "Eelarve", en: "Budget" },
+          "Выберите бюджет": { ru: "Выберите бюджет", et: "Valige eelarve", en: "Choose a budget" },
+          "до €350": { ru: "до €350", et: "kuni €350", en: "up to €350" },
+          "Сообщение": { ru: "Сообщение", et: "Sõnum", en: "Message" },
+          "Получить консультацию": { ru: "Получить консультацию", et: "Soovin konsultatsiooni", en: "Request a consultation" },
+          "© 2026 QUICKSITE EST. Все права защищены.": { ru: "© 2026 QUICKSITE EST. Все права защищены.", et: "© 2026 QUICKSITE EST. Kõik õigused kaitstud.", en: "© 2026 QUICKSITE EST. All rights reserved." },
+          "QUICKSITE EST — на главную": { ru: "QUICKSITE EST — на главную", et: "QUICKSITE EST — avalehele", en: "QUICKSITE EST — home" },
+          "Выбор языка": { ru: "Выбор языка", et: "Keele valik", en: "Language selection" },
+          "Открыть презентацию проекта Beauty & Wellness": { ru: "Открыть презентацию проекта Beauty & Wellness", et: "Ava projekti Beauty & Wellness esitlus", en: "Open the Beauty & Wellness case study" },
+          "Открыть презентацию проекта Максим Орлов — бизнес-консультант": { ru: "Открыть презентацию проекта Максим Орлов — бизнес-консультант", et: "Ava ärikonsultant Maksim Orlovi projekti esitlus", en: "Open the Maxim Orlov business consulting case study" },
+          "Открыть презентацию проекта AERIS Clinic": { ru: "Открыть презентацию проекта AERIS Clinic", et: "Ava AERIS Clinicu projekti esitlus", en: "Open the AERIS Clinic case study" },
+          "Открыть интерактивный квиз ИИ-аудит бизнеса": { ru: "Открыть интерактивный квиз ИИ-аудит бизнеса", et: "Ava ettevõtte AI-auditi interaktiivne küsimustik", en: "Open the interactive AI Business Audit quiz" },
+          "Закрыть презентацию": { ru: "Закрыть презентацию", et: "Sulge esitlus", en: "Close case study" },
+          "Особенности проекта": { ru: "Особенности проекта", et: "Projekti omadused", en: "Project features" },
+          "Закрыть ИИ-аудит": { ru: "Закрыть ИИ-аудит", et: "Sulge AI-audit", en: "Close AI audit" },
+          "Быстрые контакты": { ru: "Быстрые контакты", et: "Kiirkontaktid", en: "Quick contacts" },
+          "Q — логотип QUICKSITE EST": { ru: "Q — логотип QUICKSITE EST", et: "Q — QUICKSITE EST logo", en: "Q — QUICKSITE EST logo" },
+          "Beauty & Wellness — премиальный лендинг студии косметологии": { ru: "Beauty & Wellness — премиальный лендинг студии косметологии", et: "Beauty & Wellness — premium-klassi ilustuudio maandumisleht", en: "Beauty & Wellness — premium beauty studio landing page" },
+          "Максим Орлов — премиальный сайт бизнес-консультанта": { ru: "Максим Орлов — премиальный сайт бизнес-консультанта", et: "Maksim Orlov — premium-klassi ärikonsultandi veebileht", en: "Maxim Orlov — premium business consultant website" },
+          "AERIS Clinic — сайт современной стоматологической клиники": { ru: "AERIS Clinic — сайт современной стоматологической клиники", et: "AERIS Clinic — kaasaegse hambakliiniku veebileht", en: "AERIS Clinic — modern dental clinic website" },
+          "Портрет из визуальной концепции Beauty & Wellness": { ru: "Портрет из визуальной концепции Beauty & Wellness", et: "Beauty & Wellness visuaalse kontseptsiooni portree", en: "Portrait from the Beauty & Wellness visual concept" },
+          "Максим Орлов — визуальная концепция сайта бизнес-консультанта": { ru: "Максим Орлов — визуальная концепция сайта бизнес-консультанта", et: "Maksim Orlov — ärikonsultandi veebilehe visuaalne kontseptsioon", en: "Maxim Orlov — business consultant website visual concept" },
+          "Консультация пациента в визуальной концепции AERIS Clinic": { ru: "Консультация пациента в визуальной концепции AERIS Clinic", et: "Patsiendi konsultatsioon AERIS Clinicu visuaalses kontseptsioonis", en: "Patient consultation in the AERIS Clinic visual concept" },
+          "Как к вам обращаться?": { ru: "Как к вам обращаться?", et: "Kuidas teie poole pöörduda?", en: "How should we address you?" },
+          "Расскажите пару слов о задаче": { ru: "Расскажите пару слов о задаче", et: "Kirjeldage lühidalt oma ülesannet", en: "Tell us briefly about your project" },
+          "Интерактивный квиз ИИ-аудит бизнеса": { ru: "Интерактивный квиз ИИ-аудит бизнеса", et: "Ettevõtte AI-auditi interaktiivne küsimustik", en: "Interactive AI Business Audit quiz" }
+        }
+      };
+
+      const translate = (source, language) => translations.strings[source]?.[language] ?? source;
+      const textBindings = [];
+      const attributeBindings = [];
+      const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+
+      while (textWalker.nextNode()) {
+        const node = textWalker.currentNode;
+        const source = node.nodeValue.trim();
+        if (!source || !translations.strings[source] || node.parentElement?.closest("script, style")) continue;
+        textBindings.push({
+          node,
+          source,
+          prefix: node.nodeValue.match(/^\s*/)[0],
+          suffix: node.nodeValue.match(/\s*$/)[0]
+        });
+      }
+
+      document.body.querySelectorAll("[aria-label], [alt], [placeholder], [title]").forEach(element => {
+        ["aria-label", "alt", "placeholder", "title"].forEach(attribute => {
+          const source = element.getAttribute(attribute);
+          if (source && translations.strings[source]) attributeBindings.push({ element, attribute, source });
+        });
+      });
+
+      const languageButtons = document.querySelectorAll("[data-language]");
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const auditFrame = document.querySelector(".ai-audit-frame");
+      const quizOrigin = auditFrame ? new URL(auditFrame.dataset.baseSrc).origin : "";
+      let currentLanguage = "ru";
+
+      const postAuditLanguage = () => {
+        if (!auditFrame?.contentWindow) return;
+        auditFrame.contentWindow.postMessage({ type: "quicksite:set-language", language: currentLanguage }, quizOrigin);
+      };
+
+      const syncAuditLanguage = () => {
+        if (!auditFrame) return;
+        const target = new URL(auditFrame.dataset.baseSrc);
+        target.searchParams.set("lang", currentLanguage);
+        if (auditFrame.dataset.language !== currentLanguage) {
+          auditFrame.dataset.language = currentLanguage;
+          auditFrame.src = target.toString();
+        } else {
+          postAuditLanguage();
+        }
+      };
+
+      const applyLanguage = language => {
+        if (!translations.languages.includes(language)) language = "ru";
+        currentLanguage = language;
+        document.documentElement.lang = language;
+        document.title = translations.pages[language].title;
+        if (metaDescription) metaDescription.content = translations.pages[language].description;
+
+        textBindings.forEach(binding => {
+          binding.node.nodeValue = `${binding.prefix}${translate(binding.source, language)}${binding.suffix}`;
+        });
+        attributeBindings.forEach(binding => {
+          binding.element.setAttribute(binding.attribute, translate(binding.source, language));
+        });
+        languageButtons.forEach(button => {
+          const active = button.dataset.language === language;
+          button.setAttribute("aria-pressed", String(active));
+          button.title = translations.languageNames[button.dataset.language];
+        });
+
+        try { localStorage.setItem(translations.storageKey, language); } catch (error) { /* Storage can be unavailable in private contexts. */ }
+        syncAuditLanguage();
+        window.dispatchEvent(new CustomEvent("quicksite:languagechange", { detail: { language } }));
+      };
+
+      languageButtons.forEach(button => {
+        button.addEventListener("click", () => applyLanguage(button.dataset.language));
+      });
+      auditFrame?.addEventListener("load", postAuditLanguage);
+
+      let initialLanguage = "ru";
+      try {
+        const savedLanguage = localStorage.getItem(translations.storageKey);
+        if (translations.languages.includes(savedLanguage)) initialLanguage = savedLanguage;
+      } catch (error) { /* Use the Russian default. */ }
+      applyLanguage(initialLanguage);
+
+      document.querySelectorAll("[data-case-open]").forEach(openButton => {
+        const dialog = document.getElementById(openButton.getAttribute("aria-controls"));
+        const closeButton = dialog?.querySelector("[data-case-close]");
+        let returnFocus = null;
+
+        if (!dialog || !closeButton) return;
+
+        const closeModal = () => dialog.close();
+
+        openButton.addEventListener("click", event => {
+          event.preventDefault();
+          if (dialog.id === "ai-audit-modal") syncAuditLanguage();
+          returnFocus = document.activeElement;
+          dialog.showModal();
+          document.body.classList.add("modal-open");
+        });
+        closeButton.addEventListener("click", closeModal);
+        dialog.addEventListener("click", event => { if (event.target === dialog) closeModal(); });
+        dialog.addEventListener("close", () => {
+          document.body.classList.remove("modal-open");
+          if (returnFocus) returnFocus.focus();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

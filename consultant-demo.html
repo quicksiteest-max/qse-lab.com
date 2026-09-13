@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Максим Орлов — бизнес-консультант по стратегии, росту и управленческим трансформациям.">
+  <meta name="theme-color" content="#0c0a09">
+  <title>Максим Орлов — бизнес-консультант</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0c0a09;
+    }
+    .display-type { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(245, 158, 11, .58) 1.2px, transparent 1.3px);
+      background-size: 14px 14px;
+    }
+    .fine-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .noise::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+    .lang-button[aria-pressed="true"] { color: #0c0a09; background: #fbbf24; }
+    details > summary::-webkit-details-marker { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden bg-stone-950 text-stone-100 antialiased selection:bg-amber-400 selection:text-stone-950">
+  <a href="#main-content" class="fixed left-4 top-4 z-[70] -translate-y-24 bg-amber-400 px-5 py-3 text-sm font-bold text-stone-950 transition-transform focus:translate-y-0" data-ru="К содержанию" data-en="Skip to content">К содержанию</a>
+
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-stone-950/85 backdrop-blur-xl">
+    <div class="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+      <a href="#top" class="group flex items-center gap-3" aria-label="Максим Орлов — на главную">
+        <span class="relative grid size-10 place-items-center border border-amber-400/50 bg-amber-400/10 text-sm font-black text-amber-300 transition-colors group-hover:bg-amber-400 group-hover:text-stone-950">MO<span class="absolute -right-1 -top-1 size-2 bg-amber-400"></span></span>
+        <span class="leading-none"><strong class="block text-sm font-extrabold uppercase tracking-[0.16em] text-white">Максим Орлов</strong><small class="mt-1.5 block text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500" data-ru="Стратегия бизнеса" data-en="Business strategy">Стратегия бизнеса</small></span>
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Основная навигация">
+        <a href="#services" class="text-xs font-bold uppercase tracking-[0.16em] text-stone-400 transition-colors hover:text-amber-300" data-ru="Экспертиза" data-en="Expertise">Экспертиза</a>
+        <a href="#approach" class="text-xs font-bold uppercase tracking-[0.16em] text-stone-400 transition-colors hover:text-amber-300" data-ru="Подход" data-en="Approach">Подход</a>
+        <a href="#cases" class="text-xs font-bold uppercase tracking-[0.16em] text-stone-400 transition-colors hover:text-amber-300" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+        <a href="#about" class="text-xs font-bold uppercase tracking-[0.16em] text-stone-400 transition-colors hover:text-amber-300" data-ru="Обо мне" data-en="About">Обо мне</a>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="flex items-center border border-white/15 bg-stone-900 p-1" role="group" aria-label="Выбор языка">
+          <button type="button" class="lang-button px-2.5 py-2 text-[11px] font-black tracking-[0.12em] text-stone-400 transition-colors hover:text-white" data-language="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-button px-2.5 py-2 text-[11px] font-black tracking-[0.12em] text-stone-400 transition-colors hover:text-white" data-language="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="#contact" class="hidden bg-amber-400 px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-stone-950 transition-all hover:bg-amber-300 hover:shadow-[0_0_28px_rgba(251,191,36,.25)] sm:inline-flex" data-ru="Обсудить задачу" data-en="Discuss a project">Обсудить задачу</a>
+        <button id="menu-button" type="button" class="grid size-11 place-items-center border border-white/15 text-xl text-white lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню"><span aria-hidden="true">≡</span></button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden border-t border-white/10 bg-stone-950 px-5 py-5 lg:hidden" aria-label="Мобильная навигация">
+      <div class="mx-auto grid max-w-7xl gap-1">
+        <a href="#services" class="border-b border-white/10 py-4 text-sm font-bold uppercase tracking-[0.14em]" data-ru="Экспертиза" data-en="Expertise">Экспертиза</a>
+        <a href="#approach" class="border-b border-white/10 py-4 text-sm font-bold uppercase tracking-[0.14em]" data-ru="Подход" data-en="Approach">Подход</a>
+        <a href="#cases" class="border-b border-white/10 py-4 text-sm font-bold uppercase tracking-[0.14em]" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+        <a href="#about" class="py-4 text-sm font-bold uppercase tracking-[0.14em]" data-ru="Обо мне" data-en="About">Обо мне</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="top" class="noise relative flex min-h-screen items-center overflow-hidden border-b border-white/10 pt-20">
+      <div class="fine-grid absolute inset-0 opacity-40"></div>
+      <div class="absolute -right-32 top-28 size-[30rem] rounded-full bg-amber-500/10 blur-[120px]"></div>
+      <div class="absolute bottom-12 left-0 h-px w-1/3 bg-gradient-to-r from-amber-400 to-transparent"></div>
+
+      <div class="relative mx-auto grid w-full max-w-7xl gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-20 lg:px-12 lg:py-24">
+        <div class="relative z-10">
+          <div class="mb-8 flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.24em] text-amber-300"><span class="h-px w-10 bg-amber-400"></span><span data-ru="Бизнес-консультант · Стратег" data-en="Business consultant · Strategist">Бизнес-консультант · Стратег</span></div>
+          <h1 class="display-type max-w-3xl text-[clamp(3.4rem,9vw,7.5rem)] font-black uppercase leading-[.82] tracking-[-0.065em] text-white">
+            <span data-ru="Рост без" data-en="Growth without">Рост без</span><br>
+            <span class="text-amber-400" data-ru="хаоса." data-en="the chaos.">хаоса.</span>
+          </h1>
+          <p class="mt-8 max-w-xl text-base leading-8 text-stone-300 sm:text-lg" data-ru="Помогаю собственникам превратить амбициозную цель в ясную стратегию, управляемые цифры и команду, которая умеет доводить решения до результата." data-en="I help business owners turn ambitious goals into a clear strategy, measurable performance and a team that knows how to deliver.">Помогаю собственникам превратить амбициозную цель в ясную стратегию, управляемые цифры и команду, которая умеет доводить решения до результата.</p>
+          <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+            <a href="#contact" class="group inline-flex items-center justify-between gap-8 bg-amber-400 px-7 py-5 text-sm font-black uppercase tracking-[0.13em] text-stone-950 transition-all hover:bg-amber-300 hover:shadow-[0_0_36px_rgba(251,191,36,.28)]"><span data-ru="Запросить разбор" data-en="Request a review">Запросить разбор</span><span class="text-lg transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span></a>
+            <a href="#services" class="group inline-flex items-center justify-between gap-8 border border-white/25 bg-white/[.03] px-7 py-5 text-sm font-black uppercase tracking-[0.13em] text-white transition-all hover:border-amber-400/70 hover:text-amber-300"><span data-ru="Посмотреть экспертизу" data-en="Explore expertise">Посмотреть экспертизу</span><span class="transition-transform group-hover:translate-y-1" aria-hidden="true">↓</span></a>
+          </div>
+          <div class="mt-12 flex items-center gap-4 border-l border-amber-400 pl-5">
+            <div class="flex -space-x-2" aria-hidden="true"><span class="grid size-9 place-items-center rounded-full border-2 border-stone-950 bg-stone-700 text-[10px] font-bold">CEO</span><span class="grid size-9 place-items-center rounded-full border-2 border-stone-950 bg-stone-600 text-[10px] font-bold">COO</span><span class="grid size-9 place-items-center rounded-full border-2 border-stone-950 bg-amber-400 text-[10px] font-bold text-stone-950">FO</span></div>
+            <p class="max-w-xs text-xs leading-5 text-stone-500" data-ru="Работа напрямую с собственниками и управленческими командами" data-en="Direct collaboration with founders and leadership teams">Работа напрямую с собственниками и управленческими командами</p>
+          </div>
+        </div>
+
+        <div class="relative mx-auto w-full max-w-xl lg:max-w-none">
+          <div class="absolute -left-5 bottom-4 h-2/3 w-20 border-b-[14px] border-l-[14px] border-amber-400 sm:-left-8 sm:bottom-8 sm:w-28"></div>
+          <div class="dot-grid absolute -right-5 -top-6 h-36 w-32 opacity-70 sm:-right-8 sm:h-44 sm:w-40"></div>
+          <div class="relative ml-4 overflow-hidden border border-white/10 bg-stone-900 sm:ml-8">
+            <img src="assets/consultant-max-orlov.jpg" alt="Бизнес-консультант Максим Орлов" width="1024" height="1536" class="aspect-[4/5] w-full object-cover object-[52%_18%] grayscale-[12%]" fetchpriority="high">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-8">
+              <div><p class="text-2xl font-black uppercase tracking-tight text-white sm:text-3xl">Максим Орлов</p><p class="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-300" data-ru="Стратегия · Трансформация · Рост" data-en="Strategy · Transformation · Growth">Стратегия · Трансформация · Рост</p></div>
+              <span class="hidden border border-white/20 bg-stone-950/70 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-stone-300 backdrop-blur sm:block" data-ru="Таллинн · Европа" data-en="Tallinn · Europe">Таллинн · Европа</span>
+            </div>
+          </div>
+          <div class="absolute -bottom-6 right-8 hidden h-20 w-52 border border-white/15 bg-stone-950/95 p-4 shadow-2xl sm:block"><span class="block text-[10px] font-bold uppercase tracking-[.2em] text-stone-500" data-ru="Первый шаг" data-en="First step">Первый шаг</span><strong class="mt-2 block text-sm uppercase tracking-wide text-white" data-ru="60 минут ясности" data-en="60 minutes of clarity">60 минут ясности</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-white/10 bg-stone-900/60" aria-label="Ключевые показатели">
+      <div class="mx-auto grid w-full max-w-7xl grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12">
+        <div class="border-b border-r border-white/10 py-8 pr-5 lg:border-b-0"><strong class="block text-3xl font-black text-white sm:text-4xl">12+</strong><span class="mt-2 block text-xs uppercase tracking-[.16em] text-stone-500" data-ru="лет в стратегии" data-en="years in strategy">лет в стратегии</span></div>
+        <div class="border-b border-white/10 py-8 pl-5 lg:border-b-0 lg:border-r"><strong class="block text-3xl font-black text-white sm:text-4xl">60+</strong><span class="mt-2 block text-xs uppercase tracking-[.16em] text-stone-500" data-ru="проектов роста" data-en="growth projects">проектов роста</span></div>
+        <div class="border-r border-white/10 py-8 pr-5 lg:pl-5"><strong class="block text-3xl font-black text-amber-400 sm:text-4xl">9</strong><span class="mt-2 block text-xs uppercase tracking-[.16em] text-stone-500" data-ru="отраслей бизнеса" data-en="business sectors">отраслей бизнеса</span></div>
+        <div class="py-8 pl-5"><strong class="block text-3xl font-black text-white sm:text-4xl">1:1</strong><span class="mt-2 block text-xs uppercase tracking-[.16em] text-stone-500" data-ru="работа с владельцем" data-en="founder collaboration">работа с владельцем</span></div>
+      </div>
+    </section>
+
+    <section id="services" class="relative px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto w-full max-w-7xl">
+        <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end">
+          <div><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300" data-ru="Направления работы" data-en="Areas of expertise">Направления работы</p><h2 class="display-type mt-5 text-4xl font-black uppercase leading-[.95] tracking-[-.045em] text-white sm:text-5xl lg:text-6xl" data-ru="Система вместо набора гипотез" data-en="A system, not a stack of guesses">Система вместо набора гипотез</h2></div>
+          <p class="max-w-2xl text-base leading-8 text-stone-400 lg:justify-self-end" data-ru="Подключаюсь там, где прежние способы управления перестали работать: рост замедлился, команда перегружена, а решения зависят от интуиции собственника." data-en="I step in when yesterday’s management model stops working: growth stalls, the team is overloaded and critical decisions still depend on the founder’s intuition.">Подключаюсь там, где прежние способы управления перестали работать: рост замедлился, команда перегружена, а решения зависят от интуиции собственника.</p>
+        </div>
+
+        <div class="mt-14 grid border-l border-t border-white/10 md:grid-cols-2 lg:grid-cols-3">
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-stone-900/30 p-7 transition-colors hover:bg-amber-400 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-amber-300 transition-colors group-hover:text-stone-700">01</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-white transition-colors group-hover:text-stone-950" data-ru="Стратегия роста" data-en="Growth strategy">Стратегия роста</h3><p class="mt-4 leading-7 text-stone-400 transition-colors group-hover:text-stone-800" data-ru="Диагностика точек роста, приоритеты на 12–24 месяца и понятная система управленческих решений." data-en="Growth diagnostics, 12–24 month priorities and a practical management decision framework.">Диагностика точек роста, приоритеты на 12–24 месяца и понятная система управленческих решений.</p>
+          </article>
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-stone-900/30 p-7 transition-colors hover:bg-amber-400 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-amber-300 transition-colors group-hover:text-stone-700">02</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-white transition-colors group-hover:text-stone-950" data-ru="Продажи и маркетинг" data-en="Sales & marketing">Продажи и маркетинг</h3><p class="mt-4 leading-7 text-stone-400 transition-colors group-hover:text-stone-800" data-ru="Ценность продукта, архитектура воронки, экономика каналов и единый ритм коммерческой команды." data-en="Product value, funnel architecture, channel economics and a shared rhythm for the commercial team.">Ценность продукта, архитектура воронки, экономика каналов и единый ритм коммерческой команды.</p>
+          </article>
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-stone-900/30 p-7 transition-colors hover:bg-amber-400 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-amber-300 transition-colors group-hover:text-stone-700">03</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-white transition-colors group-hover:text-stone-950" data-ru="Операционная модель" data-en="Operating model">Операционная модель</h3><p class="mt-4 leading-7 text-stone-400 transition-colors group-hover:text-stone-800" data-ru="Роли, процессы, KPI и встречи, которые возвращают руководителям контроль без микроменеджмента." data-en="Roles, processes, KPIs and meeting rhythms that restore control without micromanagement.">Роли, процессы, KPI и встречи, которые возвращают руководителям контроль без микроменеджмента.</p>
+          </article>
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-stone-900/30 p-7 transition-colors hover:bg-amber-400 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-amber-300 transition-colors group-hover:text-stone-700">04</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-white transition-colors group-hover:text-stone-950" data-ru="Unit-экономика" data-en="Unit economics">Unit-экономика</h3><p class="mt-4 leading-7 text-stone-400 transition-colors group-hover:text-stone-800" data-ru="Финансовая модель, драйверы прибыли и сценарии, которые показывают цену каждого решения." data-en="A financial model, profit drivers and scenarios that expose the real cost of every decision.">Финансовая модель, драйверы прибыли и сценарии, которые показывают цену каждого решения.</p>
+          </article>
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-stone-900/30 p-7 transition-colors hover:bg-amber-400 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-amber-300 transition-colors group-hover:text-stone-700">05</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-white transition-colors group-hover:text-stone-950" data-ru="Команда изменений" data-en="Change leadership">Команда изменений</h3><p class="mt-4 leading-7 text-stone-400 transition-colors group-hover:text-stone-800" data-ru="Синхронизация топ-команды, новая ответственность и среда, в которой изменения не саботируются." data-en="Leadership alignment, clear ownership and an environment where change is adopted rather than resisted.">Синхронизация топ-команды, новая ответственность и среда, в которой изменения не саботируются.</p>
+          </article>
+          <article class="group relative min-h-72 border-b border-r border-white/10 bg-amber-400 p-7 sm:p-9">
+            <span class="text-xs font-black tracking-[.2em] text-stone-700">06</span><h3 class="mt-16 text-2xl font-black uppercase tracking-tight text-stone-950" data-ru="Совет собственнику" data-en="Founder advisory">Совет собственнику</h3><p class="mt-4 leading-7 text-stone-800" data-ru="Конфиденциальное пространство для решений, которые нельзя делегировать или обсуждать внутри команды." data-en="A confidential space for decisions that cannot be delegated or openly discussed inside the company.">Конфиденциальное пространство для решений, которые нельзя делегировать или обсуждать внутри команды.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="relative overflow-hidden border-y border-white/10 bg-stone-900 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="dot-grid absolute right-0 top-0 h-64 w-64 opacity-30"></div>
+      <div class="relative mx-auto grid w-full max-w-7xl gap-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
+        <div class="lg:sticky lg:top-32 lg:self-start"><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300" data-ru="Метод" data-en="Method">Метод</p><h2 class="display-type mt-5 text-4xl font-black uppercase leading-[.95] tracking-[-.045em] text-white sm:text-5xl lg:text-6xl" data-ru="От ясности к внедрению" data-en="From clarity to execution">От ясности к внедрению</h2><p class="mt-7 max-w-md leading-8 text-stone-400" data-ru="Не оставляю стратегию в презентации. Мы вместе переводим решения в ритм команды, цифры и конкретные действия." data-en="Strategy never stays in a presentation. Together, we translate decisions into team cadence, numbers and specific actions.">Не оставляю стратегию в презентации. Мы вместе переводим решения в ритм команды, цифры и конкретные действия.</p></div>
+        <ol class="border-t border-white/15">
+          <li class="grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[4rem_1fr] sm:py-10"><span class="text-sm font-black text-amber-300">01 / 04</span><div><h3 class="text-2xl font-black uppercase text-white" data-ru="Диагностика без самообмана" data-en="Honest diagnosis">Диагностика без самообмана</h3><p class="mt-4 max-w-2xl leading-7 text-stone-400" data-ru="Интервью, данные, процессы и реальные клиентские сценарии. Находим ограничения, а не удобные объяснения." data-en="Interviews, data, processes and real customer journeys. We identify constraints, not comfortable explanations.">Интервью, данные, процессы и реальные клиентские сценарии. Находим ограничения, а не удобные объяснения.</p></div></li>
+          <li class="grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[4rem_1fr] sm:py-10"><span class="text-sm font-black text-amber-300">02 / 04</span><div><h3 class="text-2xl font-black uppercase text-white" data-ru="Стратегический выбор" data-en="Strategic choice">Стратегический выбор</h3><p class="mt-4 max-w-2xl leading-7 text-stone-400" data-ru="Фиксируем, где будем выигрывать, от чего откажемся и какие три решения дадут наибольший эффект." data-en="We define where to win, what to stop doing and which three decisions will create the greatest impact.">Фиксируем, где будем выигрывать, от чего откажемся и какие три решения дадут наибольший эффект.</p></div></li>
+          <li class="grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[4rem_1fr] sm:py-10"><span class="text-sm font-black text-amber-300">03 / 04</span><div><h3 class="text-2xl font-black uppercase text-white" data-ru="Спринт внедрения" data-en="Execution sprint">Спринт внедрения</h3><p class="mt-4 max-w-2xl leading-7 text-stone-400" data-ru="Разбираем стратегию на инициативы, владельцев, метрики и первые результаты в горизонте 90 дней." data-en="We turn strategy into initiatives, owners, metrics and first measurable outcomes within 90 days.">Разбираем стратегию на инициативы, владельцев, метрики и первые результаты в горизонте 90 дней.</p></div></li>
+          <li class="grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[4rem_1fr] sm:py-10"><span class="text-sm font-black text-amber-300">04 / 04</span><div><h3 class="text-2xl font-black uppercase text-white" data-ru="Новая норма управления" data-en="A new management standard">Новая норма управления</h3><p class="mt-4 max-w-2xl leading-7 text-stone-400" data-ru="Закрепляем ритм, дашборд и правила эскалации, чтобы система работала без постоянного присутствия консультанта." data-en="We install cadence, dashboards and escalation rules so the system works without permanent consultant involvement.">Закрепляем ритм, дашборд и правила эскалации, чтобы система работала без постоянного присутствия консультанта.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="cases" class="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto w-full max-w-7xl">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300" data-ru="Демонстрационные сценарии" data-en="Illustrative scenarios">Демонстрационные сценарии</p><h2 class="display-type mt-5 text-4xl font-black uppercase leading-none tracking-[-.045em] text-white sm:text-5xl lg:text-6xl" data-ru="Результат в цифрах" data-en="Results in numbers">Результат в цифрах</h2></div><p class="max-w-sm text-sm leading-6 text-stone-500" data-ru="Примеры показывают формат и логику проектов; данные используются для демонстрации." data-en="These examples demonstrate project format and logic; figures are illustrative.">Примеры показывают формат и логику проектов; данные используются для демонстрации.</p></div>
+        <div class="mt-14 grid gap-5 lg:grid-cols-3">
+          <article class="group border border-white/10 bg-stone-900/40 p-7 transition-all hover:-translate-y-1 hover:border-amber-400/50 sm:p-9"><div class="flex items-start justify-between gap-4"><span class="text-xs font-bold uppercase tracking-[.2em] text-stone-500">B2B SaaS</span><span class="text-4xl font-black text-amber-400">+38%</span></div><h3 class="mt-16 text-2xl font-black uppercase text-white" data-ru="Вернули рост продаж" data-en="Restored sales growth">Вернули рост продаж</h3><p class="mt-4 leading-7 text-stone-400" data-ru="Пересобрали ICP, ценность продукта и работу коммерческого контура." data-en="Reframed the ICP, product value and the commercial operating model.">Пересобрали ICP, ценность продукта и работу коммерческого контура.</p><p class="mt-7 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-widest text-stone-500" data-ru="Выручка за 2 квартала" data-en="Revenue over 2 quarters">Выручка за 2 квартала</p></article>
+          <article class="group border border-white/10 bg-stone-900/40 p-7 transition-all hover:-translate-y-1 hover:border-amber-400/50 sm:p-9"><div class="flex items-start justify-between gap-4"><span class="text-xs font-bold uppercase tracking-[.2em] text-stone-500">E-commerce</span><span class="text-4xl font-black text-amber-400">×1.8</span></div><h3 class="mt-16 text-2xl font-black uppercase text-white" data-ru="Усилили маржинальность" data-en="Improved margin">Усилили маржинальность</h3><p class="mt-4 leading-7 text-stone-400" data-ru="Очистили ассортимент, каналы и промо-механику от убыточной сложности." data-en="Removed unprofitable complexity from assortment, channels and promotions.">Очистили ассортимент, каналы и промо-механику от убыточной сложности.</p><p class="mt-7 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-widest text-stone-500" data-ru="Операционная прибыль" data-en="Operating profit">Операционная прибыль</p></article>
+          <article class="group border border-white/10 bg-stone-900/40 p-7 transition-all hover:-translate-y-1 hover:border-amber-400/50 sm:p-9"><div class="flex items-start justify-between gap-4"><span class="text-xs font-bold uppercase tracking-[.2em] text-stone-500">Services</span><span class="text-4xl font-black text-amber-400">−24%</span></div><h3 class="mt-16 text-2xl font-black uppercase text-white" data-ru="Сократили цикл сделки" data-en="Shortened the sales cycle">Сократили цикл сделки</h3><p class="mt-4 leading-7 text-stone-400" data-ru="Синхронизировали маркетинг, продажи и delivery вокруг одного клиентского пути." data-en="Aligned marketing, sales and delivery around one customer journey.">Синхронизировали маркетинг, продажи и delivery вокруг одного клиентского пути.</p><p class="mt-7 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-widest text-stone-500" data-ru="От первого контакта до договора" data-en="From first contact to contract">От первого контакта до договора</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="border-y border-white/10 bg-amber-400 text-stone-950">
+      <div class="mx-auto grid w-full max-w-7xl lg:grid-cols-[.82fr_1.18fr]">
+        <div class="relative min-h-[34rem] overflow-hidden bg-stone-900 lg:min-h-[48rem]"><img src="assets/consultant-max-orlov.jpg" alt="Максим Орлов, консультант по стратегии бизнеса" width="1024" height="1536" loading="lazy" class="absolute inset-0 h-full w-full object-cover object-[52%_14%] grayscale-[10%]"><div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-transparent"></div><span class="absolute bottom-7 left-7 border border-white/25 bg-stone-950/75 px-4 py-3 text-xs font-bold uppercase tracking-[.2em] text-white backdrop-blur" data-ru="Независимый взгляд. Личная ответственность." data-en="Independent view. Personal accountability.">Независимый взгляд. Личная ответственность.</span></div>
+        <div class="relative flex items-center px-6 py-16 sm:px-12 lg:px-16 lg:py-24"><div class="dot-grid absolute right-0 top-0 h-44 w-44 opacity-20"></div><div class="relative max-w-2xl"><p class="text-xs font-black uppercase tracking-[.25em] text-stone-700" data-ru="Обо мне" data-en="About">Обо мне</p><h2 class="display-type mt-5 text-4xl font-black uppercase leading-[.93] tracking-[-.05em] sm:text-5xl lg:text-6xl" data-ru="Бизнесу не нужен ещё один совет. Нужна точность." data-en="Business does not need more advice. It needs precision.">Бизнесу не нужен ещё один совет. Нужна точность.</h2><p class="mt-8 text-lg leading-8 text-stone-800" data-ru="Я работаю на стыке стратегии, экономики и поведения людей. Задаю неудобные вопросы, связываю разрозненные факты и помогаю руководителям увидеть решение, которое можно выполнить — не только красиво сформулировать." data-en="I work at the intersection of strategy, economics and human behaviour. I ask uncomfortable questions, connect fragmented facts and help leaders see a solution that can be executed, not merely articulated.">Я работаю на стыке стратегии, экономики и поведения людей. Задаю неудобные вопросы, связываю разрозненные факты и помогаю руководителям увидеть решение, которое можно выполнить — не только красиво сформулировать.</p><blockquote class="mt-10 border-l-2 border-stone-950 pl-6 text-xl font-bold leading-8 sm:text-2xl" data-ru="«Моя задача — сделать сильное решение очевидным, а его внедрение — неизбежным»." data-en="“My role is to make the right decision obvious — and its execution inevitable.”">«Моя задача — сделать сильное решение очевидным, а его внедрение — неизбежным».</blockquote><div class="mt-10 grid grid-cols-2 gap-6 border-t border-stone-950/20 pt-8 text-sm font-bold uppercase tracking-[.12em]"><span data-ru="Стратегические сессии" data-en="Strategy sessions">Стратегические сессии</span><span data-ru="Проекты трансформации" data-en="Transformation projects">Проекты трансформации</span><span data-ru="Advisory для CEO" data-en="CEO advisory">Advisory для CEO</span><span data-ru="Модерация команд" data-en="Team facilitation">Модерация команд</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 sm:px-8 lg:px-12 lg:py-32" aria-labelledby="quotes-title">
+      <div class="mx-auto w-full max-w-7xl"><div class="max-w-3xl"><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300" data-ru="Рабочий эффект" data-en="The working impact">Рабочий эффект</p><h2 id="quotes-title" class="display-type mt-5 text-4xl font-black uppercase leading-[.95] tracking-[-.045em] text-white sm:text-5xl" data-ru="Что меняется для руководителя" data-en="What changes for a leader">Что меняется для руководителя</h2></div><div class="mt-14 grid gap-px bg-white/10 lg:grid-cols-3">
+        <blockquote class="bg-stone-950 p-7 sm:p-9"><span class="text-5xl font-black text-amber-400" aria-hidden="true">“</span><p class="mt-5 text-lg leading-8 text-stone-300" data-ru="Вместо двадцати срочных задач появляется три приоритета, за которые действительно отвечает команда." data-en="Twenty urgent tasks become three priorities the team genuinely owns.">Вместо двадцати срочных задач появляется три приоритета, за которые действительно отвечает команда.</p><footer class="mt-8 text-xs font-bold uppercase tracking-[.18em] text-stone-500" data-ru="Фокус и ответственность" data-en="Focus & ownership">Фокус и ответственность</footer></blockquote>
+        <blockquote class="bg-stone-950 p-7 sm:p-9"><span class="text-5xl font-black text-amber-400" aria-hidden="true">“</span><p class="mt-5 text-lg leading-8 text-stone-300" data-ru="Цифры перестают быть отчётом о прошлом и становятся инструментом ежедневных решений." data-en="Numbers stop being a report on the past and become a tool for daily decisions.">Цифры перестают быть отчётом о прошлом и становятся инструментом ежедневных решений.</p><footer class="mt-8 text-xs font-bold uppercase tracking-[.18em] text-stone-500" data-ru="Управляемость" data-en="Control">Управляемость</footer></blockquote>
+        <blockquote class="bg-stone-950 p-7 sm:p-9"><span class="text-5xl font-black text-amber-400" aria-hidden="true">“</span><p class="mt-5 text-lg leading-8 text-stone-300" data-ru="Собственник выходит из операционного шума и снова занимается будущим бизнеса." data-en="The founder steps out of operational noise and returns to shaping the company’s future.">Собственник выходит из операционного шума и снова занимается будущим бизнеса.</p><footer class="mt-8 text-xs font-bold uppercase tracking-[.18em] text-stone-500" data-ru="Стратегическая роль" data-en="Strategic role">Стратегическая роль</footer></blockquote>
+      </div></div>
+    </section>
+
+    <section class="border-y border-white/10 bg-stone-900/50 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300">FAQ</p><h2 class="display-type mt-5 text-4xl font-black uppercase leading-none tracking-[-.045em] text-white sm:text-5xl" data-ru="До первой встречи" data-en="Before we meet">До первой встречи</h2><p class="mt-6 max-w-md leading-7 text-stone-400" data-ru="Коротко о формате, сроках и том, как понять, что нам стоит начать разговор." data-en="A concise guide to format, timing and whether it makes sense for us to start a conversation.">Коротко о формате, сроках и том, как понять, что нам стоит начать разговор.</p></div><div class="border-t border-white/15">
+        <details class="group border-b border-white/15 py-6"><summary class="flex cursor-pointer items-center justify-between gap-6 text-lg font-bold text-white"><span data-ru="С какими компаниями вы работаете?" data-en="What kind of companies do you work with?">С какими компаниями вы работаете?</span><span class="text-2xl text-amber-300 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 max-w-2xl pr-10 leading-7 text-stone-400" data-ru="С собственниками и командами компаний, которые уже подтвердили ценность продукта и находятся в точке роста, перестройки или смены стратегии." data-en="With founders and teams whose product has proven value and who are entering a phase of growth, restructuring or strategic change.">С собственниками и командами компаний, которые уже подтвердили ценность продукта и находятся в точке роста, перестройки или смены стратегии.</p></details>
+        <details class="group border-b border-white/15 py-6"><summary class="flex cursor-pointer items-center justify-between gap-6 text-lg font-bold text-white"><span data-ru="Как выглядит первый шаг?" data-en="What is the first step?">Как выглядит первый шаг?</span><span class="text-2xl text-amber-300 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 max-w-2xl pr-10 leading-7 text-stone-400" data-ru="60-минутная диагностическая встреча. Разбираем контекст, формулируем настоящую задачу и определяем, какой формат даст максимальную пользу." data-en="A 60-minute diagnostic conversation. We unpack the context, frame the real challenge and define the format that would create the most value.">60-минутная диагностическая встреча. Разбираем контекст, формулируем настоящую задачу и определяем, какой формат даст максимальную пользу.</p></details>
+        <details class="group border-b border-white/15 py-6"><summary class="flex cursor-pointer items-center justify-between gap-6 text-lg font-bold text-white"><span data-ru="Вы работаете только в Эстонии?" data-en="Do you work only in Estonia?">Вы работаете только в Эстонии?</span><span class="text-2xl text-amber-300 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 max-w-2xl pr-10 leading-7 text-stone-400" data-ru="Нет. Стратегические проекты проходят очно в Таллинне или в гибридном формате с командами по всей Европе." data-en="No. Strategy engagements take place in person in Tallinn or in a hybrid format with teams across Europe.">Нет. Стратегические проекты проходят очно в Таллинне или в гибридном формате с командами по всей Европе.</p></details>
+        <details class="group border-b border-white/15 py-6"><summary class="flex cursor-pointer items-center justify-between gap-6 text-lg font-bold text-white"><span data-ru="Сколько длится проект?" data-en="How long does an engagement take?">Сколько длится проект?</span><span class="text-2xl text-amber-300 transition-transform group-open:rotate-45">+</span></summary><p class="mt-4 max-w-2xl pr-10 leading-7 text-stone-400" data-ru="От одной стратегической сессии до 3–6 месяцев сопровождения трансформации. Точный горизонт зависит от масштаба задачи и готовности команды." data-en="From a single strategy session to 3–6 months of transformation support. The exact horizon depends on the scale of the challenge and the team’s readiness.">От одной стратегической сессии до 3–6 месяцев сопровождения трансформации. Точный горизонт зависит от масштаба задачи и готовности команды.</p></details>
+      </div></div>
+    </section>
+
+    <section id="contact" class="relative overflow-hidden px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent"></div><div class="dot-grid absolute bottom-0 right-0 h-72 w-72 opacity-20"></div>
+      <div class="relative mx-auto grid w-full max-w-7xl gap-14 lg:grid-cols-[.82fr_1.18fr] lg:gap-24"><div><p class="text-xs font-black uppercase tracking-[.25em] text-amber-300" data-ru="Диагностическая встреча" data-en="Diagnostic conversation">Диагностическая встреча</p><h2 class="display-type mt-5 text-5xl font-black uppercase leading-[.86] tracking-[-.055em] text-white sm:text-6xl lg:text-7xl" data-ru="Начнём с правильного вопроса." data-en="Let’s begin with the right question.">Начнём с правильного вопроса.</h2><p class="mt-8 max-w-xl text-lg leading-8 text-stone-400" data-ru="Опишите ситуацию в нескольких строках. Я лично изучу запрос и отвечу, если вижу, что могу быть полезен." data-en="Describe the situation in a few lines. I will personally review your request and respond if I believe I can add value.">Опишите ситуацию в нескольких строках. Я лично изучу запрос и отвечу, если вижу, что могу быть полезен.</p><div class="mt-10 border-l border-amber-400 pl-6"><span class="block text-xs font-bold uppercase tracking-[.18em] text-stone-500" data-ru="Ответ в течение" data-en="Response within">Ответ в течение</span><strong class="mt-2 block text-xl text-white" data-ru="одного рабочего дня" data-en="one business day">одного рабочего дня</strong></div></div>
+        <form id="consultation-form" class="border border-white/10 bg-stone-900/75 p-6 backdrop-blur sm:p-9" novalidate>
+          <div class="grid gap-6 sm:grid-cols-2"><label class="block"><span class="mb-3 block text-xs font-bold uppercase tracking-[.16em] text-stone-400" data-ru="Ваше имя" data-en="Your name">Ваше имя</span><input type="text" name="name" required autocomplete="name" class="w-full border border-white/15 bg-stone-950 px-4 py-4 text-white outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/15" data-ru-placeholder="Как к вам обращаться" data-en-placeholder="How should I address you?" placeholder="Как к вам обращаться"></label><label class="block"><span class="mb-3 block text-xs font-bold uppercase tracking-[.16em] text-stone-400">Email</span><input type="email" name="email" required autocomplete="email" class="w-full border border-white/15 bg-stone-950 px-4 py-4 text-white outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/15" placeholder="name@company.com"></label></div>
+          <label class="mt-6 block"><span class="mb-3 block text-xs font-bold uppercase tracking-[.16em] text-stone-400" data-ru="Компания и роль" data-en="Company and role">Компания и роль</span><input type="text" name="company" autocomplete="organization-title" class="w-full border border-white/15 bg-stone-950 px-4 py-4 text-white outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/15" data-ru-placeholder="Компания, должность" data-en-placeholder="Company, position" placeholder="Компания, должность"></label>
+          <label class="mt-6 block"><span class="mb-3 block text-xs font-bold uppercase tracking-[.16em] text-stone-400" data-ru="Главная задача" data-en="Core challenge">Главная задача</span><textarea name="message" required rows="5" class="w-full resize-y border border-white/15 bg-stone-950 px-4 py-4 text-white outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/15" data-ru-placeholder="Что происходит сейчас и к какому результату вы хотите прийти?" data-en-placeholder="What is happening now, and what outcome do you want to achieve?" placeholder="Что происходит сейчас и к какому результату вы хотите прийти?"></textarea></label>
+          <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center"><button type="submit" class="group inline-flex min-h-14 flex-1 items-center justify-between gap-6 bg-amber-400 px-6 text-sm font-black uppercase tracking-[.13em] text-stone-950 transition-all hover:bg-amber-300 hover:shadow-[0_0_32px_rgba(251,191,36,.25)]"><span data-ru="Отправить запрос" data-en="Send request">Отправить запрос</span><span class="text-lg transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></button><p class="max-w-xs text-xs leading-5 text-stone-500" data-ru="Отправляя форму, вы соглашаетесь на обработку данных." data-en="By submitting, you consent to the processing of your data.">Отправляя форму, вы соглашаетесь на обработку данных.</p></div>
+          <p id="form-status" class="mt-5 hidden border border-amber-400/35 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-200" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-stone-950 px-5 py-10 sm:px-8 lg:px-12">
+    <div class="mx-auto flex w-full max-w-7xl flex-col gap-8 md:flex-row md:items-end md:justify-between"><div><a href="#top" class="text-lg font-black uppercase tracking-[.15em] text-white">Максим Орлов</a><p class="mt-3 text-sm text-stone-500" data-ru="Стратегия, управленческие трансформации и рост бизнеса." data-en="Strategy, management transformation and business growth.">Стратегия, управленческие трансформации и рост бизнеса.</p></div><div class="flex flex-wrap items-center gap-x-7 gap-y-3 text-xs font-bold uppercase tracking-[.16em]"><a href="mailto:hello@maximorlov.ee" class="text-stone-400 transition-colors hover:text-amber-300">hello@maximorlov.ee</a><a href="#contact" class="text-stone-400 transition-colors hover:text-amber-300" data-ru="Таллинн · Онлайн" data-en="Tallinn · Online">Таллинн · Онлайн</a><a href="index.html" class="text-amber-300 transition-colors hover:text-amber-200" data-ru="← В портфолио" data-en="← Back to portfolio">← В портфолио</a></div></div><div class="mx-auto mt-9 flex w-full max-w-7xl flex-col gap-2 border-t border-white/10 pt-6 text-xs text-stone-600 sm:flex-row sm:justify-between"><span>© 2026 Maxim Orlov. Demo project.</span><span data-ru="Дизайн-концепт для портфолио QuickSite Est" data-en="Portfolio concept by QuickSite Est">Дизайн-концепт для портфолио QuickSite Est</span></div>
+  </footer>
+
+  <script>
+    (() => {
+      const languageButtons = document.querySelectorAll('[data-language]');
+      const menuButton = document.getElementById('menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const form = document.getElementById('consultation-form');
+      const formStatus = document.getElementById('form-status');
+      let currentLanguage = 'ru';
+
+      const pageMeta = {
+        ru: {
+          title: 'Максим Орлов — бизнес-консультант',
+          description: 'Максим Орлов — бизнес-консультант по стратегии, росту и управленческим трансформациям.',
+          menuOpen: 'Открыть меню',
+          menuClose: 'Закрыть меню',
+          success: 'Спасибо. Это демонстрационная форма — ваш запрос сохранён только в текущем окне.'
+        },
+        en: {
+          title: 'Maxim Orlov — Business Consultant',
+          description: 'Maxim Orlov — business consultant for strategy, growth and management transformation.',
+          menuOpen: 'Open menu',
+          menuClose: 'Close menu',
+          success: 'Thank you. This is a demo form — your request is stored only in this browser window.'
+        }
+      };
+
+      function setLanguage(language) {
+        currentLanguage = language;
+        document.documentElement.lang = language;
+        document.title = pageMeta[language].title;
+        document.querySelector('meta[name="description"]').setAttribute('content', pageMeta[language].description);
+
+        document.querySelectorAll('[data-ru][data-en]').forEach((element) => {
+          element.textContent = element.dataset[language];
+        });
+        document.querySelectorAll('[data-ru-placeholder][data-en-placeholder]').forEach((element) => {
+          element.placeholder = element.dataset[`${language}Placeholder`];
+        });
+        languageButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.language === language));
+        });
+        menuButton.setAttribute('aria-label', mobileMenu.classList.contains('hidden') ? pageMeta[language].menuOpen : pageMeta[language].menuClose);
+        formStatus.classList.add('hidden');
+      }
+
+      languageButtons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+
+      menuButton.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.toggle('hidden');
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+        menuButton.setAttribute('aria-label', isOpen ? pageMeta[currentLanguage].menuClose : pageMeta[currentLanguage].menuOpen);
+        menuButton.querySelector('span').textContent = isOpen ? '×' : '≡';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', pageMeta[currentLanguage].menuOpen);
+        menuButton.querySelector('span').textContent = '≡';
+      }));
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        formStatus.textContent = pageMeta[currentLanguage].success;
+        formStatus.classList.remove('hidden');
+        form.reset();
+      });
+
+      setLanguage('ru');
+    })();
+  </script>
+</body>
+</html>

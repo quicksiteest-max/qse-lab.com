@@ -804,12 +804,15 @@
         const formData = new FormData(contactForm);
         formData.set("form-name", contactForm.name);
         formData.set("language", currentLanguage.toUpperCase());
+        const encodedFormData = Array.from(formData.entries())
+          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+          .join("&");
 
         try {
           const response = await fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString()
+            body: encodedFormData
           });
           if (!response.ok) throw new Error(`Form submission failed with status ${response.status}`);
 

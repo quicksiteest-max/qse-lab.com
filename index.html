@@ -289,7 +289,6 @@
                   <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">Инновации</p>
                   <h3 class="mt-2 max-w-md text-2xl font-semibold tracking-tight text-white sm:text-3xl">AI Инструменты &amp; Автоматизация</h3>
                 </div>
-                <p class="shrink-0 text-3xl font-semibold tracking-tight text-cyan-200"><span class="text-base font-medium text-slate-400">от</span> €250</p>
               </div>
 
               <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-200">Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.</p>
@@ -500,7 +499,10 @@
         <div aria-hidden="true" class="pointer-events-none absolute bottom-0 left-0 size-80 rounded-full bg-emerald-400/5 blur-3xl"></div>
         <div class="relative mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div><p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">Начнём знакомство</p><h2 id="contact-title" class="mt-4 text-3xl font-semibold tracking-[-0.035em] text-stone-100 sm:text-4xl lg:text-5xl">Обсудить проект</h2><p class="mt-5 max-w-lg text-base leading-7 text-slate-400 sm:text-lg">Заполните форму, и мы свяжемся с вами для расчёта стоимости и консультации.</p></div>
-          <form action="#" method="post" class="rounded-3xl border border-white/10 bg-slate-950/65 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.30)] backdrop-blur-md sm:p-8">
+          <form name="project-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="rounded-3xl border border-white/10 bg-slate-950/65 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.30)] backdrop-blur-md sm:p-8">
+            <input type="hidden" name="form-name" value="project-request">
+            <input type="hidden" name="language" value="RU" data-form-language>
+            <p class="hidden" aria-hidden="true"><label>Не заполняйте это поле: <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <div class="grid gap-5 sm:grid-cols-2">
               <label class="sm:col-span-2"><span class="mb-2 block text-sm font-medium text-slate-300">Ваше имя</span><input type="text" name="name" autocomplete="name" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60 focus:ring-4 focus:ring-cyan-300/10" placeholder="Как к вам обращаться?"></label>
               <label><span class="mb-2 block text-sm font-medium text-slate-300">Email</span><input type="email" name="email" autocomplete="email" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-300/60 focus:ring-4 focus:ring-violet-300/10" placeholder="name@example.com"></label>
@@ -509,7 +511,8 @@
               <label><span class="mb-2 block text-sm font-medium text-slate-300">Бюджет</span><select name="budget" required class="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition focus:border-cyan-300/60 focus:ring-4 focus:ring-cyan-300/10"><option value="">Выберите бюджет</option><option value="under-350">до €350</option><option value="350-500">€350 - €500</option><option value="500-plus">€500+</option></select></label>
               <label class="sm:col-span-2"><span class="mb-2 block text-sm font-medium text-slate-300">Сообщение</span><textarea name="message" rows="5" class="w-full resize-y rounded-xl border border-slate-800 bg-slate-900 px-4 py-3.5 text-white outline-none transition placeholder:text-slate-600 focus:border-violet-300/60 focus:ring-4 focus:ring-violet-300/10" placeholder="Расскажите пару слов о задаче"></textarea></label>
             </div>
-            <button type="submit" class="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 hover:shadow-[0_0_32px_rgba(34,211,238,0.18)] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950 sm:w-auto">Получить консультацию</button>
+            <button type="submit" data-form-submit class="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-cyan-200/50 hover:bg-cyan-200 hover:text-slate-950 hover:shadow-[0_0_32px_rgba(34,211,238,0.18)] focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-4 focus:ring-offset-slate-950 disabled:cursor-wait disabled:opacity-60 sm:w-auto">Получить консультацию</button>
+            <p class="mt-4 hidden rounded-xl border px-4 py-3 text-sm leading-6" data-form-status role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
@@ -667,6 +670,10 @@
           "до €350": { ru: "до €350", et: "kuni €350", en: "up to €350" },
           "Сообщение": { ru: "Сообщение", et: "Sõnum", en: "Message" },
           "Получить консультацию": { ru: "Получить консультацию", et: "Soovin konsultatsiooni", en: "Request a consultation" },
+          "Отправляем…": { ru: "Отправляем…", et: "Saadame…", en: "Sending…" },
+          "Заявка отправлена. Спасибо! Мы скоро свяжемся с вами.": { ru: "Заявка отправлена. Спасибо! Мы скоро свяжемся с вами.", et: "Taotlus on saadetud. Aitäh! Võtame teiega peagi ühendust.", en: "Your request has been sent. Thank you! We’ll be in touch soon." },
+          "Не удалось отправить заявку. Попробуйте ещё раз или напишите нам напрямую.": { ru: "Не удалось отправить заявку. Попробуйте ещё раз или напишите нам напрямую.", et: "Taotluse saatmine ebaõnnestus. Proovige uuesti või kirjutage meile otse.", en: "We couldn’t send your request. Please try again or contact us directly." },
+          "Не заполняйте это поле:": { ru: "Не заполняйте это поле:", et: "Jätke see väli tühjaks:", en: "Leave this field empty:" },
           "© 2026 QUICKSITE EST. Все права защищены.": { ru: "© 2026 QUICKSITE EST. Все права защищены.", et: "© 2026 QUICKSITE EST. Kõik õigused kaitstud.", en: "© 2026 QUICKSITE EST. All rights reserved." },
           "QUICKSITE EST — на главную": { ru: "QUICKSITE EST — на главную", et: "QUICKSITE EST — avalehele", en: "QUICKSITE EST — home" },
           "Выбор языка": { ru: "Выбор языка", et: "Keele valik", en: "Language selection" },
@@ -719,6 +726,10 @@
       const metaDescription = document.querySelector('meta[name="description"]');
       const auditFrame = document.querySelector(".ai-audit-frame");
       const quizOrigin = auditFrame ? new URL(auditFrame.dataset.baseSrc).origin : "";
+      const contactForm = document.querySelector('form[name="project-request"]');
+      const formLanguage = contactForm?.querySelector("[data-form-language]");
+      const formSubmit = contactForm?.querySelector("[data-form-submit]");
+      const formStatus = contactForm?.querySelector("[data-form-status]");
       let currentLanguage = "ru";
 
       const postAuditLanguage = () => {
@@ -756,6 +767,13 @@
           button.setAttribute("aria-pressed", String(active));
           button.title = translations.languageNames[button.dataset.language];
         });
+        if (formLanguage) formLanguage.value = language.toUpperCase();
+        if (formStatus?.dataset.state) {
+          const statusSource = formStatus.dataset.state === "success"
+            ? "Заявка отправлена. Спасибо! Мы скоро свяжемся с вами."
+            : "Не удалось отправить заявку. Попробуйте ещё раз или напишите нам напрямую.";
+          formStatus.textContent = translate(statusSource, language);
+        }
 
         try { localStorage.setItem(translations.storageKey, language); } catch (error) { /* Storage can be unavailable in private contexts. */ }
         syncAuditLanguage();
@@ -773,6 +791,42 @@
         if (translations.languages.includes(savedLanguage)) initialLanguage = savedLanguage;
       } catch (error) { /* Use the Russian default. */ }
       applyLanguage(initialLanguage);
+
+      contactForm?.addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!contactForm.reportValidity() || !formSubmit || !formStatus) return;
+
+        formSubmit.disabled = true;
+        formSubmit.textContent = translate("Отправляем…", currentLanguage);
+        formStatus.classList.add("hidden");
+        formStatus.removeAttribute("data-state");
+
+        const formData = new FormData(contactForm);
+        formData.set("form-name", contactForm.name);
+        formData.set("language", currentLanguage.toUpperCase());
+
+        try {
+          const response = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+          });
+          if (!response.ok) throw new Error(`Form submission failed with status ${response.status}`);
+
+          contactForm.reset();
+          if (formLanguage) formLanguage.value = currentLanguage.toUpperCase();
+          formStatus.dataset.state = "success";
+          formStatus.textContent = translate("Заявка отправлена. Спасибо! Мы скоро свяжемся с вами.", currentLanguage);
+          formStatus.className = "mt-4 rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-sm leading-6 text-emerald-100";
+        } catch (error) {
+          formStatus.dataset.state = "error";
+          formStatus.textContent = translate("Не удалось отправить заявку. Попробуйте ещё раз или напишите нам напрямую.", currentLanguage);
+          formStatus.className = "mt-4 rounded-xl border border-rose-300/25 bg-rose-300/10 px-4 py-3 text-sm leading-6 text-rose-100";
+        } finally {
+          formSubmit.disabled = false;
+          formSubmit.textContent = translate("Получить консультацию", currentLanguage);
+        }
+      });
 
       document.querySelectorAll("[data-case-open]").forEach(openButton => {
         const dialog = document.getElementById(openButton.getAttribute("aria-controls"));

@@ -4,7 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="QUICKSITE EST">
+  <meta name="theme-color" content="#020617">
+  <link rel="canonical" href="https://qse-lab.com/">
+  <link rel="alternate" hreflang="ru" href="https://qse-lab.com/">
+  <link rel="alternate" hreflang="et" href="https://qse-lab.com/?lang=et">
+  <link rel="alternate" hreflang="en" href="https://qse-lab.com/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://qse-lab.com/">
+  <link rel="icon" type="image/svg+xml" href="assets/q-mark.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="QUICKSITE EST">
+  <meta property="og:locale" content="ru_RU" data-seo-locale>
+  <meta property="og:locale:alternate" content="et_EE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="QUICKSITE EST — сайты с человеческим смыслом" data-seo-title>
+  <meta property="og:description" content="QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта." data-seo-description>
+  <meta property="og:url" content="https://qse-lab.com/">
+  <meta property="og:image" content="https://qse-lab.com/assets/beauty-hero-v2.png">
+  <meta property="og:image:alt" content="Пример премиального сайта из портфолио QUICKSITE EST">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QUICKSITE EST — сайты с человеческим смыслом" data-seo-title>
+  <meta name="twitter:description" content="QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта." data-seo-description>
+  <meta name="twitter:image" content="https://qse-lab.com/assets/beauty-hero-v2.png">
   <title>QUICKSITE EST — сайты с человеческим смыслом</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://qse-lab.com/#business",
+          "name": "QUICKSITE EST",
+          "url": "https://qse-lab.com/",
+          "logo": "https://qse-lab.com/assets/q-mark.svg",
+          "email": "quicksite.est@gmail.com",
+          "description": "Разработка адаптивных сайтов, лендингов и решений для автоматизации бизнеса с искусственным интеллектом.",
+          "areaServed": ["Estonia", "European Union"],
+          "serviceType": ["Web design", "Landing page development", "Website development", "AI business automation"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://qse-lab.com/#website",
+          "url": "https://qse-lab.com/",
+          "name": "QUICKSITE EST",
+          "publisher": { "@id": "https://qse-lab.com/#business" },
+          "inLanguage": ["ru", "et", "en"]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://qse-lab.com/#webpage",
+          "url": "https://qse-lab.com/",
+          "name": "QUICKSITE EST — сайты с человеческим смыслом",
+          "description": "QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта.",
+          "isPartOf": { "@id": "https://qse-lab.com/#website" },
+          "about": { "@id": "https://qse-lab.com/#business" },
+          "inLanguage": ["ru", "et", "en"]
+        }
+      ]
+    }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
     body.modal-open { overflow: hidden; }
@@ -22,13 +82,23 @@
     .beauty-card-visual::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, transparent 45%, rgba(43,28,23,.22)); pointer-events: none; }
     .beauty-card-visual img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
     .beauty-card-trigger:hover .beauty-card-visual img { transform: scale(1.045); }
-    .beauty-card-signature { position: absolute; z-index: 2; left: 17px; top: 16px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.56); border-radius: 999px; color: white; background: rgba(34,34,34,.13); font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; backdrop-filter: blur(10px); }
+    .beauty-card-signature { position: absolute; z-index: 2; left: 17px; bottom: 16px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.56); border-radius: 999px; color: white; background: rgba(34,34,34,.13); font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; backdrop-filter: blur(10px); }
     .beauty-card-arrow { position: absolute; z-index: 2; top: 14px; right: 14px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; color: #33241f; background: rgba(253,251,247,.86); font-size: 16px; backdrop-filter: blur(10px); transition: transform .35s ease, background .35s ease; }
     .beauty-card-trigger:hover .beauty-card-arrow { background: #f4c5b5; transform: rotate(45deg); }
     .beauty-card-copy { padding: 25px 15px 17px; }
     .beauty-card-kicker { margin: 0 0 9px; color: #9e5f54; font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
     .beauty-card-copy h3 { margin: 0; color: #222; font-size: 25px; font-weight: 400; letter-spacing: -.035em; line-height: 1; }
     .beauty-card-copy > p:last-child { margin: 12px 0 0; color: #746d68; font-size: 14px; line-height: 1.65; }
+    .portfolio-card-copy-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(108px, 42%); align-items: start; gap: 12px; }
+    .portfolio-card-title { min-width: 0; }
+    .portfolio-service-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; align-content: flex-start; gap: 5px; }
+    .portfolio-service-tags span { padding: 4px 7px; border: 1px solid; font-size: 8px; font-weight: 800; line-height: 1.2; letter-spacing: .025em; white-space: nowrap; transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+    .beauty-service-tags span { border-color: rgba(232,165,152,.45); border-radius: 999px; color: #8f5d54; background: rgba(244,197,181,.24); }
+    .beauty-card-trigger:hover .beauty-service-tags span { border-color: rgba(195,119,105,.55); background: rgba(244,197,181,.38); transform: translateY(-1px); }
+    .consultant-service-tags span { border-color: rgba(251,191,36,.34); border-radius: 5px; color: #fcd34d; background: rgba(251,191,36,.08); }
+    .group:hover .consultant-service-tags span { border-color: rgba(251,191,36,.62); background: rgba(251,191,36,.13); transform: translateY(-1px); }
+    .clinic-service-tags span { border-color: rgba(56,189,248,.32); border-radius: 999px; color: #0369a1; background: rgba(224,242,254,.82); }
+    .group:hover .clinic-service-tags span { border-color: rgba(2,132,199,.48); background: #e0f2fe; transform: translateY(-1px); }
 
     .beauty-case-dialog { width: min(1080px, calc(100% - 32px)); max-width: none; max-height: min(820px, calc(100vh - 32px)); overflow: auto; padding: 0; border: 1px solid rgba(244,197,181,.48); border-radius: 30px; color: #222; background: #fdfbf7; box-shadow: 0 40px 120px rgba(0,0,0,.42); }
     .beauty-case-dialog[open] { animation: beauty-modal-in .34s cubic-bezier(.2,.8,.2,1); }
@@ -139,6 +209,10 @@
       .ai-audit-heading h3 { font-size: 14px; }
       .ai-audit-close { width: 42px; height: 42px; }
     }
+    @media (max-width: 420px) {
+      .portfolio-card-copy-head { grid-template-columns: 1fr; }
+      .portfolio-service-tags { justify-content: flex-start; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .beauty-case-dialog[open], .beauty-case-dialog::backdrop, .consultant-case-dialog[open], .consultant-case-dialog::backdrop, .clinic-case-dialog[open], .clinic-case-dialog::backdrop, .ai-audit-dialog[open], .ai-audit-dialog::backdrop { animation: none; }
     }
@@ -232,7 +306,7 @@
                   <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">Базовый</p>
                   <h3 class="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Стильный Старт</h3>
                 </div>
-                <p class="shrink-0 text-3xl font-semibold tracking-tight text-stone-100">€350</p>
+                <p class="shrink-0 text-3xl font-semibold leading-none tracking-tight text-stone-100">€350</p>
               </div>
 
               <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-300">Быстрое решение для бизнеса с готовыми материалами и понятной задачей.</p>
@@ -260,8 +334,8 @@
                   <p class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-200">Премиум</p>
                   <h3 class="mt-2 max-w-md text-2xl font-semibold tracking-tight text-white sm:text-3xl">Сайт + Психология Продаж</h3>
                 </div>
-                <p class="shrink-0 text-3xl font-semibold tracking-tight text-amber-100"><span class="text-base font-medium text-stone-400">от</span> €500</p>
               </div>
+              <p class="absolute right-6 top-6 flex shrink-0 items-start gap-1 text-stone-100 sm:right-8 sm:top-8"><span class="mt-1.5 text-base font-medium leading-none text-stone-400">от</span><span class="text-3xl font-semibold leading-none tracking-tight text-amber-100">€500</span></p>
 
               <p class="mt-6 min-h-[56px] text-base leading-7 text-slate-200">Главный инструмент: маркетинг + психология + продающий структурированный код.</p>
 
@@ -283,6 +357,7 @@
                 <span aria-hidden="true" class="size-1.5 rounded-full bg-cyan-200 shadow-[0_0_12px_rgba(165,243,252,1)]"></span>
                 AI Solutions
               </div>
+              <span class="absolute right-6 top-6 rounded-xl border border-cyan-200/35 bg-slate-950/55 px-3 py-2 text-sm font-semibold leading-none tracking-tight text-stone-100 backdrop-blur sm:right-8 sm:top-8">По запросу</span>
 
               <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -343,8 +418,10 @@
                   <span class="beauty-card-arrow" aria-hidden="true">↗</span>
                 </div>
                 <div class="beauty-card-copy">
-                  <p class="beauty-card-kicker">Editorial web experience</p>
-                  <h3 class="beauty-serif">Beauty &amp; Wellness</h3>
+                  <div class="portfolio-card-copy-head">
+                    <div class="portfolio-card-title"><p class="beauty-card-kicker">Editorial web experience</p><h3 class="beauty-serif">Beauty &amp; Wellness</h3></div>
+                    <div class="portfolio-service-tags beauty-service-tags" aria-label="Альтернативные сферы"><span>Массажный салон</span><span>SPA</span><span>студия эпиляции</span></div>
+                  </div>
                   <p>Элегантный мультиязычный лендинг для студии косметологии и осознанного ухода.</p>
                 </div>
               </article>
@@ -358,7 +435,7 @@
                   <span class="absolute bottom-5 left-5 border border-amber-300/35 bg-stone-950/75 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-200 backdrop-blur">Business strategy</span>
                   <span class="absolute right-5 top-5 grid size-10 place-items-center border border-white/20 bg-stone-950/70 text-lg text-white backdrop-blur transition-colors group-hover:border-amber-300 group-hover:bg-amber-400 group-hover:text-stone-950" aria-hidden="true">↗</span>
                 </div>
-                <div class="p-4 pb-5 pt-6"><h3 class="text-xl font-semibold text-white">Максим Орлов</h3><p class="mt-2 leading-7 text-slate-400">Премиальный лендинг бизнес-консультанта по стратегии и росту.</p></div>
+                <div class="p-4 pb-5 pt-6"><div class="portfolio-card-copy-head"><h3 class="portfolio-card-title text-xl font-semibold text-white">Максим Орлов</h3><div class="portfolio-service-tags consultant-service-tags" aria-label="Альтернативные сферы"><span>Коуч</span><span>психолог</span><span>юрист</span><span>ментор</span></div></div><p class="mt-3 leading-7 text-slate-400">Премиальный лендинг бизнес-консультанта по стратегии и росту.</p></div>
               </article>
             </a>
             <a href="#clinic-case-modal" class="group block h-full overflow-hidden rounded-3xl border border-sky-200/35 bg-slate-50 p-3 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_20px_70px_rgba(14,165,233,0.16)]" data-case-open aria-haspopup="dialog" aria-controls="clinic-case-modal" aria-label="Открыть презентацию проекта AERIS Clinic">
@@ -370,7 +447,7 @@
                   <span class="absolute bottom-5 left-5 rounded-full border border-white/70 bg-white/80 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-sky-800 backdrop-blur">Dental · Wellbeing</span>
                   <span class="absolute right-5 top-5 grid size-10 place-items-center rounded-full border border-sky-200 bg-white/80 text-lg text-sky-800 backdrop-blur transition-colors group-hover:border-sky-600 group-hover:bg-sky-600 group-hover:text-white" aria-hidden="true">↗</span>
                 </div>
-                <div class="p-4 pb-5 pt-6"><h3 class="text-xl font-semibold text-slate-950">AERIS Clinic</h3><p class="mt-2 leading-7 text-slate-600">Трёхъязычный лендинг современной клиники с онлайн-записью.</p></div>
+                <div class="p-4 pb-5 pt-6"><div class="portfolio-card-copy-head"><h3 class="portfolio-card-title text-xl font-semibold text-slate-950">AERIS Clinic</h3><div class="portfolio-service-tags clinic-service-tags" aria-label="Альтернативные сферы"><span>Медцентр</span><span>частная клиника</span><span>кабинет УЗИ</span></div></div><p class="mt-3 leading-7 text-slate-600">Трёхъязычный лендинг современной клиники с онлайн-записью.</p></div>
               </article>
             </a>
             <a href="#ai-audit-modal" class="group relative block w-full overflow-hidden rounded-3xl border border-teal-300/25 bg-[#031018] p-3 text-left shadow-[0_22px_80px_rgba(13,148,136,0.09)] transition-all duration-300 hover:-translate-y-1 hover:border-teal-300/65 hover:shadow-[0_28px_100px_rgba(20,184,166,0.16)] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-200 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950 sm:p-4 lg:col-span-3" data-case-open aria-haspopup="dialog" aria-controls="ai-audit-modal" aria-label="Открыть интерактивный квиз ИИ-аудит бизнеса">
@@ -567,6 +644,7 @@
           "Все заботы по переносу и запуску сайта берём на себя": { ru: "Все заботы по переносу и запуску сайта берём на себя", et: "Võtame veebilehe üleviimise ja käivitamise täielikult enda peale", en: "We handle the complete website transfer and launch" },
           "Выбрать Премиум": { ru: "Выбрать Премиум", et: "Vali Premium", en: "Choose Premium" },
           "AI Solutions": { ru: "AI Solutions", et: "AI-lahendused", en: "AI Solutions" },
+          "По запросу": { ru: "По запросу", et: "Kokkuleppel", en: "On request" },
           "Инновации": { ru: "Инновации", et: "Uuendused", en: "Innovation" },
           "AI Инструменты & Автоматизация": { ru: "AI Инструменты & Автоматизация", et: "AI-tööriistad ja automatiseerimine", en: "AI Tools & Automation" },
           "Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.": { ru: "Передовые решения на базе искусственного интеллекта для ускорения продаж и автоматизации процессов.", et: "Tehisintellektil põhinevad lahendused müügi kiirendamiseks ja protsesside automatiseerimiseks.", en: "Advanced AI solutions that accelerate sales and automate business processes." },
@@ -596,6 +674,17 @@
           "Премиальный лендинг бизнес-консультанта по стратегии и росту.": { ru: "Премиальный лендинг бизнес-консультанта по стратегии и росту.", et: "Premium-klassi maandumisleht strateegia- ja kasvukonsultandile.", en: "A premium landing page for a business consultant specialising in strategy and growth." },
           "Dental · Wellbeing": { ru: "Стоматология · Забота", et: "Hambaravi · Heaolu", en: "Dental · Wellbeing" },
           "Трёхъязычный лендинг современной клиники с онлайн-записью.": { ru: "Трёхъязычный лендинг современной клиники с онлайн-записью.", et: "Kolmekeelne maandumisleht kaasaegsele kliinikule koos veebipõhise vastuvõtule registreerimisega.", en: "A trilingual landing page for a modern clinic with online appointment booking." },
+          "Альтернативные сферы": { ru: "Альтернативные сферы", et: "Alternatiivsed valdkonnad", en: "Alternative sectors" },
+          "Массажный салон": { ru: "Массажный салон", et: "Massaažisalong", en: "Massage studio" },
+          "SPA": { ru: "SPA", et: "SPA", en: "SPA" },
+          "студия эпиляции": { ru: "студия эпиляции", et: "Karvaeemaldusstuudio", en: "Hair removal studio" },
+          "Коуч": { ru: "Коуч", et: "Coach", en: "Coach" },
+          "психолог": { ru: "психолог", et: "psühholoog", en: "psychologist" },
+          "юрист": { ru: "юрист", et: "jurist", en: "lawyer" },
+          "ментор": { ru: "ментор", et: "mentor", en: "mentor" },
+          "Медцентр": { ru: "Медцентр", et: "Meditsiinikeskus", en: "Medical centre" },
+          "частная клиника": { ru: "частная клиника", et: "erakliinik", en: "private clinic" },
+          "кабинет УЗИ": { ru: "кабинет УЗИ", et: "ultrahelikabinet", en: "ultrasound clinic" },
           "Интерактивный продукт": { ru: "Интерактивный продукт", et: "Interaktiivne toode", en: "Interactive product" },
           "ИИ-аудит бизнеса": { ru: "ИИ-аудит бизнеса", et: "Tehisintellekti audit ettevõttele", en: "AI Business Audit" },
           "Интерактивный квиз для оценки готовности бизнеса к внедрению ИИ. Поддерживает русский, эстонский и английский языки, выдаёт персональные рекомендации и собирает заявки.": { ru: "Интерактивный квиз для оценки готовности бизнеса к внедрению ИИ. Поддерживает русский, эстонский и английский языки, выдаёт персональные рекомендации и собирает заявки.", et: "Interaktiivne küsimustik hindab ettevõtte valmisolekut tehisintellekti kasutuselevõtuks, toetab vene, eesti ja inglise keelt, annab personaalsed soovitused ning kogub päringuid.", en: "An interactive quiz that assesses a business’s readiness for AI, supports Russian, Estonian and English, provides personalised recommendations and captures enquiries." },
@@ -723,11 +812,34 @@
 
       const languageButtons = document.querySelectorAll("[data-language]");
       const metaDescription = document.querySelector('meta[name="description"]');
+      const seoTitleMeta = document.querySelectorAll("[data-seo-title]");
+      const seoDescriptionMeta = document.querySelectorAll("[data-seo-description]");
+      const seoLocaleMeta = document.querySelector("[data-seo-locale]");
+      const seoCanonical = document.querySelector('link[rel="canonical"]');
+      const seoOgUrl = document.querySelector('meta[property="og:url"]');
+      const seoCanonicalBase = seoCanonical?.href;
+      const seoLocales = { ru: "ru_RU", et: "et_EE", en: "en_US" };
       const auditFrame = document.querySelector(".ai-audit-frame");
       const quizOrigin = auditFrame ? new URL(auditFrame.dataset.baseSrc).origin : "";
       const contactForm = document.querySelector('form[name="project-request"]');
       const formLanguage = contactForm?.querySelector("[data-form-language]");
       let currentLanguage = "ru";
+
+      const syncSeoUrl = language => {
+        if (seoCanonical && seoCanonicalBase) {
+          const canonicalUrl = new URL(seoCanonicalBase);
+          canonicalUrl.search = "";
+          if (language !== "ru") canonicalUrl.searchParams.set("lang", language);
+          seoCanonical.href = canonicalUrl.href;
+          if (seoOgUrl) seoOgUrl.content = canonicalUrl.href;
+        }
+        try {
+          const browserUrl = new URL(window.location.href);
+          if (language === "ru") browserUrl.searchParams.delete("lang");
+          else browserUrl.searchParams.set("lang", language);
+          history.replaceState(history.state, "", browserUrl.href);
+        } catch (error) { /* Keep language switching available when URL rewriting is restricted. */ }
+      };
 
       const postAuditLanguage = () => {
         if (!auditFrame?.contentWindow) return;
@@ -752,6 +864,10 @@
         document.documentElement.lang = language;
         document.title = translations.pages[language].title;
         if (metaDescription) metaDescription.content = translations.pages[language].description;
+        seoTitleMeta.forEach(meta => { meta.content = translations.pages[language].title; });
+        seoDescriptionMeta.forEach(meta => { meta.content = translations.pages[language].description; });
+        if (seoLocaleMeta) seoLocaleMeta.content = seoLocales[language];
+        syncSeoUrl(language);
 
         textBindings.forEach(binding => {
           binding.node.nodeValue = `${binding.prefix}${translate(binding.source, language)}${binding.suffix}`;
@@ -777,8 +893,10 @@
 
       let initialLanguage = "ru";
       try {
+        const urlLanguage = new URLSearchParams(window.location.search).get("lang");
         const savedLanguage = localStorage.getItem(translations.storageKey);
-        if (translations.languages.includes(savedLanguage)) initialLanguage = savedLanguage;
+        if (translations.languages.includes(urlLanguage)) initialLanguage = urlLanguage;
+        else if (translations.languages.includes(savedLanguage)) initialLanguage = savedLanguage;
       } catch (error) { /* Use the Russian default. */ }
       applyLanguage(initialLanguage);
 

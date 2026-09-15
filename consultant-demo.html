@@ -4,8 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Максим Орлов — бизнес-консультант по стратегии, росту и управленческим трансформациям.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="QUICKSITE EST">
   <meta name="theme-color" content="#0c0a09">
+  <link rel="canonical" href="https://qse-lab.com/consultant-demo.html">
+  <link rel="alternate" hreflang="ru" href="https://qse-lab.com/consultant-demo.html">
+  <link rel="alternate" hreflang="en" href="https://qse-lab.com/consultant-demo.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://qse-lab.com/consultant-demo.html">
+  <link rel="icon" type="image/svg+xml" href="assets/q-mark.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="QUICKSITE EST Portfolio">
+  <meta property="og:locale" content="ru_RU" data-seo-locale>
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Максим Орлов — бизнес-консультант" data-seo-title>
+  <meta property="og:description" content="Максим Орлов — бизнес-консультант по стратегии, росту и управленческим трансформациям." data-seo-description>
+  <meta property="og:url" content="https://qse-lab.com/consultant-demo.html">
+  <meta property="og:image" content="https://qse-lab.com/assets/consultant-max-orlov.jpg">
+  <meta property="og:image:alt" content="Максим Орлов — демонстрационный сайт бизнес-консультанта">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Максим Орлов — бизнес-консультант" data-seo-title>
+  <meta name="twitter:description" content="Максим Орлов — бизнес-консультант по стратегии, росту и управленческим трансформациям." data-seo-description>
+  <meta name="twitter:image" content="https://qse-lab.com/assets/consultant-max-orlov.jpg">
   <title>Максим Орлов — бизнес-консультант</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://qse-lab.com/consultant-demo.html#webpage",
+      "url": "https://qse-lab.com/consultant-demo.html",
+      "name": "Максим Орлов — бизнес-консультант",
+      "description": "Демонстрационный лендинг бизнес-консультанта по стратегии, росту и управленческим трансформациям.",
+      "image": "https://qse-lab.com/assets/consultant-max-orlov.jpg",
+      "isPartOf": { "@id": "https://qse-lab.com/#website" },
+      "creator": { "@id": "https://qse-lab.com/#business" },
+      "inLanguage": ["ru", "en"]
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { color-scheme: dark; }
@@ -229,7 +264,30 @@
       const mobileMenu = document.getElementById('mobile-menu');
       const form = document.getElementById('consultation-form');
       const formStatus = document.getElementById('form-status');
+      const seoTitleMeta = document.querySelectorAll('[data-seo-title]');
+      const seoDescriptionMeta = document.querySelectorAll('[data-seo-description]');
+      const seoLocaleMeta = document.querySelector('[data-seo-locale]');
+      const seoCanonical = document.querySelector('link[rel="canonical"]');
+      const seoOgUrl = document.querySelector('meta[property="og:url"]');
+      const seoCanonicalBase = seoCanonical?.href;
+      const seoLocales = { ru: 'ru_RU', en: 'en_US' };
       let currentLanguage = 'ru';
+
+      function syncSeoUrl(language) {
+        if (seoCanonical && seoCanonicalBase) {
+          const canonicalUrl = new URL(seoCanonicalBase);
+          canonicalUrl.search = '';
+          if (language !== 'ru') canonicalUrl.searchParams.set('lang', language);
+          seoCanonical.href = canonicalUrl.href;
+          if (seoOgUrl) seoOgUrl.content = canonicalUrl.href;
+        }
+        try {
+          const browserUrl = new URL(window.location.href);
+          if (language === 'ru') browserUrl.searchParams.delete('lang');
+          else browserUrl.searchParams.set('lang', language);
+          history.replaceState(history.state, '', browserUrl.href);
+        } catch (_) {}
+      }
 
       const pageMeta = {
         ru: {
@@ -253,6 +311,10 @@
         document.documentElement.lang = language;
         document.title = pageMeta[language].title;
         document.querySelector('meta[name="description"]').setAttribute('content', pageMeta[language].description);
+        seoTitleMeta.forEach((meta) => { meta.content = pageMeta[language].title; });
+        seoDescriptionMeta.forEach((meta) => { meta.content = pageMeta[language].description; });
+        if (seoLocaleMeta) seoLocaleMeta.content = seoLocales[language];
+        syncSeoUrl(language);
 
         document.querySelectorAll('[data-ru][data-en]').forEach((element) => {
           element.textContent = element.dataset[language];
@@ -294,7 +356,8 @@
         form.reset();
       });
 
-      setLanguage('ru');
+      const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+      setLanguage(urlLanguage === 'en' ? 'en' : 'ru');
     })();
   </script>
 </body>

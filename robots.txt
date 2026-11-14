@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /thank-you
+
+# Allow crawling of the confirmation page so its noindex meta tag can be read.
 
 Sitemap: https://qse-lab.com/sitemap.xml

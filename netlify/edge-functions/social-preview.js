@@ -1,54 +1,25 @@
-// Social crawlers read response HTML and do not execute the language switcher.
-// Change only social metadata; the page body and existing language script stay intact.
-const pages = {
-  ru: {
-    title: "QUICKSITE EST — сайты с человеческим смыслом",
-    description: "QUICKSITE EST — сайты, созданные живыми людьми с усилением искусственного интеллекта.",
-    locale: "ru_RU"
-  },
-  et: {
-    title: "QUICKSITE EST — inimliku tähendusega veebilehed",
-    description: "QUICKSITE EST — veebilehed, mille loovad päris inimesed ja mida täiustab tehisintellekt.",
-    locale: "et_EE"
-  },
-  en: {
-    title: "QUICKSITE EST — websites with a human touch",
-    description: "QUICKSITE EST — websites created by real people and enhanced by artificial intelligence.",
-    locale: "en_US"
-  }
-};
-
-const escapeAttribute = value => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+// Complete localized HTML is identical for visitors and crawlers.
+import pages from './generated/pages.js';
 
 export default async (request, context) => {
-  if (request.method !== "GET") return;
-  const language = new URL(request.url).searchParams.get("lang");
-  if (!pages[language] || language === "ru") return;
-  const response = await context.next();
-  if (response.status !== 200 || !response.headers.get("content-type")?.includes("text/html")) return response;
-  const page = pages[language];
-  const values = {
-    "og:title": page.title,
-    "twitter:title": page.title,
-    "og:description": page.description,
-    "twitter:description": page.description,
-    "og:locale": page.locale,
-    "og:url": `https://qse-lab.com/?lang=${language}`
-  };
-  const html = await response.text();
-  const result = html.replace(/<head>[\s\S]*?<\/head>/i, head => head.replace(/<meta\b[^>]*>/gi, tag => {
-    const key = tag.match(/(?:property|name)="([^"]+)"/i)?.[1];
-    if (!Object.hasOwn(values, key)) return tag;
-    return tag.replace(/content="[^"]*"/i, `content="${escapeAttribute(values[key])}"`);
-  }));
-  const headers = new Headers(response.headers);
-  headers.delete("content-length");
-  headers.delete("content-encoding");
-  headers.delete("etag");
-  // Do not allow a translated response to be reused for another language.
-  headers.set("cache-control", "private, no-store");
-  return new Response(result, { status: response.status, headers });
+  if (!['GET', 'HEAD'].includes(request.method)) return context.next();
+  const url = new URL(request.url);
+  if (url.hostname === 'www.qse-lab.com') {
+    url.hostname = 'qse-lab.com'; url.protocol = 'https:';
+    return Response.redirect(url, 301);
+  }
+  const route = url.pathname === '/index.html' ? '/' : url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  if (!Object.hasOwn(pages, route)) return context.next();
+  if (url.pathname !== route) { url.pathname = route; return Response.redirect(url, 301); }
+  const requested = url.searchParams.get('lang');
+  const language = ['ru', 'et', 'en'].includes(requested) ? requested : 'ru';
+  if (requested === 'ru' || (requested !== null && !['et', 'en'].includes(requested))) {
+    url.searchParams.delete('lang'); return Response.redirect(url, 301);
+  }
+  return new Response(request.method === 'HEAD' ? null : pages[route][language], {
+    status: 200,
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Language': language, 'Cache-Control': 'public, max-age=0, must-revalidate', 'X-Content-Type-Options': 'nosniff' }
+  });
 };
 
-export const config = { path: "/" };
-
+export const config = { path: ['/', '/index.html', '/beauty', '/beauty/', '/beauty.html', '/clinic-demo', '/clinic-demo/', '/clinic-demo.html', '/consultant-demo', '/consultant-demo/', '/consultant-demo.html', '/terms', '/terms/', '/terms.html', '/warranty', '/warranty/', '/warranty.html'] };

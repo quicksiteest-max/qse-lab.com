@@ -1,0 +1,7 @@
+[build]
+  command = "node build-seo.mjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+

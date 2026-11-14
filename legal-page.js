@@ -10,19 +10,19 @@
     if (!languages.includes(lang)) lang = 'ru';
     const data = copy[lang], ui = labels[lang];
     document.documentElement.lang = lang;
-    document.title = kind === 'terms' ? data.title : `${data.title} — QSE Lab`;
-    document.querySelector('meta[name="description"]').content = data.intro[0];
+    document.title = globalThis.qseSeo.pages['/' + kind][lang].title;
+    document.querySelector('meta[name="description"]').content = globalThis.qseSeo.pages['/' + kind][lang].description;
     document.querySelector('link[rel="canonical"]').href = `https://qse-lab.com/${kind === 'terms' ? 'terms' : 'warranty'}${lang === 'ru' ? '' : '?lang=' + lang}`;
-    document.querySelectorAll('[data-home]').forEach(a => { a.textContent = ui.home; a.href = localUrl('index.html', lang); });
-    document.querySelector('.brand').href = localUrl('index.html', lang);
+    document.querySelectorAll('[data-home]').forEach(a => { a.textContent = ui.home; a.href = localUrl('/', lang); });
+    document.querySelector('.brand').href = localUrl('/', lang);
     document.querySelector('[data-eyebrow]').textContent = ui.eyebrow;
     document.querySelector('[data-title]').textContent = data.title;
     document.querySelector('[data-intro]').innerHTML = data.intro.map(p => `<p>${rich(p)}</p>`).join('');
     document.querySelector('[data-contents-label]').textContent = ui.contents;
     document.querySelector('[data-contents]').innerHTML = data.sections.map((s, i) => `<a href="#section-${i+1}">${escape(s[0])}</a>`).join('');
     document.querySelector('[data-sections]').innerHTML = data.sections.map((s, i) => `<section id="section-${i+1}"><h2>${escape(s[0])}</h2>${s.slice(1).map(p => `<p>${rich(p)}</p>`).join('')}</section>`).join('') + `<div class="ending"><p>${rich(data.ending)}</p></div>`;
-    document.querySelectorAll('[data-terms-link]').forEach(a => { a.textContent = ui.terms; a.href = localUrl('terms.html', lang); });
-    document.querySelectorAll('[data-warranty-link]').forEach(a => { a.textContent = ui.warranty; a.href = localUrl('warranty.html', lang); });
+    document.querySelectorAll('[data-terms-link]').forEach(a => { a.textContent = ui.terms; a.href = localUrl('/terms', lang); });
+    document.querySelectorAll('[data-warranty-link]').forEach(a => { a.textContent = ui.warranty; a.href = localUrl('/warranty', lang); });
     document.querySelectorAll('[data-language]').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.language === lang)); b.title = {ru:'Русский',en:'English',et:'Eesti'}[b.dataset.language]; });
     try { localStorage.setItem('quicksite-language', lang); } catch {}
     try {
@@ -32,7 +32,7 @@
     } catch { /* Language switching still works when opened directly as a file. */ }
   };
   let initial = 'ru';
-  try { const query = new URLSearchParams(location.search).get('lang'); const saved = localStorage.getItem('quicksite-language'); initial = languages.includes(query) ? query : languages.includes(saved) ? saved : 'ru'; } catch {}
-  document.querySelectorAll('[data-language]').forEach(b => b.addEventListener('click', () => render(b.dataset.language)));
+  try { const query = new URLSearchParams(location.search).get('lang'); const saved = localStorage.getItem('quicksite-language'); initial = languages.includes(query) ? query : 'ru'; } catch {}
+
   render(initial);
 })();

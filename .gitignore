@@ -1,0 +1,4 @@
+node_modules/
+dist/
+netlify/edge-functions/generated/
+seo-check-results.json

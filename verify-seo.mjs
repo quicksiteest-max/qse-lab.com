@@ -32,7 +32,7 @@ for(const [route,versions] of Object.entries(pages))for(const lang of langs){
  }
  if(route==='/'){
    const text=d.querySelector('h1').textContent;
-   assert.ok(text.includes({ru:'Эстонии',et:'Eestis',en:'Estonia'}[lang]));
+   assert.equal(text.trim().replace(/\s+/g,' '),{ru:'Сайты, за которыми стоят живые люди',et:'Veebilehed, mille taga on päris inimesed',en:'Websites created by real people'}[lang]);
    assert.equal(d.querySelector('form[name="project-request"]').getAttribute('action'),'/thank-you');
    assert.equal(d.querySelector('[data-form-language]').getAttribute('value'),lang.toUpperCase());
    assert.equal(d.querySelector('.ai-audit-frame').getAttribute('src'),'about:blank');

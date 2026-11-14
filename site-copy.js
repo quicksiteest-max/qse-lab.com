@@ -82,31 +82,6 @@ window.qseContent = (() => {
 })();
 
 Object.assign(window.qseContent.home, {
-  "Создание сайтов": {
-    "ru": "Создание сайтов",
-    "et": "Kodulehe tegemine",
-    "en": "Website development"
-  },
-  "в Эстонии": {
-    "ru": "в Эстонии",
-    "et": "Eestis",
-    "en": "in Estonia"
-  },
-  "QSE Lab разрабатывает лендинги и сайты для малого бизнеса в Эстонии: с понятной структурой, адаптацией для телефона и формой заявки. ИИ ускоряет работу, а дизайн, тексты и внимание к вашей задаче остаются за людьми.": {
-    "ru": "QSE Lab разрабатывает лендинги и сайты для малого бизнеса в Эстонии: с понятной структурой, адаптацией для телефона и формой заявки. ИИ ускоряет работу, а дизайн, тексты и внимание к вашей задаче остаются за людьми.",
-    "et": "QSE Lab loob maandumislehti ja kodulehti Eesti väikeettevõtetele: selge ülesehituse, mobiilisõbraliku kujunduse ja päringuvormiga. Tehisintellekt kiirendab tööd, kuid disaini, tekstide ja teie eesmärkide eest hoolitsevad inimesed.",
-    "en": "QSE Lab builds landing pages and small business websites in Estonia, with clear structure, responsive design and an enquiry form. AI helps us work faster; people shape the design, copy and solution around your business."
-  },
-  "Разработка сайтов: тарифы и состав работ": {
-    "ru": "Разработка сайтов: тарифы и состав работ",
-    "et": "Kodulehe loomine: paketid ja hinnad",
-    "en": "Web design services and pricing"
-  },
-  "Демонстрационные сайты QSE Lab": {
-    "ru": "Демонстрационные сайты QSE Lab",
-    "et": "QSE Labi veebilehtede näidised",
-    "en": "QSE Lab website demos"
-  },
   "Сайт удобно открывать с телефона и компьютера, а посетителю легко найти услуги и контакты.": {
     "ru": "Сайт удобно открывать с телефона и компьютера, а посетителю легко найти услуги и контакты.",
     "et": "Veebilehte on mugav kasutada telefonis ja arvutis ning teenused ja kontaktid on kergesti leitavad.",

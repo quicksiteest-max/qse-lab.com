@@ -1,0 +1,193 @@
+{
+  "pages": 36,
+  "links": 946,
+  "checks": [
+    "EN default and RU preserved",
+    "no untranslated English page text",
+    "paired page language links",
+    "local links and assets",
+    "build copy preserved"
+  ],
+  "results": [
+    {
+      "route": "/ru/",
+      "lang": "ru",
+      "title": "Главная · FORM — Digital Agency"
+    },
+    {
+      "route": "/",
+      "lang": "en",
+      "title": "FORM — Digital Agency · Strategy. Design. Digital experiences."
+    },
+    {
+      "route": "/ru/work/",
+      "lang": "ru",
+      "title": "Проекты · FORM — Digital Agency"
+    },
+    {
+      "route": "/work/",
+      "lang": "en",
+      "title": "Work · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/services/",
+      "lang": "ru",
+      "title": "Услуги · FORM — Digital Agency"
+    },
+    {
+      "route": "/services/",
+      "lang": "en",
+      "title": "Services · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/studio/",
+      "lang": "ru",
+      "title": "Студия · FORM — Digital Agency"
+    },
+    {
+      "route": "/studio/",
+      "lang": "en",
+      "title": "Studio · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/journal/",
+      "lang": "ru",
+      "title": "Журнал · FORM — Digital Agency"
+    },
+    {
+      "route": "/journal/",
+      "lang": "en",
+      "title": "Journal · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/contact/",
+      "lang": "ru",
+      "title": "Контакты · FORM — Digital Agency"
+    },
+    {
+      "route": "/contact/",
+      "lang": "en",
+      "title": "Contact · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/privacy/",
+      "lang": "ru",
+      "title": "О демонстрации · FORM — Digital Agency"
+    },
+    {
+      "route": "/privacy/",
+      "lang": "en",
+      "title": "About this demo · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/work/soleil/",
+      "lang": "ru",
+      "title": "SOLEIL — Уход с солнечным характером · FORM — Digital Agency"
+    },
+    {
+      "route": "/work/soleil/",
+      "lang": "en",
+      "title": "SOLEIL — A sunny approach to skincare · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/work/vela/",
+      "lang": "ru",
+      "title": "VELA — Пространство для нового взгляда · FORM — Digital Agency"
+    },
+    {
+      "route": "/work/vela/",
+      "lang": "en",
+      "title": "VELA — Space for a fresh perspective · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/work/orbit/",
+      "lang": "ru",
+      "title": "Orbit — Сложное становится понятным · FORM — Digital Agency"
+    },
+    {
+      "route": "/work/orbit/",
+      "lang": "en",
+      "title": "Orbit — Making complexity feel simple · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/work/pulse/",
+      "lang": "ru",
+      "title": "PULSE — Энергия, которую видно · FORM — Digital Agency"
+    },
+    {
+      "route": "/work/pulse/",
+      "lang": "en",
+      "title": "PULSE — Energy you can see · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/services/brand-strategy/",
+      "lang": "ru",
+      "title": "Стратегия и брендинг · FORM — Digital Agency"
+    },
+    {
+      "route": "/services/brand-strategy/",
+      "lang": "en",
+      "title": "Brand strategy & identity · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/services/web-design/",
+      "lang": "ru",
+      "title": "Веб-дизайн и UX · FORM — Digital Agency"
+    },
+    {
+      "route": "/services/web-design/",
+      "lang": "en",
+      "title": "Web design & UX · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/services/wordpress-development/",
+      "lang": "ru",
+      "title": "Разработка WordPress · FORM — Digital Agency"
+    },
+    {
+      "route": "/services/wordpress-development/",
+      "lang": "en",
+      "title": "WordPress development · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/services/digital-direction/",
+      "lang": "ru",
+      "title": "Digital-коммуникации · FORM — Digital Agency"
+    },
+    {
+      "route": "/services/digital-direction/",
+      "lang": "en",
+      "title": "Digital communications · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/journal/strategy-before-design/",
+      "lang": "ru",
+      "title": "Сначала «зачем». Потом — дизайн. · FORM — Digital Agency"
+    },
+    {
+      "route": "/journal/strategy-before-design/",
+      "lang": "en",
+      "title": "First, the why. Then, the design. · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/journal/motion-with-purpose/",
+      "lang": "ru",
+      "title": "Анимация, у которой есть работа. · FORM — Digital Agency"
+    },
+    {
+      "route": "/journal/motion-with-purpose/",
+      "lang": "en",
+      "title": "Motion with a purpose. · FORM — Digital Agency"
+    },
+    {
+      "route": "/ru/journal/design-system-for-small-brand/",
+      "lang": "ru",
+      "title": "Дизайн-система нужна и небольшому бренду. · FORM — Digital Agency"
+    },
+    {
+      "route": "/journal/design-system-for-small-brand/",
+      "lang": "en",
+      "title": "Small brands need design systems, too. · FORM — Digital Agency"
+    }
+  ]
+}

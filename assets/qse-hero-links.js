@@ -1,0 +1,1 @@
+(()=>{const link=document.querySelector('[data-form-demo-link]');if(!link)return;const update=language=>{link.href='/demos/digital-agency/'+(language==='ru'?'ru/':'');};update(new URL(location.href).searchParams.get('lang')||'ru');window.addEventListener('quicksite:languagechange',event=>update(event.detail.language));})();

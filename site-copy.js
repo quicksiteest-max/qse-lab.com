@@ -82,6 +82,7 @@ window.qseContent = (() => {
 })();
 
 Object.assign(window.qseContent.home, {
+  "Направления QSE Lab": {ru:"Направления QSE Lab",et:"QSE Labi valdkonnad",en:"QSE Lab capabilities"},
   "Сайт удобно открывать с телефона и компьютера, а посетителю легко найти услуги и контакты.": {
     "ru": "Сайт удобно открывать с телефона и компьютера, а посетителю легко найти услуги и контакты.",
     "et": "Veebilehte on mugav kasutada telefonis ja arvutis ning teenused ja kontaktid on kergesti leitavad.",
@@ -107,4 +108,12 @@ Object.assign(window.qseContent.home, {
     "et": "Demoprojektid",
     "en": "Demo projects"
   }
+});
+
+Object.assign(window.qseContent.home, {
+  "Демонстрационный проект WordPress": {ru:"Демонстрационный проект WordPress",et:"WordPressi näidisprojekt",en:"WordPress demonstration project"},
+  "Выразительный многостраничный сайт digital-студии: услуги, портфолио, кейсы и журнал. Собственная редактируемая тема Gutenberg.": {ru:"Выразительный многостраничный сайт digital-студии: услуги, портфолио, кейсы и журнал. Собственная редактируемая тема Gutenberg.",et:"Silmapaistev mitmeleheline digistuudio veebileht: teenused, portfoolio, projektid ja ajakiri. Kohandatud muudetav Gutenbergi teema.",en:"An expressive digital studio website with services, portfolio, case studies and a journal. A custom editable Gutenberg theme."},
+  "Посмотреть демоверсию": {ru:"Посмотреть демоверсию",et:"Vaata demot",en:"Explore the demo"},
+  "Открыть Digital Agency — демонстрационный проект WordPress": {ru:"Открыть Digital Agency — демонстрационный проект WordPress",et:"Ava Digital Agency — WordPressi näidisprojekt",en:"Open Digital Agency — WordPress demonstration project"},
+  "FORM — графитовый сайт digital-студии с хромированной скульптурой и акцентами лайма": {ru:"FORM — графитовый сайт digital-студии с хромированной скульптурой и акцентами лайма",et:"FORM — digistuudio veebileht kroomskulptuuri ja laimiroheliste aktsentidega",en:"FORM — a graphite digital studio website with a chrome sculpture and lime accents"}
 });

@@ -5,7 +5,7 @@ import edge from './netlify/edge-functions/social-preview.js';
 
 const root = path.join(process.cwd(), 'dist');
 const routes = { '/': 'index.html', '/beauty':'beauty.html', '/clinic-demo':'clinic-demo.html', '/consultant-demo':'consultant-demo.html', '/terms': 'terms.html', '/warranty': 'warranty.html', '/thank-you': 'thank-you.html' };
-const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.xml': 'application/xml; charset=utf-8', '.txt': 'text/plain; charset=utf-8' };
+const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp':'image/webp', '.ttf':'font/ttf', '.woff2':'font/woff2', '.json':'application/json', '.xml': 'application/xml; charset=utf-8', '.txt': 'text/plain; charset=utf-8' };
 export const server = http.createServer(async (req, res) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); res.end('Local preview only'); return; }
   const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
@@ -17,8 +17,16 @@ export const server = http.createServer(async (req, res) => {
     return;
   }
   const relative = routes[pathname] ?? pathname.replace(/^\//, '');
-  const file = path.resolve(root, relative);
-  if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) { res.writeHead(404); res.end('Not found'); return; }
+  let file = path.resolve(root, relative);
+  if(fs.existsSync(file)&&fs.statSync(file).isDirectory()){
+    if(!pathname.endsWith('/')){res.writeHead(301,{Location:pathname+'/'+new URL(req.url,'http://localhost').search});res.end();return;}
+    file=path.join(file,'index.html');
+  }
+  if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    const demo404=path.join(root,'demos/digital-agency/404.html');
+    if(pathname.startsWith('/demos/digital-agency/')&&fs.existsSync(demo404)){res.writeHead(404,{'Content-Type':'text/html; charset=utf-8'});res.end(fs.readFileSync(demo404));return;}
+    res.writeHead(404); res.end('Not found'); return;
+  }
   res.writeHead(200, { 'Content-Type': mime[path.extname(file)] ?? 'application/octet-stream', 'Cache-Control': 'no-store' });
   if (req.method === 'HEAD') { res.end(); return; }
   fs.createReadStream(file).pipe(res);

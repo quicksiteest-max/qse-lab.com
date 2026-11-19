@@ -2,3 +2,11 @@ node_modules/
 dist/
 netlify/edge-functions/generated/
 seo-check-results.json
+
+.publish-qse/
+digital-agency/runtime/
+digital-agency/downloads/
+digital-agency/database/
+digital-agency/wordpress/
+digital-agency/backups/
+digital-agency/LOCAL-ACCESS.txt

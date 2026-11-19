@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "node build-seo.mjs",
-    "test": "node verify-local.mjs && node verify-seo.mjs",
+    "test": "node verify-local.mjs && node verify-seo.mjs && node digital-agency/scripts/verify-bilingual.mjs",
+    "demo:check": "node digital-agency/scripts/verify-bilingual.mjs",
     "preview": "node local-preview.mjs"
   },
   "devDependencies": {

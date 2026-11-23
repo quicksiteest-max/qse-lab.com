@@ -33,22 +33,35 @@ for(const [route,versions] of Object.entries(pages))for(const lang of langs){
  if(route==='/'){
    const text=d.querySelector('h1').textContent;
    assert.equal(text.trim().replace(/\s+/g,' '),{ru:'Сайты, за которыми стоят живые люди',et:'Veebilehed, mille taga on päris inimesed',en:'Websites created by real people'}[lang]);
+   assert.equal(d.querySelector('form[name="project-request"]'),null);
+   assert.ok(d.querySelector('.qse-site-nav a[href^="/services"]'));
+   assert.equal(d.querySelector('#portfolio, #contact, dialog, .qse-extras'),null);
+   assert.ok(d.querySelector('#faq') && d.querySelector('#transparency-title'));
+   assert.equal(d.querySelector('#faq a[href^="/terms"]'),null);
+   assert.equal(d.querySelector('[data-footer-contact]').href,'/contact'+(lang==='ru'?'':'?lang='+lang));
+ } else if(route==='/contact'){
    assert.equal(d.querySelector('form[name="project-request"]').getAttribute('action'),'/thank-you');
    assert.equal(d.querySelector('[data-form-language]').getAttribute('value'),lang.toUpperCase());
-   assert.equal(d.querySelector('.ai-audit-frame').getAttribute('src'),'about:blank');
  } else if(route.includes('demo')||route==='/beauty'){
-   assert.ok(d.querySelector('.qse-demo-context'));assert.ok(d.querySelector('[data-qse-services]').href.includes('#services'));
+   assert.equal(d.querySelector('.qse-demo-context'),null);
+   const top=d.querySelectorAll('.qse-demo-navigation a');
+   assert.equal(top.length,1);
+   const bottom=d.querySelector('footer a[href^="/portfolio"]');
+   assert.equal(top[0].href,'/portfolio'+(lang==='ru'?'':'?lang='+lang));
+   assert.equal(bottom.href,top[0].href);
    assert.equal(graph.filter(x=>['Dentist','MedicalClinic','BeautySalon','Review','AggregateRating'].includes(x['@type'])).length,0);
  }
+ if(route==='/services') assert.equal(d.querySelectorAll('.qse-extras li').length,6);
  const head=await edge(new Request(canonical,{method:'HEAD'}),{next:()=>null});assert.equal(await head.text(),'');
  for(const alias of [route==='/'?'/index.html':route+'.html',route==='/'?'/?lang=ru':route+'/?lang='+lang]){
    const res=await edge(new Request(origin+alias),{next:()=>null});assert.equal(res.status,301,alias);assert.ok(res.headers.get('location'));
  }
 }
-let forwarded=false;await edge(new Request(origin+'/',{method:'POST',body:'form-name=project-request'}),{next:()=>{forwarded=true;return new Response('form');}});assert.ok(forwarded,'Netlify form POST forwarded');
+let forwarded=false;await edge(new Request(origin+'/thank-you',{method:'POST',body:'form-name=project-request'}),{next:()=>{forwarded=true;return new Response('form');}});assert.ok(forwarded,'Netlify form POST forwarded');
 const sitemap=parseHTML(fs.readFileSync('sitemap.xml','utf8').replaceAll(' />','></xhtml:link>')).document;
-assert.equal(sitemap.querySelectorAll('url > loc').length,18);
-assert.equal(sitemap.querySelectorAll('url > xhtml\\:link').length,72);
+const versions=Object.keys(pages).length*langs.length;
+assert.equal(sitemap.querySelectorAll('url > loc').length,versions);
+assert.equal(sitemap.querySelectorAll('url > xhtml\\:link').length,versions*(langs.length+1));
 assert.ok(!fs.readFileSync('robots.txt','utf8').includes('Disallow: /thank-you'));
 assert.ok(fs.readFileSync('dist/thank-you.html','utf8').includes('noindex'));
-console.log('SEO checks passed: 18 HTML responses, unique metadata, one H1, self-canonical, reciprocal hreflang, schema, links, assets, redirects, HEAD, form POST and sitemap.');
+console.log(`SEO checks passed: ${versions} HTML responses, unique metadata, one H1, self-canonical, reciprocal hreflang, schema, links, assets, redirects, HEAD, form POST and sitemap.`);

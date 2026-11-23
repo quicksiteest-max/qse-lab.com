@@ -1,0 +1,31 @@
+.qse-demo-navigation {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: .55rem clamp(1.25rem, 4vw, 3rem);
+}
+
+.qse-demo-navigation .qse-demo-return {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .45rem .8rem;
+  border: 1px solid #64748b;
+  border-radius: .65rem;
+  background: #111827;
+  color: #f1f5f9;
+  font: 600 .875rem/1.35 system-ui, sans-serif;
+  text-decoration: none;
+}
+
+.qse-demo-navigation .qse-demo-return:hover {
+  border-color: #a5f3fc;
+  color: #a5f3fc;
+}
+
+.qse-demo-navigation .qse-demo-return:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}

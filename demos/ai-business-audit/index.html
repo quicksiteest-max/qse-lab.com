@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#020617">
+  <title>ИИ-аудит бизнеса — QSE Lab</title>
+  <link rel="icon" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/demo-navigation.css">
+  <style>
+    body {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      height: 100vh;
+      height: 100dvh;
+      margin: 0;
+      background: #020617;
+    }
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+  <header class="qse-demo-navigation">
+    <a id="quiz-back" class="qse-demo-return" href="/services/quizzes-calculators">← Вернуться к услугам</a>
+  </header>
+  <iframe id="quiz" title="ИИ-аудит бизнеса" allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <script>
+    const translations = {
+      ru: { title: 'ИИ-аудит бизнеса', back: '← Вернуться к услугам' },
+      en: { title: 'AI Business Audit', back: '← Back to services' },
+      et: { title: 'AI äriaudit', back: '← Tagasi teenuste juurde' }
+    };
+    const requested = new URLSearchParams(location.search).get('lang');
+    const lang = Object.hasOwn(translations, requested) ? requested : 'ru';
+    const copy = translations[lang];
+    const back = document.getElementById('quiz-back');
+    const quiz = document.getElementById('quiz');
+
+    document.documentElement.lang = lang;
+    document.title = copy.title + ' — QSE Lab';
+    back.textContent = copy.back;
+    if (lang !== 'ru') back.href = '/services/quizzes-calculators?lang=' + lang;
+    quiz.title = copy.title;
+    quiz.src = 'https://subtle-pothos-f050bf.netlify.app/?lang=' + lang;
+  </script>
+</body>
+</html>

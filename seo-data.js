@@ -33,10 +33,5 @@ globalThis.qseSeo = {
       et: { title: 'Veebilehe tehniline garantii — QSE Lab', description: 'QSE Labi 14-päevane tehniline garantii pärast veebilehe käivitamist: tasuta veaparandused ning garantii ja jooksva hoolduse erinevus.' },
       en: { title: 'Website Technical Warranty — QSE Lab', description: 'QSE Lab provides a 14-day technical warranty after website launch. Learn which errors are fixed free of charge and how warranty differs from ongoing maintenance.' }
     }
-  },
-  demo: {
-    ru: { label: 'Демо сайта от QSE Lab', text: 'Это пример разработки сайта. Названия, контакты, услуги и отзывы внутри макета — демонстрационные.', services: 'Услуги и тарифы QSE Lab', contact: 'Обсудить похожий сайт' },
-    et: { label: 'QSE Labi veebilehe demo', text: 'See on veebiarenduse näidis. Maketi nimed, kontaktid, teenused ja arvustused on illustratiivsed.', services: 'QSE Labi teenused ja hinnad', contact: 'Arutame sarnase lehe loomist' },
-    en: { label: 'Website demo by QSE Lab', text: 'This is a web development example. Names, contacts, services and reviews in this concept are illustrative.', services: 'QSE Lab services and pricing', contact: 'Discuss a similar website' }
   }
 };

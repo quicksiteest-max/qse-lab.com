@@ -126,4 +126,130 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/warranty?lang=en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/warranty" />
   </url>
+  <url>
+    <loc>https://qse-lab.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/portfolio" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/portfolio?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/portfolio?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/portfolio" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/portfolio?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/portfolio" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/portfolio?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/portfolio?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/portfolio" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/portfolio?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/portfolio" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/portfolio?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/portfolio?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/portfolio" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/contact" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/contact?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/contact?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/contact" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/contact?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/contact" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/contact?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/contact?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/contact" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/contact?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/contact" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/contact?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/contact?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/contact" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/wordpress-development</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/wordpress-development" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/wordpress-development?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/wordpress-development?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/wordpress-development" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/wordpress-development?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/wordpress-development" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/wordpress-development?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/wordpress-development?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/wordpress-development" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/wordpress-development?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/wordpress-development" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/wordpress-development?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/wordpress-development?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/wordpress-development" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/custom-crm-ai</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/custom-crm-ai" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/custom-crm-ai?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/custom-crm-ai?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/custom-crm-ai" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/custom-crm-ai?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/custom-crm-ai" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/custom-crm-ai?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/custom-crm-ai?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/custom-crm-ai" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/custom-crm-ai?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/custom-crm-ai" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/custom-crm-ai?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/custom-crm-ai?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/custom-crm-ai" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/quizzes-calculators</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/quizzes-calculators" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/quizzes-calculators?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/quizzes-calculators?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/quizzes-calculators" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/quizzes-calculators?lang=et</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/quizzes-calculators" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/quizzes-calculators?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/quizzes-calculators?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/quizzes-calculators" />
+  </url>
+  <url>
+    <loc>https://qse-lab.com/services/quizzes-calculators?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://qse-lab.com/services/quizzes-calculators" />
+    <xhtml:link rel="alternate" hreflang="et" href="https://qse-lab.com/services/quizzes-calculators?lang=et" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://qse-lab.com/services/quizzes-calculators?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qse-lab.com/services/quizzes-calculators" />
+  </url>
 </urlset>

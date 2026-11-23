@@ -1,6 +1,32 @@
 (() => {
   'use strict';
   const en=document.documentElement.lang==='en';
+  const demoRoot = '/demos/digital-agency/';
+  const entry = new URLSearchParams(location.search);
+  const from = entry.get('from');
+  const lang = entry.get('lang');
+  if (location.pathname.startsWith(demoRoot) &&
+      (from === 'wordpress' || from === 'portfolio') &&
+      ['ru', 'en', 'et'].includes(lang)) {
+    const returnPath = from === 'wordpress' ? '/services/wordpress-development' : '/portfolio';
+    const returnLabel = {
+      ru: from === 'wordpress' ? 'К услуге WordPress' : 'В портфолио QSE Lab',
+      en: from === 'wordpress' ? 'Back to WordPress development' : 'Back to the QSE Lab portfolio',
+      et: from === 'wordpress' ? 'Tagasi WordPressi teenuse juurde' : 'Tagasi QSE Labi portfooliosse'
+    };
+    document.querySelectorAll('[data-qse-demo-return]').forEach(link => {
+      link.href = returnPath + (lang === 'ru' ? '' : '?lang=' + lang);
+      link.textContent = returnLabel[lang];
+    });
+    document.querySelectorAll('a[href]:not([data-qse-demo-return])').forEach(link => {
+      if (link.getAttribute('href').startsWith('#')) return;
+      const target = new URL(link.href);
+      if (target.origin !== location.origin || !target.pathname.startsWith(demoRoot)) return;
+      target.searchParams.set('from', from);
+      target.searchParams.set('lang', lang);
+      link.href = target.href;
+    });
+  }
   const menu=document.querySelector('[data-menu-toggle]');
   const nav=document.querySelector('.site-nav');
   const close=()=>{if(!menu||!nav)return;menu.setAttribute('aria-expanded','false');menu.textContent=en?'Menu':'Меню';nav.classList.remove('is-open');document.body.classList.remove('menu-open');};

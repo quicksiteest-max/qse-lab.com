@@ -168,7 +168,7 @@
     <div class="eyebrow" data-i18n="eyebrow">Заявка принята</div>
     <h1 data-i18n="title">Спасибо за ваше обращение</h1>
     <p data-i18n="text">Мы получили вашу заявку и свяжемся с вами в ближайшее время, чтобы обсудить проект.</p>
-    <a href="/#contact" data-i18n="back">Вернуться на сайт</a>
+    <a href="/contact" data-i18n="back">Вернуться на сайт</a>
   </main>
 
   <script>
@@ -207,6 +207,7 @@
         document.querySelectorAll("[data-lang]").forEach(button => {
           button.setAttribute("aria-pressed", String(button.dataset.lang === selected));
         });
+        document.querySelector('[data-i18n="back"]').href = "/contact" + (selected === "ru" ? "" : "?lang=" + selected);
         try { localStorage.setItem("quicksite-language", selected); } catch (error) {}
       };
 

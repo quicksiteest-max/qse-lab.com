@@ -81,9 +81,7 @@
     .hero-copy { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: 86px 30px 78px 70px; }
     .hero-kicker { display: flex; align-items: center; gap: 13px; margin-bottom: 30px; color: #8e5a50; font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
     .hero-kicker::before { width: 35px; height: 1px; content: ""; background: var(--peach-deep); }
-    .hero h1 { max-width: 650px; font-size: clamp(70px, 7.25vw, 106px); }
-    .hero h1 span { display: block; }
-    .hero h1 em { display: block; margin-left: .72em; color: #8e4f45; font-weight: 400; }
+    .hero #hero-title { font-size: 1.5em; }
     .hero-description { max-width: 480px; margin: 30px 0 32px; color: var(--muted); font-size: 15px; line-height: 1.82; }
     .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
     .text-link { display: inline-flex; align-items: center; gap: 9px; padding: 12px 3px; border-bottom: 1px solid rgba(34,34,34,.32); font-size: 13px; font-weight: 750; transition: border-color .3s ease, color .3s ease; }
@@ -159,7 +157,6 @@
       .nav-links a:not(.button) { display: none; }
       .hero-frame { min-height: auto; grid-template-columns: 1fr; }
       .hero-copy { padding: 65px 42px 48px; }
-      .hero h1 { font-size: clamp(66px, 12vw, 94px); }
       .hero-visual { min-height: 620px; padding: 0 34px 34px; }
       .portrait-frame { min-height: 590px; border-radius: 100px 24px 24px 24px; }
       .hero-stamp { left: 10px; bottom: 78px; }
@@ -185,8 +182,6 @@
       .hero-frame { border-radius: 24px; }
       .hero-copy { padding: 48px 22px 38px; }
       .hero-kicker { margin-bottom: 23px; }
-      .hero h1 { font-size: clamp(52px, 17vw, 76px); }
-      .hero h1 em { margin-left: 0; }
       .hero-actions { align-items: stretch; flex-direction: column; }
       .hero-actions .button { width: 100%; }
       .text-link { align-self: flex-start; }
@@ -215,7 +210,9 @@
       *, *::before, *::after { transition-duration: .01ms !important; }
     }
   </style>
-<script src="seo-data.js"></script><style>.qse-demo-context{padding:18px max(20px,calc((100vw - 1184px)/2));background:#0f172a;color:#f1f5f9;font:14px/1.6 system-ui,sans-serif}.qse-demo-context h1{margin:0 0 4px;font:700 18px/1.4 system-ui,sans-serif;letter-spacing:normal;text-transform:none}.qse-demo-context p{margin:0}.qse-demo-context nav{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:8px}.qse-demo-context a{color:#a5f3fc;text-decoration:underline;text-underline-offset:3px}</style></head>
+<script src="seo-data.js"></script>
+<link rel="stylesheet" href="/assets/demo-navigation.css">
+</head>
 <body>
   <header class="header">
     <div class="shell nav">
@@ -228,12 +225,13 @@
     </div>
   </header>
 
-  <main id="top"><aside aria-label="QSE Lab" class="qse-demo-context"><h1>Демо сайта от QSE Lab</h1><p>Это пример разработки сайта. Названия, контакты, услуги и отзывы внутри макета — демонстрационные.</p><nav><a href="/#services" data-qse-services="">Услуги и тарифы QSE Lab</a><a href="/#contact" data-qse-contact="">Обсудить похожий сайт</a></nav></aside>
+  <main id="top">
+    <div class="qse-demo-navigation"><a class="qse-demo-return" href="/portfolio" data-i18n="backPortfolio">← В портфолио</a></div>
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-frame">
         <div class="hero-copy">
           <div class="hero-kicker" data-i18n="heroKicker">Студия осознанной красоты · Tallinn</div>
-          <h2 id="hero-title" class="display" data-i18n-html="heroTitle"><span>Красота &amp;</span><em>уход за кожей</em></h2>
+          <h1 id="hero-title" class="display" data-i18n-html="heroTitle"><span>Красота &amp;</span><em>уход за кожей</em></h1>
           <p class="hero-description" data-i18n="heroDescription">Тихое пространство осознанной косметологии, где естественную красоту не меняют — её бережно раскрывают. Персональные протоколы, честный подход и кожа, к которой хочется прикасаться.</p>
           <div class="hero-actions"><a class="button" href="#booking" data-i18n="heroBook">Записаться на приём</a><a class="text-link" href="#services"><span data-i18n="viewTreatments">Смотреть процедуры</span> <span aria-hidden="true">↓</span></a></div>
           <div class="hero-proof" data-i18n-aria="proofAria" aria-label="Преимущества студии">
@@ -299,7 +297,7 @@
         <div><h3 data-i18n="phoneTitle">Телефон</h3><p>+372 5555 5555<br>hello@beauty-wellness.ee</p></div>
         <div><h3 data-i18n="hoursTitle">Время работы</h3><p data-i18n-html="hoursText">Пн–Сб: 10:00–20:00<br>Вс: выходной</p></div>
       </div>
-      <div class="demo-note"><span data-i18n="copyright">© 2026 Beauty &amp; Wellness. Демо-концепт.</span><span><span data-i18n="demoCreated">Демо-проект создан на</span> QuickSite Est</span><a href="/#portfolio" data-i18n="backPortfolio">← В портфолио</a></div>
+      <div class="demo-note"><span data-i18n="copyright">© 2026 Beauty &amp; Wellness. Демо-концепт.</span><span><span data-i18n="demoCreated">Демо-проект создан на</span> QuickSite Est</span><a href="/portfolio" data-i18n="backPortfolio">← В портфолио</a></div>
     </div>
   </footer>
 

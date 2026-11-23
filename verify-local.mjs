@@ -22,13 +22,14 @@ for (const [name, price] of [['STARTER', '€350'], ['BUSINESS', '€700'], ['PR
   assert.ok(home.includes(`<p class="qse-plan-name">${name}</p>`));
   assert.ok(home.includes(`</span> ${price}</p>`));
 }
-assert.ok(home.indexOf('qse-plan-name">PREMIUM') < home.indexOf('class="qse-extras"'));
-assert.ok(home.indexOf('class="qse-extras"') < home.indexOf('AI Инструменты &amp; Автоматизация'));
-assert.ok(home.includes('lg:grid-cols-2 lg:gap-8'), 'AI card layout wrapper remains separate');
+assert.match(home, /<\/article>\s*<\/div>\s*<article id="ai-solutions"/);
+assert.ok(!home.includes('class="qse-extras"'));
+assert.equal((read('service-extras.html').match(/<li>/g) ?? []).length, 6);
 assert.ok(home.includes('Выбрать AI Решения</a>'), 'AI card button remains');
-assert.ok(home.includes('href="#contact" class="mt-9 inline-flex'), 'AI card link remains');
+assert.match(home, /<article id="ai-solutions"[\s\S]*?<a href="\/services"[^>]+>Выбрать AI Решения/);
 
-const form = home.match(/<form name="project-request"[\s\S]*?<\/form>/)?.[0];
+assert.ok(!home.includes('<form name="project-request"'), 'the project form lives on the contact page');
+const form = read('contact-form.html');
 assert.ok(form);
 for (const value of ['method="POST"', 'action="/thank-you"', 'data-netlify="true"', 'netlify-honeypot="bot-field"', 'name="form-name" value="project-request"', 'name="language"', 'name="bot-field"', 'name="name"', 'name="email"', 'name="phone"', 'name="project_type"', 'name="budget"', 'name="message"']) assert.ok(form.includes(value), `form contract: ${value}`);
 for (const value of ['starter', 'business', 'premium', 'ai-solutions']) {

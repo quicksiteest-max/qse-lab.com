@@ -3,12 +3,15 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { execFileSync } from 'node:child_process';
 import { parseHTML } from 'linkedom';
+import { enhanceHome, pageMetadata, projectOptions, renderSitePage } from './site-pages.mjs';
 const read=f=>fs.readFileSync(f,'utf8');
 const write=(f,s)=>{fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,s);};
 const context=vm.createContext({window:{}});
 for(const f of ['seo-data.js','site-copy.js','legal-content.js','consultant-et.js'])vm.runInContext(read(f),context);
 const seo=context.qseSeo;
-const routes={'/':'index.html','/beauty':'beauty.html','/clinic-demo':'clinic-demo.html','/consultant-demo':'consultant-demo.html','/terms':'terms.html','/warranty':'warranty.html'};
+Object.assign(seo.pages,pageMetadata);
+const routes={'/':'index.html','/beauty':'beauty.html','/clinic-demo':'clinic-demo.html','/consultant-demo':'consultant-demo.html','/terms':'terms.html','/warranty':'warranty.html',
+ ...Object.fromEntries(Object.keys(pageMetadata).map(route=>[route,route.slice(1)+'.html']))};
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const rich=s=>escape(s).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
 const url=(route,lang)=>seo.origin+route+(lang==='ru'?'':'?lang='+lang);
@@ -19,17 +22,47 @@ const clinic=dictionary(read('clinic-demo.html'),'const translations =','const p
 const legalLabels={ru:{home:'На главную',contents:'На этой странице',terms:'Условия сотрудничества',warranty:'Техническая гарантия',eyebrow:'QSE LAB · ИНФОРМАЦИЯ'},et:{home:'Avalehele',contents:'Sellel lehel',terms:'Koostöötingimused',warranty:'Tehniline garantii',eyebrow:'QSE LAB · TEAVE'},en:{home:'Back to home',contents:'On this page',terms:'Terms of cooperation',warranty:'Technical warranty',eyebrow:'QSE LAB · INFORMATION'}};
 function visitText(node,fn){for(const c of [...node.childNodes]){if(c.nodeType===3)fn(c);else if(c.nodeType===1&&!['SCRIPT','STYLE'].includes(c.tagName))visitText(c,fn);}}
 function setMeta(d,key,value,property=false){let el=d.querySelector(`meta[${property?'property':'name'}="${key}"]`);if(!el){el=d.createElement('meta');el.setAttribute(property?'property':'name',key);d.head.append(el);}el.content=value;}
+
+function localizeHomeCopy(element,lang){
+ visitText(element,n=>{const key=n.nodeValue.trim(),text=home.strings[key]?.[lang];if(text)n.nodeValue=n.nodeValue.replace(key,text);});
+ for(const el of [element,...element.querySelectorAll('[aria-label],[alt],[placeholder],[title]')])for(const a of ['aria-label','alt','placeholder','title']){
+   const value=home.strings[el.getAttribute(a)]?.[lang];if(value)el.setAttribute(a,value);
+ }
+}
+
+const homeFooter=parseHTML(read('index.html')).document.querySelector('footer').outerHTML;
+const contactForm=read('contact-form.html');
+const serviceExtras=read('service-extras.html');
+
+function sitePage(route,lang){
+ const footer=parseHTML(homeFooter).document.firstElementChild;
+ localizeHomeCopy(footer,lang);
+ let form='';
+ let extras='';
+ if(route==='/contact'){
+   const element=parseHTML(contactForm).document.firstElementChild;
+   localizeHomeCopy(element,lang);
+   element.querySelector('[data-form-language]').setAttribute('value',lang.toUpperCase());
+   for(const option of element.querySelectorAll('[data-project-option]')){
+     option.textContent=projectOptions[lang][option.dataset.projectOption||option.value];
+   }
+   form=element.outerHTML;
+ }
+ if(route==='/services'){
+   const element=parseHTML(serviceExtras).document.firstElementChild;
+   localizeHomeCopy(element,lang);
+   extras=element.outerHTML;
+ }
+ return renderSitePage(route,lang,{form,footer:footer.outerHTML,extras});
+}
+
 function render(route,lang){
- const {document:d}=parseHTML(read(routes[route]));
+ const newPage=Object.hasOwn(pageMetadata,route);
+ const {document:d}=parseHTML(newPage?sitePage(route,lang):read(routes[route]));
  d.body.normalize();
  if(route==='/'){
-   const formCard=d.querySelector('.qse-wordpress-card');if(formCard)formCard.href='/demos/digital-agency/'+(lang==='ru'?'ru/':'');
-   const formPill=d.querySelector('[data-form-demo-link]');if(formPill)formPill.href='/demos/digital-agency/'+(lang==='ru'?'ru/':'');
-   visitText(d.body,n=>{const key=n.nodeValue.trim(),text=home.strings[key]?.[lang];if(text)n.nodeValue=n.nodeValue.replace(key,text);});
-   for(const el of d.querySelectorAll('[aria-label],[alt],[placeholder],[title]'))for(const a of ['aria-label','alt','placeholder','title']){const value=home.strings[el.getAttribute(a)]?.[lang];if(value)el.setAttribute(a,value);}
-   d.querySelector('[data-form-language]').setAttribute('value',lang.toUpperCase());
-   d.querySelector('.ai-audit-frame').dataset.language=lang;
-   d.querySelector('.ai-audit-frame').setAttribute('src','about:blank');
+   localizeHomeCopy(d.body,lang);
+   enhanceHome(d,lang);
  }else if(route==='/beauty'||route==='/clinic-demo'){
    const dict=(route==='/beauty'?beauty:clinic)[lang];
    for(const [attr,target] of [['data-i18n','text'],['data-i18n-html','html'],['data-i18n-placeholder','placeholder'],['data-i18n-aria','aria-label'],['data-i18n-alt','alt']])for(const el of d.querySelectorAll(`[${attr}]`)){const v=dict[el.getAttribute(attr)];if(v===undefined)throw Error(`${route} ${lang}: missing ${attr} ${el.getAttribute(attr)}`);if(target==='text')el.textContent=v;else if(target==='html')el.innerHTML=v;else el.setAttribute(target,v);}
@@ -37,7 +70,7 @@ function render(route,lang){
    for(const el of d.querySelectorAll('[data-ru][data-en]')){const text=lang==='et'?context.qseConsultantEt[el.dataset.en]:el.dataset[lang];if(!text)throw Error(`Missing consultant translation: ${el.dataset.en}`);el.textContent=text;}
    for(const el of d.querySelectorAll('[data-en-placeholder]'))el.setAttribute('placeholder',lang==='et'?(context.qseConsultantEt[el.dataset.enPlaceholder]||el.dataset.enPlaceholder):el.dataset[lang+'Placeholder']);
    visitText(d.body,n=>{if(n.nodeValue.trim()==='Максим Орлов')n.nodeValue=n.nodeValue.replace('Максим Орлов',lang==='et'?'Maksim Orlov':lang==='en'?'Maxim Orlov':'Максим Орлов');});
- }else{
+ }else if(!newPage){
    const kind=route.slice(1),data=context.window.qseLegal[kind][lang],ui=legalLabels[lang];
    for(const el of d.querySelectorAll('[data-home]')){el.textContent=ui.home;el.href='/';}
    d.querySelector('.brand').href='/';d.querySelector('[data-eyebrow]').textContent=ui.eyebrow;d.querySelector('[data-title]').textContent=data.title;
@@ -47,8 +80,7 @@ function render(route,lang){
    d.querySelector('[data-sections]').innerHTML=data.sections.map((s,i)=>`<section id="section-${i+1}"><h2>${escape(s[0])}</h2>${s.slice(1).map(p=>`<p>${rich(p)}</p>`).join('')}</section>`).join('')+`<div class="ending"><p>${rich(data.ending)}</p></div>`;
    for(const el of d.querySelectorAll('[data-terms-link]')){el.textContent=ui.terms;el.href='/terms';}for(const el of d.querySelectorAll('[data-warranty-link]')){el.textContent=ui.warranty;el.href='/warranty';}
  }
- const demo=d.querySelector('.qse-demo-context');
- if(demo){const c=seo.demo[lang];demo.querySelector('h1').textContent=seo.pages[route][lang].title;demo.querySelector('p').textContent=c.text;demo.querySelector('[data-qse-services]').textContent=c.services;demo.querySelector('[data-qse-contact]').textContent=c.contact;}
+ const demo=d.querySelector('.qse-demo-navigation');
  const attributes={
    'Выбор языка':{et:'Keele valik',en:'Language selection'},'Основная навигация':{et:'Põhinavigatsioon',en:'Main navigation'},'Мобильная навигация':{et:'Mobiilinavigatsioon',en:'Mobile navigation'},'Ключевые показатели':{et:'Põhinäitajad',en:'Key figures'},'Разделы':{et:'Jaotised',en:'Sections'},'Открыть меню':{et:'Ava menüü',en:'Open menu'},'5 звёзд':{et:'5 tärni',en:'5 stars'},
    'AERIS Clinic — на главную':{et:'AERIS Clinic — avalehele',en:'AERIS Clinic — home'},'Максим Орлов — на главную':{et:'Maksim Orlov — avalehele',en:'Maxim Orlov — home'},
@@ -71,11 +103,11 @@ function render(route,lang){
  const graph=[{'@type':'Organization','@id':seo.origin+'/#business',name:'QSE Lab',alternateName:'QUICKSITE EST',url:seo.origin+'/',logo:seo.origin+'/assets/q-mark.svg',email:'quicksite.est@gmail.com'},{'@type':'WebSite','@id':seo.origin+'/#website',url:seo.origin+'/',name:'QSE Lab',publisher:{'@id':seo.origin+'/#business'},inLanguage:seo.languages},{'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:meta.title,description:meta.description,inLanguage:lang,isPartOf:{'@id':seo.origin+'/#website'},about:{'@id':seo.origin+'/#business'},...(demo?{creator:{'@id':seo.origin+'/#business'},genre:'Website design demonstration'}:{})}];
  if(route==='/')graph.push({'@type':'Service','@id':seo.origin+'/#website-development',name:{ru:'Разработка сайтов в Эстонии',et:'Kodulehe loomine Eestis',en:'Website development in Estonia'}[lang],provider:{'@id':seo.origin+'/#business'},areaServed:{'@type':'Country',name:'Estonia'},url:canonical+'#services',serviceType:'Website development'});
  const schema=d.createElement('script');schema.type='application/ld+json';schema.textContent=JSON.stringify({'@context':'https://schema.org','@graph':graph});d.head.append(schema);
- for(const el of d.querySelectorAll('[data-language],[data-lang]')){const code=el.dataset.language||el.dataset.lang;el.setAttribute('aria-pressed',String(code===lang));if(code===lang)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');}
+ for(const el of d.querySelectorAll('a[data-language],button[data-language],a[data-lang],button[data-lang]')){const code=el.dataset.language||el.dataset.lang;if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(code===lang));if(code===lang)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');}
  for(const el of d.querySelectorAll('a[href]')){const href=el.getAttribute('href');if(!href.startsWith('/')&&!/^(?:index|terms|warranty)\.html/.test(href))continue;const t=new URL(href,seo.origin);t.pathname=t.pathname.replace('/index.html','/').replace(/\.html$/,'');if(!Object.hasOwn(routes,t.pathname))continue;if(!el.hasAttribute('data-language')&&!el.hasAttribute('data-lang')){if(lang==='ru')t.searchParams.delete('lang');else t.searchParams.set('lang',lang);}el.href=t.pathname+t.search+t.hash;}
  for(const img of d.querySelectorAll('img')){img.setAttribute('decoding','async');if(img.getAttribute('src')==='assets/beauty-hero-v2.png'){img.src='assets/beauty-hero.webp';img.setAttribute('srcset','assets/beauty-hero-480.webp 480w, assets/beauty-hero.webp 1024w');img.setAttribute('sizes','(max-width: 640px) 100vw, 50vw');}if(img.closest('dialog'))img.loading='lazy';}
  for(const el of d.querySelectorAll('script[src*="tailwindcss"]'))el.remove();
- if(['/', '/clinic-demo','/consultant-demo'].includes(route)){const css=d.createElement('link');css.rel='stylesheet';css.href=route==='/'?'/assets/home.css':'/assets/demos.css';d.head.prepend(css);}
+ if(route==='/'||newPage||['/clinic-demo','/consultant-demo'].includes(route)){const css=d.createElement('link');css.rel='stylesheet';css.href=route==='/'||newPage?'/assets/home.css':'/assets/demos.css';d.head.prepend(css);}
  return d.toString();
 }
 const pages={};for(const route of Object.keys(routes)){pages[route]={};for(const lang of seo.languages)pages[route][lang]=render(route,lang);}
@@ -88,8 +120,8 @@ if(!fs.existsSync('demos/digital-agency/index.html'))throw Error('Digital Agency
 fs.cpSync('demos','dist/demos',{recursive:true});
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'+Object.keys(routes).flatMap(route=>seo.languages.map(lang=>'  <url>\n    <loc>'+escape(url(route,lang))+'</loc>\n'+[...seo.languages,'x-default'].map(code=>'    <xhtml:link rel="alternate" hreflang="'+code+'" href="'+escape(url(route,code==='x-default'?'ru':code))+'" />').join('\n')+'\n  </url>')).join('\n')+'\n</urlset>\n';
 write('sitemap.xml',sitemap);write('dist/sitemap.xml',sitemap);
-write('seo-home.css','@import "tailwindcss" source(none);\n@source "./index.html";\n');
+write('seo-home.css','@import "tailwindcss" source(none);\n@source "./index.html";\n@source "./contact-form.html";\n');
 execFileSync(process.execPath,['node_modules/@tailwindcss/cli/dist/index.mjs','-i','seo-home.css','-o','dist/assets/home.css','--minify'],{stdio:'inherit'});
 write('seo-demos.css','@tailwind base;\n@tailwind components;\n@tailwind utilities;\n');
 execFileSync(process.execPath,['node_modules/tailwindcss-v3/lib/cli.js','-i','seo-demos.css','-o','dist/assets/demos.css','--content','./clinic-demo.html,./consultant-demo.html','--minify'],{stdio:'inherit'});
-console.log('Built 18 indexable RU/ET/EN HTML responses, localized sitemap and static Tailwind CSS.');
+console.log(`Built ${Object.keys(routes).length*seo.languages.length} indexable RU/ET/EN HTML responses, localized sitemap and static Tailwind CSS.`);

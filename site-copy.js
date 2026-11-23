@@ -66,7 +66,6 @@ window.qseContent = (() => {
   add('Starter и Business включают 2 круга правок, Premium — 3. После запуска действует 14 дней технической гарантии; текущее обслуживание оплачивается отдельно.', 'Starter and Business include 2 revision rounds; Premium includes 3. A 14-day technical warranty applies after launch; ongoing maintenance is separate.', 'Starter ja Business sisaldavad 2 parandusringi, Premium 3. Pärast käivitamist kehtib 14-päevane tehniline garantii; jätkuv hooldus on eraldi teenus.');
   add('Небольшие корректировки в рамках согласованного задания входят в круги правок. Существенная смена утверждённой дизайн-концепции рассчитывается отдельно.', 'Small changes within the agreed brief are covered by revision rounds. A substantial change to the approved design concept is priced separately.', 'Väikesed parandused kokkulepitud lähteülesande piires kuuluvad parandusringidesse. Kinnitatud disainikontseptsiooni oluline muutmine hinnastatakse eraldi.');
   add('Можно ли изменить дизайн после утверждения?', 'Can the design change after approval?', 'Kas disaini saab pärast kinnitamist muuta?');
-  add('Подробнее об условиях сотрудничества', 'Read the full terms of cooperation', 'Loe kõiki koostöötingimusi');
   add('Выберите пакет или направление', 'Choose a package or service', 'Valige pakett või teenus');
   add('AI Solutions — стоимость по запросу', 'AI Solutions — price on request', 'AI Solutions — hind päringu alusel');
   add('Starter — от €350', 'Starter — from €350', 'Starter — alates €350');

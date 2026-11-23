@@ -22,4 +22,4 @@ export default async (request, context) => {
   });
 };
 
-export const config = { path: ['/', '/index.html', '/beauty', '/beauty/', '/beauty.html', '/clinic-demo', '/clinic-demo/', '/clinic-demo.html', '/consultant-demo', '/consultant-demo/', '/consultant-demo.html', '/terms', '/terms/', '/terms.html', '/warranty', '/warranty/', '/warranty.html'] };
+export const config = { path: ['/', '/index.html', '/beauty', '/beauty/', '/beauty.html', '/clinic-demo', '/clinic-demo/', '/clinic-demo.html', '/consultant-demo', '/consultant-demo/', '/consultant-demo.html', '/terms', '/terms/', '/terms.html', '/warranty', '/warranty/', '/warranty.html', '/services', '/services.html', '/services/*', '/portfolio', '/portfolio/', '/portfolio.html', '/contact', '/contact/', '/contact.html'] };
